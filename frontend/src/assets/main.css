@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased text-dark-text;
+  }
+  
+  h1 {
+    @apply text-3xl font-bold mb-4;
+  }
+  
+  h2 {
+    @apply text-2xl font-bold mb-3;
+  }
+  
+  h3 {
+    @apply text-xl font-bold mb-2;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-md font-medium transition-colors;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary/90;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary-gray text-dark-text hover:bg-secondary-gray/90;
+  }
+  
+  .btn-success {
+    @apply bg-success text-white hover:bg-success/90;
+  }
+  
+  .btn-warning {
+    @apply bg-warning text-white hover:bg-warning/90;
+  }
+  
+  .btn-error {
+    @apply bg-error text-white hover:bg-error/90;
+  }
+  
+  .form-input {
+    @apply border border-secondary-gray rounded-md p-2 w-full focus:outline-none focus:border-primary;
+  }
+  
+  .form-label {
+    @apply block mb-1 font-medium text-dark-text;
+  }
+} 
