@@ -1,0 +1,425 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Руководство по премиум-возможностям" %} | Studfolio{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <!-- Хлебные крошки -->
+        <div class="col-12 mb-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">{% trans "Главная" %}</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'users:subscription' %}">{% trans "Подписка" %}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{% trans "Руководство" %}</li>
+                </ol>
+            </nav>
+        </div>
+        
+        <!-- Заголовок -->
+        <div class="col-12 mb-4">
+            <h1 class="display-5 fw-bold">
+                <i class="fas fa-crown text-warning me-2"></i>{% trans "Руководство по премиум-возможностям" %}
+            </h1>
+            <p class="lead">{% trans "Подробная инструкция по использованию всех возможностей премиум-подписки Studfolio" %}</p>
+        </div>
+        
+        <!-- Статус подписки -->
+        <div class="col-12 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header {% if user.has_active_subscription %}bg-success{% else %}bg-secondary{% endif %} text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-info-circle me-2"></i>{% trans "Статус вашей подписки" %}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if user.has_active_subscription %}
+                        <div class="alert alert-success mb-0">
+                            <div class="d-flex align-items-center">
+                                <div class="me-3 text-success">
+                                    <i class="fas fa-check-circle fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">{% trans "У вас активна премиум-подписка" %}</h5>
+                                    <p class="mb-0">{% trans "Действует до:" %} {{ user.subscription_end_date|date:"d.m.Y H:i" }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-secondary mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="me-3 text-secondary">
+                                    <i class="fas fa-info-circle fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">{% trans "У вас нет активной премиум-подписки" %}</h5>
+                                    <p class="mb-0">{% trans "Для доступа к премиум-возможностям активируйте подписку" %}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{% url 'users:subscription' %}" class="btn btn-primary">
+                            <i class="fas fa-crown me-2"></i>{% trans "Активировать подписку" %}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Премиум-темы -->
+        <div class="col-12 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-palette me-2"></i>{% trans "1. Премиум-темы оформления" %}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h4>{% trans "Как использовать премиум-темы" %}</h4>
+                            <ol class="list-group list-group-numbered mb-4">
+                                <li class="list-group-item d-flex">
+                                    <div class="ms-2">
+                                        <div class="fw-bold">{% trans "Перейдите в настройки портфолио" %}</div>
+                                        {% trans "Откройте страницу настроек портфолио через главное меню или профиль" %}
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <div class="ms-2">
+                                        <div class="fw-bold">{% trans "Выберите тему" %}</div>
+                                        {% trans "Выберите понравившуюся премиум-тему из доступных вариантов" %}
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <div class="ms-2">
+                                        <div class="fw-bold">{% trans "Просмотрите и примените" %}</div>
+                                        {% trans "Используйте предпросмотр для оценки темы, затем нажмите 'Выбрать'" %}
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <div class="ms-2">
+                                        <div class="fw-bold">{% trans "Сохраните настройки" %}</div>
+                                        {% trans "Нажмите 'Сохранить настройки' для применения выбранной темы" %}
+                                    </div>
+                                </li>
+                            </ol>
+                            <a href="{% url 'users:portfolio_settings' %}" class="btn btn-primary">
+                                <i class="fas fa-palette me-2"></i>{% trans "Настроить тему" %}
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">{% trans "Доступные премиум-темы" %}</h5>
+                                    <p class="card-text">{% trans "С премиум-подпиской вам доступны эксклюзивные темы:" %}</p>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">{% trans "Профессиональная" %} - {% trans "Строгий дизайн для рабочего портфолио" %}</li>
+                                        <li class="list-group-item">{% trans "Креативная" %} - {% trans "Яркие акценты для творческих проектов" %}</li>
+                                        <li class="list-group-item">{% trans "Минималистичная" %} - {% trans "Элегантный минимализм для фокуса на контенте" %}</li>
+                                        <li class="list-group-item">{% trans "Темная" %} - {% trans "Стильная темная тема с контрастными элементами" %}</li>
+                                        <li class="list-group-item">{% trans "И другие..." %}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Настройка CSS -->
+        <div class="col-12 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-code me-2"></i>{% trans "2. Настройка CSS" %}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h4>{% trans "Как настроить свой CSS" %}</h4>
+                            <ol class="list-group list-group-numbered mb-4">
+                                <li class="list-group-item d-flex">
+                                    <div class="ms-2">
+                                        <div class="fw-bold">{% trans "Перейдите в расширенные настройки" %}</div>
+                                        {% trans "В настройках портфолио прокрутите вниз до раздела 'Расширенные настройки'" %}
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <div class="ms-2">
+                                        <div class="fw-bold">{% trans "Найдите поле 'Пользовательский CSS'" %}</div>
+                                        {% trans "Это текстовое поле для ввода ваших CSS-правил" %}
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <div class="ms-2">
+                                        <div class="fw-bold">{% trans "Добавьте свои CSS-правила" %}</div>
+                                        {% trans "Введите CSS-код для кастомизации вашего портфолио" %}
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <div class="ms-2">
+                                        <div class="fw-bold">{% trans "Сохраните изменения" %}</div>
+                                        {% trans "Нажмите 'Сохранить настройки' для применения вашего CSS" %}
+                                    </div>
+                                </li>
+                            </ol>
+                            <a href="{% url 'users:portfolio_settings' %}" class="btn btn-primary">
+                                <i class="fas fa-code me-2"></i>{% trans "Настроить CSS" %}
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">{% trans "Примеры CSS-кода" %}</h5>
+                                    <p class="card-text">{% trans "Вы можете использовать эти примеры для начала:" %}</p>
+                                    <pre class="bg-light p-3 rounded"><code>/* Изменение цвета заголовков */
+h1, h2, h3 {
+  color: #4a6fa5;
+}
+
+/* Стилизация карточек проектов */
+.card {
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Персональный домен -->
+        <div class="col-12 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-globe me-2"></i>{% trans "3. Персональный домен" %}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h4>{% trans "Как настроить свой домен" %}</h4>
+                            <ol class="list-group list-group-numbered mb-4">
+                                <li class="list-group-item d-flex">
+                                    <div class="ms-2">
+                                        <div class="fw-bold">{% trans "Приобретите домен" %}</div>
+                                        {% trans "Купите домен у любого регистратора (например, Namecheap, GoDaddy)" %}
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <div class="ms-2">
+                                        <div class="fw-bold">{% trans "Настройте DNS" %}</div>
+                                        {% trans "Добавьте CNAME-запись, указывающую на studfolio.com" %}
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <div class="ms-2">
+                                        <div class="fw-bold">{% trans "Введите домен в настройках" %}</div>
+                                        {% trans "В расширенных настройках портфолио укажите ваш домен без https://" %}
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <div class="ms-2">
+                                        <div class="fw-bold">{% trans "Подождите активации" %}</div>
+                                        {% trans "Активация домена может занять до 24 часов" %}
+                                    </div>
+                                </li>
+                            </ol>
+                            <a href="{% url 'users:portfolio_settings' %}" class="btn btn-primary">
+                                <i class="fas fa-globe me-2"></i>{% trans "Настроить домен" %}
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">{% trans "Пример настройки DNS" %}</h5>
+                                    <p class="card-text">{% trans "Добавьте следующие записи в настройках вашего домена:" %}</p>
+                                    
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>{% trans "Тип" %}</th>
+                                                    <th>{% trans "Имя" %}</th>
+                                                    <th>{% trans "Значение" %}</th>
+                                                    <th>TTL</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>CNAME</td>
+                                                    <td>@</td>
+                                                    <td>studfolio.com</td>
+                                                    <td>3600</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>CNAME</td>
+                                                    <td>www</td>
+                                                    <td>studfolio.com</td>
+                                                    <td>3600</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Аналитика -->
+        <div class="col-12 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-chart-line me-2"></i>{% trans "4. Расширенная аналитика" %}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h4>{% trans "Как использовать аналитику" %}</h4>
+                            <ol class="list-group list-group-numbered mb-4">
+                                <li class="list-group-item d-flex">
+                                    <div class="ms-2">
+                                        <div class="fw-bold">{% trans "Перейдите в раздел Аналитика" %}</div>
+                                        {% trans "Найдите пункт 'Аналитика' в меню пользователя" %}
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <div class="ms-2">
+                                        <div class="fw-bold">{% trans "Изучите общую статистику" %}</div>
+                                        {% trans "Просмотрите количество посещений профиля и проектов" %}
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <div class="ms-2">
+                                        <div class="fw-bold">{% trans "Проанализируйте графики" %}</div>
+                                        {% trans "Изучите графики посещаемости за разные периоды" %}
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <div class="ms-2">
+                                        <div class="fw-bold">{% trans "Отслеживайте популярные проекты" %}</div>
+                                        {% trans "Определите, какие ваши проекты привлекают больше внимания" %}
+                                    </div>
+                                </li>
+                            </ol>
+                            <a href="{% url 'users:analytics' %}" class="btn btn-primary">
+                                <i class="fas fa-chart-line me-2"></i>{% trans "Открыть аналитику" %}
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">{% trans "Доступная статистика" %}</h5>
+                                    <p class="card-text">{% trans "С премиум-подпиской вам доступны:" %}</p>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <i class="fas fa-chart-area text-primary me-2"></i>
+                                            {% trans "Графики посещаемости по дням" %}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <i class="fas fa-users text-success me-2"></i>
+                                            {% trans "Данные о посетителях вашего профиля" %}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <i class="fas fa-external-link-alt text-info me-2"></i>
+                                            {% trans "Источники переходов на ваш профиль" %}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <i class="fas fa-project-diagram text-warning me-2"></i>
+                                            {% trans "Статистика по отдельным проектам" %}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <i class="fas fa-filter text-danger me-2"></i>
+                                            {% trans "Фильтрация и сортировка данных" %}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Поддержка и FAQ -->
+        <div class="col-12 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-secondary text-white">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-question-circle me-2"></i>{% trans "Часто задаваемые вопросы" %}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="accordion" id="premiumFaq">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    {% trans "Как продлить премиум-подписку?" %}
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#premiumFaq">
+                                <div class="accordion-body">
+                                    {% trans "Для продления подписки просто введите новый код активации в разделе 'Управление подпиской'. Срок действия подписки будет продлен на указанный в коде период." %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    {% trans "Что произойдет после окончания срока подписки?" %}
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#premiumFaq">
+                                <div class="accordion-body">
+                                    {% trans "После окончания срока подписки ваш аккаунт автоматически вернется к базовому уровню. Премиум-темы будут заменены на стандартные, CSS-настройки отключены, а доступ к расширенной аналитике будет ограничен. Все ваши проекты и данные сохранятся." %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    {% trans "Могу ли я изменить тему после её выбора?" %}
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#premiumFaq">
+                                <div class="accordion-body">
+                                    {% trans "Да, вы можете изменить тему в любое время. Просто перейдите в настройки портфолио и выберите другую тему из доступных вариантов. Изменения вступят в силу сразу после сохранения настроек." %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    {% trans "Как получить приоритетную поддержку?" %}
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#premiumFaq">
+                                <div class="accordion-body">
+                                    {% trans "Как премиум-пользователь, вы автоматически получаете доступ к приоритетной поддержке. Для обращения в поддержку используйте форму обратной связи или напишите на email premium@studfolio.com, указав свой логин." %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

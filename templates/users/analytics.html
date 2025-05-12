@@ -1,0 +1,450 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Аналитика портфолио" %} | Studfolio{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@4.0.1/dist/chart.min.css">
+<style>
+    .stat-card {
+        transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+        transform: translateY(-5px);
+    }
+    .referrer-url {
+        max-width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: inline-block;
+    }
+    .chart-container {
+        position: relative;
+        height: 300px;
+        width: 100%;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <!-- Боковая навигация -->
+        <div class="col-lg-3">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-cogs me-2"></i>{% trans "Настройки" %}
+                    </h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="{% url 'users:profile_edit' %}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-user-edit me-2"></i>{% trans "Редактировать профиль" %}
+                    </a>
+                    <a href="{% url 'users:portfolio_settings' %}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-palette me-2"></i>{% trans "Настройки портфолио" %}
+                    </a>
+                    <a href="{% url 'users:subscription' %}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-crown me-2"></i>{% trans "Управление подпиской" %}
+                    </a>
+                    <a href="{% url 'users:analytics' %}" class="list-group-item list-group-item-action active">
+                        <i class="fas fa-chart-bar me-2"></i>{% trans "Аналитика" %}
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Информация о статусе подписки -->
+            <div class="card shadow-sm">
+                <div class="card-header {% if is_premium %}bg-success{% else %}bg-secondary{% endif %} text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-crown me-2"></i>{% trans "Статус подписки" %}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if is_premium %}
+                        <div class="alert alert-success mb-3">
+                            <i class="fas fa-check-circle me-2"></i>{% trans "У вас активна премиум-подписка" %}
+                        </div>
+                        <p class="small text-muted mb-0">
+                            {% trans "Вам доступна расширенная аналитика" %}
+                        </p>
+                    {% else %}
+                        <div class="alert alert-secondary mb-3">
+                            <i class="fas fa-info-circle me-2"></i>{% trans "У вас базовый аккаунт" %}
+                        </div>
+                        <p class="small text-muted mb-3">
+                            {% trans "Для доступа к расширенной аналитике активируйте премиум-подписку" %}
+                        </p>
+                        <a href="{% url 'users:subscription' %}" class="btn btn-sm btn-primary w-100">
+                            <i class="fas fa-crown me-1"></i>{% trans "Активировать премиум" %}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Основное содержимое -->
+        <div class="col-lg-9">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h2">
+                    <i class="fas fa-chart-line me-2"></i>{% trans "Аналитика портфолио" %}
+                </h1>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline-primary" id="refresh-stats">
+                        <i class="fas fa-sync-alt me-2"></i>{% trans "Обновить" %}
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Общая статистика -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card shadow-sm stat-card bg-primary text-white mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="card-title">{% trans "Просмотры профиля" %}</h6>
+                                    <h3 class="mb-0">{{ profile_views_count }}</h3>
+                                </div>
+                                <div class="display-4">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow-sm stat-card bg-success text-white mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="card-title">{% trans "Просмотры проектов" %}</h6>
+                                    <h3 class="mb-0">{{ project_views_count }}</h3>
+                                </div>
+                                <div class="display-4">
+                                    <i class="fas fa-folder-open"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow-sm stat-card bg-info text-white mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="card-title">{% trans "Конверсия" %}</h6>
+                                    <h3 class="mb-0">
+                                        {% if profile_views_count and project_views_count %}
+                                            {{ project_views_count|floatformat:0 }}%
+                                        {% else %}
+                                            0%
+                                        {% endif %}
+                                    </h3>
+                                </div>
+                                <div class="display-4">
+                                    <i class="fas fa-chart-pie"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Популярные проекты -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-star me-2"></i>{% trans "Популярные проекты" %}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if popular_projects %}
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>{% trans "Проект" %}</th>
+                                        <th>{% trans "Просмотры" %}</th>
+                                        <th>{% trans "Действия" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for project in popular_projects %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'portfolio:project_detail' project.id %}" class="text-decoration-none">
+                                                {{ project.title }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-primary">{{ project.views_count }}</span>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'portfolio:project_detail' project.id %}" class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-eye me-1"></i>{% trans "Просмотр" %}
+                                            </a>
+                                            <a href="{% url 'portfolio:project_edit' project.id %}" class="btn btn-sm btn-outline-secondary">
+                                                <i class="fas fa-edit me-1"></i>{% trans "Редактировать" %}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>{% trans "У вас пока нет просмотров проектов" %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Источники трафика -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-external-link-alt me-2"></i>{% trans "Источники трафика" %}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if top_referrers %}
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>{% trans "Источник" %}</th>
+                                        <th>{% trans "Переходы" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for referrer in top_referrers %}
+                                    <tr>
+                                        <td>
+                                            <span class="referrer-url" title="{{ referrer.referrer }}">
+                                                {{ referrer.referrer }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-primary">{{ referrer.count }}</span>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>{% trans "Информация об источниках трафика пока недоступна" %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            {% if is_premium %}
+                <!-- Расширенная аналитика (только для премиум) -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-warning">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-crown me-2"></i>{% trans "Расширенная аналитика" %}
+                            <span class="badge bg-light text-dark ms-2">Premium</span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="nav nav-tabs mb-4" id="analyticsTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="profile-views-tab" data-bs-toggle="tab" data-bs-target="#profile-views" type="button" role="tab" aria-controls="profile-views" aria-selected="true">
+                                    {% trans "Просмотры профиля" %}
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="project-views-tab" data-bs-toggle="tab" data-bs-target="#project-views" type="button" role="tab" aria-controls="project-views" aria-selected="false">
+                                    {% trans "Просмотры проектов" %}
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="visitors-tab" data-bs-toggle="tab" data-bs-target="#visitors" type="button" role="tab" aria-controls="visitors" aria-selected="false">
+                                    {% trans "Посетители" %}
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="analyticsTabContent">
+                            <!-- Просмотры профиля -->
+                            <div class="tab-pane fade show active" id="profile-views" role="tabpanel" aria-labelledby="profile-views-tab">
+                                <h6 class="mb-3">{% trans "Динамика просмотров профиля за последний месяц" %}</h6>
+                                <div class="chart-container">
+                                    <canvas id="profileViewsChart"></canvas>
+                                </div>
+                            </div>
+                            
+                            <!-- Просмотры проектов -->
+                            <div class="tab-pane fade" id="project-views" role="tabpanel" aria-labelledby="project-views-tab">
+                                <h6 class="mb-3">{% trans "Динамика просмотров проектов за последний месяц" %}</h6>
+                                <div class="chart-container">
+                                    <canvas id="projectViewsChart"></canvas>
+                                </div>
+                            </div>
+                            
+                            <!-- Посетители -->
+                            <div class="tab-pane fade" id="visitors" role="tabpanel" aria-labelledby="visitors-tab">
+                                <h6 class="mb-3">{% trans "Пользователи, просматривавшие ваш профиль" %}</h6>
+                                {% if viewers_data %}
+                                    <div class="row">
+                                        {% for viewer_data in viewers_data %}
+                                            <div class="col-lg-6 mb-3">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="me-3">
+                                                                {% if viewer_data.viewer.profile_image %}
+                                                                    <img src="{{ viewer_data.viewer.profile_image }}" alt="{{ viewer_data.viewer.username }}" class="rounded-circle" width="48" height="48">
+                                                                {% else %}
+                                                                    <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                                                                        <i class="fas fa-user text-secondary"></i>
+                                                                    </div>
+                                                                {% endif %}
+                                                            </div>
+                                                            <div>
+                                                                <h6 class="mb-1">{{ viewer_data.viewer.username }}</h6>
+                                                                <p class="mb-0 small text-muted">
+                                                                    {% trans "Просмотров:" %} {{ viewer_data.count }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-info-circle me-2"></i>{% trans "Ваш профиль пока не просматривали другие пользователи" %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <!-- Блок с предложением премиум-подписки -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-secondary text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-chart-bar me-2"></i>{% trans "Расширенная аналитика" %}
+                        </h5>
+                    </div>
+                    <div class="card-body text-center py-4">
+                        <div class="mb-4">
+                            <i class="fas fa-lock fa-5x text-secondary mb-3"></i>
+                            <h4>{% trans "Расширенная аналитика доступна только для премиум-пользователей" %}</h4>
+                            <p class="text-muted">
+                                {% trans "Получите доступ к детальной статистике посещений, графикам и данным о посетителях" %}
+                            </p>
+                        </div>
+                        <a href="{% url 'users:subscription' %}" class="btn btn-primary">
+                            <i class="fas fa-crown me-2"></i>{% trans "Активировать премиум-подписку" %}
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.0.1/dist/chart.umd.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        {% if is_premium and profile_chart_data %}
+            // Данные для графика просмотров профиля
+            const profileChartData = {{ profile_chart_data|safe }};
+            const profileDates = Object.keys(profileChartData).sort();
+            const profileCounts = profileDates.map(date => profileChartData[date]);
+            
+            // Создаем график просмотров профиля
+            const profileCtx = document.getElementById('profileViewsChart').getContext('2d');
+            const profileChart = new Chart(profileCtx, {
+                type: 'line',
+                data: {
+                    labels: profileDates,
+                    datasets: [{
+                        label: '{% trans "Просмотры профиля" %}',
+                        data: profileCounts,
+                        backgroundColor: 'rgba(13, 110, 253, 0.2)',
+                        borderColor: 'rgba(13, 110, 253, 1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    }
+                }
+            });
+            
+            // Данные для графика просмотров проектов
+            const projectChartData = {{ project_chart_data|safe }};
+            const projectDates = Object.keys(projectChartData).sort();
+            const projectCounts = projectDates.map(date => projectChartData[date]);
+            
+            // Создаем график просмотров проектов
+            const projectCtx = document.getElementById('projectViewsChart').getContext('2d');
+            const projectChart = new Chart(projectCtx, {
+                type: 'line',
+                data: {
+                    labels: projectDates,
+                    datasets: [{
+                        label: '{% trans "Просмотры проектов" %}',
+                        data: projectCounts,
+                        backgroundColor: 'rgba(25, 135, 84, 0.2)',
+                        borderColor: 'rgba(25, 135, 84, 1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    }
+                }
+            });
+        {% endif %}
+        
+        // Обработчик кнопки обновления
+        document.getElementById('refresh-stats').addEventListener('click', function() {
+            location.reload();
+        });
+    });
+</script>
+{% endblock %} 

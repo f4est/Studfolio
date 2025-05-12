@@ -1,0 +1,273 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+    {% if action == 'add' %}
+        {% trans "Добавление проекта" %}
+    {% else %}
+        {% trans "Редактирование проекта" %}
+    {% endif %} | Studfolio
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">
+                        {% if action == 'add' %}
+                            <i class="fas fa-plus-circle me-2"></i>{% trans "Добавление нового проекта" %}
+                        {% else %}
+                            <i class="fas fa-edit me-2"></i>{% trans "Редактирование проекта" %}
+                        {% endif %}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.title.id_for_label }}" class="form-label fw-bold">{% trans "Название" %}*</label>
+                            {{ form.title }}
+                            {% if form.title.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.title.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">{% trans "Название проекта, например: Веб-сайт для компании, Мобильное приложение и т.д." %}</div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.description.id_for_label }}" class="form-label fw-bold">{% trans "Описание" %}*</label>
+                            {{ form.description }}
+                            {% if form.description.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.description.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">{% trans "Подробное описание проекта: проблема, решение, ваша роль, результаты" %}</div>
+                        </div>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label for="{{ form.start_date.id_for_label }}" class="form-label fw-bold">{% trans "Дата начала" %}</label>
+                                {{ form.start_date }}
+                                {% if form.start_date.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in form.start_date.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="{{ form.end_date.id_for_label }}" class="form-label fw-bold">{% trans "Дата завершения" %}</label>
+                                {{ form.end_date }}
+                                {% if form.end_date.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in form.end_date.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="form-text">{% trans "Оставьте пустым, если проект ещё в разработке" %}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.technologies.id_for_label }}" class="form-label fw-bold">{% trans "Используемые технологии" %}</label>
+                            {{ form.technologies }}
+                            {% if form.technologies.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.technologies.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">{% trans "Перечислите технологии через пробел, например: Python Django JavaScript Bootstrap" %}</div>
+                        </div>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label for="{{ form.url.id_for_label }}" class="form-label fw-bold">{% trans "Ссылка на проект" %}</label>
+                                {{ form.url }}
+                                {% if form.url.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in form.url.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="form-text">{% trans "URL действующего проекта, если он доступен онлайн" %}</div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="{{ form.github_url.id_for_label }}" class="form-label fw-bold">{% trans "Ссылка на GitHub" %}</label>
+                                {{ form.github_url }}
+                                {% if form.github_url.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in form.github_url.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="form-text">{% trans "URL репозитория с исходным кодом" %}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.image.id_for_label }}" class="form-label fw-bold">{% trans "Изображение проекта" %}</label>
+                            {% if action == 'edit' and project.image %}
+                                <div class="mb-2">
+                                    <img src="{{ project.image.url }}" alt="{{ project.title }}" class="img-thumbnail" style="max-height: 200px;">
+                                </div>
+                            {% endif %}
+                            {{ form.image }}
+                            {% if form.image.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.image.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">{% trans "Загрузите скриншот, макет или логотип проекта для наглядного представления" %}</div>
+                        </div>
+                        
+                        <div class="mb-4 form-check">
+                            {{ form.is_featured }}
+                            <label for="{{ form.is_featured.id_for_label }}" class="form-check-label">{% trans "Выделить как избранный проект" %}</label>
+                            {% if form.is_featured.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.is_featured.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">{% trans "Избранные проекты будут показаны первыми в вашем портфолио" %}</div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            {% if action == 'add' %}
+                                <a href="{% url 'portfolio:project_list' %}" class="btn btn-outline-secondary">
+                                    <i class="fas fa-arrow-left me-2"></i>{% trans "Назад к списку" %}
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-plus-circle me-2"></i>{% trans "Добавить проект" %}
+                                </button>
+                            {% else %}
+                                <a href="{% url 'portfolio:project_detail' project.id %}" class="btn btn-outline-secondary">
+                                    <i class="fas fa-arrow-left me-2"></i>{% trans "Назад к проекту" %}
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save me-2"></i>{% trans "Сохранить изменения" %}
+                                </button>
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            {% if action == 'add' %}
+            <div class="card mt-4 shadow-sm">
+                <div class="card-header bg-light">
+                    <h6 class="mb-0">{% trans "Советы для создания эффектного проекта" %}</h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex">
+                            <i class="fas fa-image text-primary me-3 mt-1"></i>
+                            <div>
+                                <strong>{% trans "Качественные изображения" %}</strong>
+                                <p class="mb-0 small">{% trans "Добавьте четкий скриншот или изображение проекта - это первое, что привлекает внимание" %}</p>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex">
+                            <i class="fas fa-list-ul text-success me-3 mt-1"></i>
+                            <div>
+                                <strong>{% trans "Структурированное описание" %}</strong>
+                                <p class="mb-0 small">{% trans "Опишите задачу, решение, использованные технологии и достигнутые результаты" %}</p>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex">
+                            <i class="fas fa-code text-info me-3 mt-1"></i>
+                            <div>
+                                <strong>{% trans "Технический стек" %}</strong>
+                                <p class="mb-0 small">{% trans "Перечислите все ключевые технологии, языки и инструменты, использованные в проекте" %}</p>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex">
+                            <i class="fas fa-link text-warning me-3 mt-1"></i>
+                            <div>
+                                <strong>{% trans "Добавьте ссылки" %}</strong>
+                                <p class="mb-0 small">{% trans "Ссылки на живую демонстрацию и исходный код значительно повышают ценность проекта" %}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Применяем стили Bootstrap к полям формы Django
+        document.querySelectorAll('input, textarea, select').forEach(el => {
+            if (!el.classList.contains('form-control') && !el.classList.contains('form-check-input') && el.type !== 'file') {
+                el.classList.add('form-control');
+            }
+            
+            if (el.type === 'file') {
+                el.classList.add('form-control');
+            }
+            
+            if (el.type === 'checkbox') {
+                el.classList.add('form-check-input');
+            }
+        });
+        
+        // Улучшаем поля даты
+        const dateFields = document.querySelectorAll('input[type="date"]');
+        dateFields.forEach(field => {
+            field.classList.add('form-control');
+            field.setAttribute('placeholder', 'ГГГГ-ММ-ДД');
+        });
+        
+        // Улучшаем textarea
+        const textareaFields = document.querySelectorAll('textarea');
+        textareaFields.forEach(field => {
+            field.setAttribute('rows', '5');
+        });
+        
+        // Инициализация валидации форм Bootstrap
+        const forms = document.querySelectorAll('.needs-validation');
+        Array.prototype.slice.call(forms).forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    });
+</script>
+{% endblock %} 

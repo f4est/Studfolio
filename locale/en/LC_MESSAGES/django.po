@@ -1,0 +1,50 @@
+# English translation
+msgid ""
+msgstr ""
+"Project-Id-Version: Studfolio\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-12 09:00+0000\n"
+"PO-Revision-Date: 2025-05-12 09:00+0000\n"
+"Last-Translator: You\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Главная"
+msgstr "Home"
+
+msgid "Мой профиль"
+msgstr "My Profile"
+
+msgid "Мои проекты"
+msgstr "My Projects"
+
+msgid "Сертификаты"
+msgstr "Certificates"
+
+msgid "Достижения"
+msgstr "Achievements"
+
+msgid "Вход"
+msgstr "Login"
+
+msgid "Регистрация"
+msgstr "Sign Up"
+
+msgid "Редактировать профиль"
+msgstr "Edit Profile"
+
+msgid "Сменить пароль"
+msgstr "Change Password"
+
+msgid "Выйти"
+msgstr "Logout"
+
+msgid "Все права защищены."
+msgstr "All rights reserved."
+
+msgid "Аватар"
+msgstr "Avatar" 

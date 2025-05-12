@@ -1,0 +1,326 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Главная" %} | Studfolio{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Премиум баннер -->
+    {% if user.is_authenticated and not user.has_active_subscription %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="premium-banner">
+                <div class="banner-content p-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-2 text-center mb-3 mb-md-0">
+                            <i class="fas fa-crown text-warning display-1"></i>
+                        </div>
+                        <div class="col-md-7 mb-3 mb-md-0">
+                            <h3 class="banner-title">{% trans "Раскройте свой потенциал с Premium!" %}</h3>
+                            <p class="banner-text">{% trans "Получите доступ к премиум темам, расширенной аналитике, персональному домену и неограниченному количеству проектов." %}</p>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <a href="{% url 'users:subscription' %}" class="btn btn-warning btn-lg">
+                                <i class="fas fa-crown me-2"></i>{% trans "Активировать Premium" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Приветственный блок -->
+    <div class="row align-items-center mb-5">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+            <h1 class="display-4 fw-bold mb-3 text-primary">{% trans "Создайте впечатляющее портфолио с Studfolio" %}</h1>
+            <p class="lead mb-4 text-body">{% trans "Легко управляйте проектами, достижениями и сертификатами. Представьте свою работу в профессиональном формате для работодателей и преподавателей." %}</p>
+            {% if user.is_authenticated %}
+                <div class="d-grid gap-2 d-md-flex">
+                    <a href="{% url 'users:profile' %}" class="btn btn-primary btn-lg px-4 me-md-2">
+                        <i class="fas fa-user-circle me-2"></i>{% trans "Мой профиль" %}
+                    </a>
+                    <a href="{% url 'portfolio:project_list' %}" class="btn btn-outline-primary btn-lg px-4">
+                        <i class="fas fa-folder-open me-2"></i>{% trans "Мои проекты" %}
+                    </a>
+                </div>
+            {% else %}
+                <div class="d-grid gap-2 d-md-flex">
+                    <a href="{% url 'account_signup' %}" class="btn btn-primary btn-lg px-4 me-md-2">
+                        <i class="fas fa-user-plus me-2"></i>{% trans "Зарегистрироваться" %}
+                    </a>
+                    <a href="{% url 'account_login' %}" class="btn btn-outline-primary btn-lg px-4">
+                        <i class="fas fa-sign-in-alt me-2"></i>{% trans "Войти" %}
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-lg-6">
+            <img src="{% static 'img/portfolio-illustration.svg' %}" alt="Portfolio Illustration" class="img-fluid rounded" onerror="this.src='https://via.placeholder.com/600x400?text=Studfolio'">
+        </div>
+    </div>
+
+    <!-- Преимущества Premium -->
+    <div class="row mb-5">
+        <div class="col-12 text-center mb-4">
+            <h2 class="h2">{% trans "Преимущества Premium-подписки" %}</h2>
+            <p class="lead text-muted">{% trans "Раскройте полный потенциал с нашей Premium-подпиской" %}</p>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="benefit-card h-100">
+                <div class="mb-3">
+                    <i class="fas fa-palette text-primary display-4"></i>
+                </div>
+                <h4 class="card-title">{% trans "Премиум темы" %}</h4>
+                <p class="card-text">{% trans "Доступ к эксклюзивным профессиональным темам оформления портфолио" %}</p>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="benefit-card h-100">
+                <div class="mb-3">
+                    <i class="fas fa-chart-line text-success display-4"></i>
+                </div>
+                <h4 class="card-title">{% trans "Расширенная аналитика" %}</h4>
+                <p class="card-text">{% trans "Детальная статистика посещений вашего профиля и отдельных проектов" %}</p>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="benefit-card h-100">
+                <div class="mb-3">
+                    <i class="fas fa-code text-danger display-4"></i>
+                </div>
+                <h4 class="card-title">{% trans "Настройка CSS" %}</h4>
+                <p class="card-text">{% trans "Полная кастомизация стилей вашего портфолио с помощью CSS" %}</p>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="benefit-card h-100">
+                <div class="mb-3">
+                    <i class="fas fa-globe text-info display-4"></i>
+                </div>
+                <h4 class="card-title">{% trans "Персональный домен" %}</h4>
+                <p class="card-text">{% trans "Используйте собственный домен для вашего портфолио" %}</p>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="benefit-card h-100">
+                <div class="mb-3">
+                    <i class="fas fa-project-diagram text-warning display-4"></i>
+                </div>
+                <h4 class="card-title">{% trans "Неограниченные проекты" %}</h4>
+                <p class="card-text">{% trans "Добавляйте неограниченное количество проектов в свое портфолио" %}</p>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="benefit-card h-100">
+                <div class="mb-3">
+                    <i class="fas fa-headset text-secondary display-4"></i>
+                </div>
+                <h4 class="card-title">{% trans "Приоритетная поддержка" %}</h4>
+                <p class="card-text">{% trans "Получите быстрые ответы на ваши вопросы от нашей технической поддержки" %}</p>
+            </div>
+        </div>
+        
+        <div class="col-12 text-center mt-3">
+            <a href="{% url 'users:subscription' %}" class="btn btn-primary btn-lg">
+                <i class="fas fa-crown me-2"></i>{% trans "Получить Premium-подписку" %}
+            </a>
+        </div>
+    </div>
+    
+    <!-- Руководство по использованию Premium -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0">{% trans "Как использовать возможности Premium-подписки" %}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-3">
+                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                        <span class="h5 mb-0">1</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4>{% trans "Активируйте подписку" %}</h4>
+                                    <p>{% trans "Перейдите в раздел 'Управление подпиской' и введите код активации для получения Premium-статуса." %}</p>
+                                    <a href="{% url 'users:subscription' %}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-arrow-right me-1"></i>{% trans "Активировать" %}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-3">
+                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                        <span class="h5 mb-0">2</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4>{% trans "Выберите Premium-тему" %}</h4>
+                                    <p>{% trans "Перейдите в настройки портфолио и выберите одну из эксклюзивных Premium-тем." %}</p>
+                                    <a href="{% url 'users:portfolio_settings' %}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-arrow-right me-1"></i>{% trans "Настройки" %}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-3">
+                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                        <span class="h5 mb-0">3</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4>{% trans "Настройте стили CSS" %}</h4>
+                                    <p>{% trans "Используйте расширенные настройки в разделе 'Настройки портфолио' для добавления своего CSS." %}</p>
+                                    <a href="{% url 'users:portfolio_settings' %}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-arrow-right me-1"></i>{% trans "Настроить" %}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-3">
+                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                        <span class="h5 mb-0">4</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4>{% trans "Изучите аналитику" %}</h4>
+                                    <p>{% trans "Просматривайте расширенную статистику посещений вашего профиля и проектов." %}</p>
+                                    <a href="{% url 'users:analytics' %}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-arrow-right me-1"></i>{% trans "Аналитика" %}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call-to-action блок -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="cta-block">
+                <h2>{% trans "Готовы начать создавать своё профессиональное портфолио?" %}</h2>
+                <div class="cta-subtext">{% trans "Присоединяйтесь к тысячам студентов, которые уже используют Studfolio для презентации своих достижений." %}</div>
+                <a href="{% url 'account_signup' %}" class="btn btn-primary btn-lg mt-3">{% trans "Зарегистрироваться" %}</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .premium-banner {
+        background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+        border: none;
+        color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+    }
+    [data-bs-theme="dark"] .premium-banner {
+        background: linear-gradient(135deg, #23272B 60%, #3a7bd5 100%);
+        color: #fff;
+    }
+    .premium-banner .banner-title {
+        color: #fff;
+        font-weight: 700;
+    }
+    .premium-banner .banner-text {
+        color: #e0e0e0;
+    }
+    .banner-content { background: none; }
+    .premium-banner .btn-warning {
+        background-color: #FFC107;
+        border-color: #FFC107;
+        color: #212529;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+    .premium-banner .btn-warning:hover {
+        background-color: #ffca2c;
+        border-color: #ffca2c;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .benefit-card {
+        transition: all 0.3s ease;
+        background: var(--light-gray);
+        color: var(--dark);
+        border-radius: var(--border-radius-lg);
+        box-shadow: var(--shadow-sm);
+        padding: 2rem 1.5rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+    [data-bs-theme="dark"] .benefit-card {
+        background: #23272B;
+        color: var(--dark);
+    }
+    .benefit-card h4 {
+        color: var(--primary-dark);
+        font-weight: var(--font-weight-bold);
+    }
+    [data-bs-theme="dark"] .benefit-card h4 {
+        color: var(--primary);
+    }
+    .benefit-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+    }
+    .cta-block {
+        background: var(--white);
+        color: var(--primary-dark);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-lg);
+        padding: 2.5rem 2rem;
+        margin: 2rem 0;
+        text-align: center;
+        box-shadow: var(--shadow-sm);
+        transition: background 0.2s, color 0.2s;
+    }
+    .cta-block h2 {
+        color: var(--primary);
+        font-weight: var(--font-weight-bold);
+    }
+    .cta-block .cta-subtext {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+    [data-bs-theme="dark"] .cta-block {
+        background: #23272B;
+        color: var(--dark);
+        border-color: var(--border-color);
+    }
+    [data-bs-theme="dark"] .cta-block h2 {
+        color: var(--primary);
+    }
+    [data-bs-theme="dark"] .cta-block .cta-subtext {
+        color: #bfc6ce;
+    }
+    .display-4, .display-1 {
+        line-height: 1.1;
+    }
+</style>
+{% endblock %} 

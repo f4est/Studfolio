@@ -1,0 +1,150 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% if action == 'add' %}{% trans "Добавить сертификат" %}{% else %}{% trans "Редактировать сертификат" %}{% endif %} | Studfolio{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">
+                        {% if action == 'add' %}
+                            <i class="fas fa-certificate me-2"></i>{% trans "Добавить новый сертификат" %}
+                        {% else %}
+                            <i class="fas fa-edit me-2"></i>{% trans "Редактировать сертификат" %}
+                        {% endif %}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.title.id_for_label }}" class="form-label fw-bold">{% trans "Название" %}*</label>
+                            {{ form.title }}
+                            {% if form.title.errors %}
+                                <div class="invalid-feedback d-block">{{ form.title.errors }}</div>
+                            {% endif %}
+                            <div class="form-text">{% trans "Например: Сертификат по Python программированию" %}</div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.issuer.id_for_label }}" class="form-label fw-bold">{% trans "Выдавшая организация" %}*</label>
+                            {{ form.issuer }}
+                            {% if form.issuer.errors %}
+                                <div class="invalid-feedback d-block">{{ form.issuer.errors }}</div>
+                            {% endif %}
+                            <div class="form-text">{% trans "Название учебного заведения или компании" %}</div>
+                        </div>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label for="{{ form.issue_date.id_for_label }}" class="form-label fw-bold">{% trans "Дата выдачи" %}*</label>
+                                {{ form.issue_date }}
+                                {% if form.issue_date.errors %}
+                                    <div class="invalid-feedback d-block">{{ form.issue_date.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.expiry_date.id_for_label }}" class="form-label fw-bold">{% trans "Дата окончания" %}</label>
+                                {{ form.expiry_date }}
+                                {% if form.expiry_date.errors %}
+                                    <div class="invalid-feedback d-block">{{ form.expiry_date.errors }}</div>
+                                {% endif %}
+                                <div class="form-text">{% trans "Оставьте пустым, если бессрочный" %}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.certificate_id.id_for_label }}" class="form-label fw-bold">{% trans "ID сертификата" %}</label>
+                            {{ form.certificate_id }}
+                            {% if form.certificate_id.errors %}
+                                <div class="invalid-feedback d-block">{{ form.certificate_id.errors }}</div>
+                            {% endif %}
+                            <div class="form-text">{% trans "Уникальный идентификатор сертификата (если есть)" %}</div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.certificate_url.id_for_label }}" class="form-label fw-bold">{% trans "URL для проверки" %}</label>
+                            {{ form.certificate_url }}
+                            {% if form.certificate_url.errors %}
+                                <div class="invalid-feedback d-block">{{ form.certificate_url.errors }}</div>
+                            {% endif %}
+                            <div class="form-text">{% trans "Ссылка для проверки подлинности сертификата" %}</div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.description.id_for_label }}" class="form-label fw-bold">{% trans "Описание" %}</label>
+                            {{ form.description }}
+                            {% if form.description.errors %}
+                                <div class="invalid-feedback d-block">{{ form.description.errors }}</div>
+                            {% endif %}
+                            <div class="form-text">{% trans "Краткое описание полученных навыков или знаний" %}</div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.certificate_file.id_for_label }}" class="form-label fw-bold">{% trans "Файл сертификата" %}</label>
+                            {% if form.instance.certificate_file %}
+                                <div class="mb-2">
+                                    <a href="{{ form.instance.certificate_file.url }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-file-alt me-1"></i> {% trans "Просмотреть текущий файл" %}
+                                    </a>
+                                </div>
+                            {% endif %}
+                            {{ form.certificate_file }}
+                            {% if form.certificate_file.errors %}
+                                <div class="invalid-feedback d-block">{{ form.certificate_file.errors }}</div>
+                            {% endif %}
+                            <div class="form-text">{% trans "Загрузите скан или снимок сертификата (JPG, PNG или PDF)" %}</div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% url 'portfolio:certificate_list' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>{% trans "Назад к списку" %}
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>{% trans "Сохранить сертификат" %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Применяем стили Bootstrap к полям формы Django
+        document.querySelectorAll('input, textarea, select').forEach(el => {
+            if (!el.classList.contains('form-control') && !el.classList.contains('form-check-input') && el.type !== 'file') {
+                el.classList.add('form-control');
+            }
+            
+            if (el.type === 'file') {
+                el.classList.add('form-control');
+            }
+        });
+        
+        // Улучшаем поля даты
+        const dateFields = document.querySelectorAll('input[type="date"]');
+        dateFields.forEach(field => {
+            field.classList.add('form-control');
+            
+            // Установка атрибута placeholder для понятного формата даты
+            field.setAttribute('placeholder', 'ГГГГ-ММ-ДД');
+        });
+        
+        // Улучшаем textarea
+        const textareaFields = document.querySelectorAll('textarea');
+        textareaFields.forEach(field => {
+            field.setAttribute('rows', '4');
+        });
+    });
+</script>
+{% endblock %} 

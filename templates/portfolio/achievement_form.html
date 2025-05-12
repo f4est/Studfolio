@@ -1,0 +1,144 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% if action == 'add' %}{% trans "Добавить достижение" %}{% else %}{% trans "Редактировать достижение" %}{% endif %} | Studfolio{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">
+                        {% if action == 'add' %}
+                            <i class="fas fa-trophy me-2"></i>{% trans "Добавить новое достижение" %}
+                        {% else %}
+                            <i class="fas fa-edit me-2"></i>{% trans "Редактировать достижение" %}
+                        {% endif %}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.title.id_for_label }}" class="form-label fw-bold">{% trans "Название" %}*</label>
+                            {{ form.title }}
+                            {% if form.title.errors %}
+                                <div class="invalid-feedback d-block">{{ form.title.errors }}</div>
+                            {% endif %}
+                            <div class="form-text">{% trans "Например: Победа в олимпиаде по программированию" %}</div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.organizer.id_for_label }}" class="form-label fw-bold">{% trans "Организатор" %}*</label>
+                            {{ form.organizer }}
+                            {% if form.organizer.errors %}
+                                <div class="invalid-feedback d-block">{{ form.organizer.errors }}</div>
+                            {% endif %}
+                            <div class="form-text">{% trans "Укажите организацию, выдавшую награду или подтвердившую достижение" %}</div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.date.id_for_label }}" class="form-label fw-bold">{% trans "Дата получения" %}*</label>
+                            {{ form.date }}
+                            {% if form.date.errors %}
+                                <div class="invalid-feedback d-block">{{ form.date.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.place.id_for_label }}" class="form-label fw-bold">{% trans "Занятое место" %}</label>
+                            {{ form.place }}
+                            {% if form.place.errors %}
+                                <div class="invalid-feedback d-block">{{ form.place.errors }}</div>
+                            {% endif %}
+                            <div class="form-text">{% trans "Например: 1 место, Финалист, Лауреат и т.д." %}</div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.description.id_for_label }}" class="form-label fw-bold">{% trans "Описание" %}</label>
+                            {{ form.description }}
+                            {% if form.description.errors %}
+                                <div class="invalid-feedback d-block">{{ form.description.errors }}</div>
+                            {% endif %}
+                            <div class="form-text">{% trans "Расскажите подробнее о вашем достижении, что оно означает и почему важно" %}</div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.achievement_file.id_for_label }}" class="form-label fw-bold">{% trans "Подтверждающий документ" %}</label>
+                            {% if form.instance.achievement_file %}
+                                <div class="mb-2">
+                                    <a href="{{ form.instance.achievement_file.url }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-file-alt me-1"></i> {% trans "Просмотреть текущий файл" %}
+                                    </a>
+                                </div>
+                            {% endif %}
+                            {{ form.achievement_file }}
+                            {% if form.achievement_file.errors %}
+                                <div class="invalid-feedback d-block">{{ form.achievement_file.errors }}</div>
+                            {% endif %}
+                            <div class="form-text">{% trans "Загрузите файл, подтверждающий ваше достижение (диплом, сертификат и т.д.)" %}</div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.achievement_url.id_for_label }}" class="form-label fw-bold">{% trans "Ссылка на подтверждение" %}</label>
+                            {{ form.achievement_url }}
+                            {% if form.achievement_url.errors %}
+                                <div class="invalid-feedback d-block">{{ form.achievement_url.errors }}</div>
+                            {% endif %}
+                            <div class="form-text">{% trans "URL страницы, где можно проверить ваше достижение (если есть)" %}</div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% url 'portfolio:achievement_list' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>{% trans "Назад к списку" %}
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>{% trans "Сохранить достижение" %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Применяем стили Bootstrap к полям формы Django
+        document.querySelectorAll('input, textarea, select').forEach(el => {
+            if (!el.classList.contains('form-control') && !el.classList.contains('form-check-input') && el.type !== 'file') {
+                el.classList.add('form-control');
+            }
+            
+            if (el.type === 'file') {
+                el.classList.add('form-control');
+            }
+        });
+        
+        // Улучшаем поля даты
+        const dateFields = document.querySelectorAll('input[type="date"]');
+        dateFields.forEach(field => {
+            field.classList.add('form-control');
+            field.setAttribute('placeholder', 'ГГГГ-ММ-ДД');
+        });
+        
+        // Улучшаем select
+        const selectFields = document.querySelectorAll('select');
+        selectFields.forEach(field => {
+            field.classList.add('form-select');
+        });
+        
+        // Улучшаем textarea
+        const textareaFields = document.querySelectorAll('textarea');
+        textareaFields.forEach(field => {
+            field.setAttribute('rows', '4');
+        });
+    });
+</script>
+{% endblock %} 

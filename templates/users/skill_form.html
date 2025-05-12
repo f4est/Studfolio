@@ -1,0 +1,187 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+    {% if action == 'add' %}
+        Добавление навыка
+    {% else %}
+        Редактирование навыка
+    {% endif %} | Studfolio
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h1 class="h3 mb-0">
+                        {% if action == 'add' %}
+                            Добавление нового навыка
+                        {% else %}
+                            Редактирование навыка
+                        {% endif %}
+                    </h1>
+                </div>
+                <div class="card-body">
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.name.id_for_label }}" class="form-label">{{ form.name.label }}{% if form.name.field.required %}*{% endif %}</label>
+                            {{ form.name }}
+                            {% if form.name.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.name.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {% if form.name.help_text %}
+                                <div class="form-text">{{ form.name.help_text }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.level.id_for_label }}" class="form-label">{{ form.level.label }}{% if form.level.field.required %}*{% endif %}</label>
+                            {{ form.level }}
+                            {% if form.level.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.level.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            
+                            <div class="rating-stars mt-2">
+                                <div class="d-flex justify-content-between">
+                                    <span class="text-muted small">Начинающий</span>
+                                    <span class="text-muted small">Эксперт</span>
+                                </div>
+                                <div class="star-container" id="star-rating">
+                                    <i class="far fa-star" data-value="1"></i>
+                                    <i class="far fa-star" data-value="2"></i>
+                                    <i class="far fa-star" data-value="3"></i>
+                                    <i class="far fa-star" data-value="4"></i>
+                                    <i class="far fa-star" data-value="5"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                {% if action == 'add' %}
+                                    <i class="fas fa-plus"></i> Добавить навык
+                                {% else %}
+                                    <i class="fas fa-save"></i> Сохранить изменения
+                                {% endif %}
+                            </button>
+                            <a href="{% url 'users:profile' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-times"></i> Отмена
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .star-container {
+        font-size: 1.5rem;
+        color: #adb5bd;
+        cursor: pointer;
+    }
+    
+    .star-container i {
+        margin-right: 5px;
+    }
+    
+    .star-container i.fas {
+        color: #ffc107;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Инициализация валидации форм Bootstrap
+    (function () {
+        'use strict'
+        var forms = document.querySelectorAll('.needs-validation')
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+    
+    // Звездный рейтинг
+    document.addEventListener('DOMContentLoaded', function() {
+        const stars = document.querySelectorAll('#star-rating i');
+        const levelInput = document.getElementById('id_level');
+        
+        // Установка начального значения
+        const initialValue = levelInput.value || 1;
+        updateStars(initialValue);
+        
+        stars.forEach(star => {
+            star.addEventListener('mouseover', function() {
+                const value = this.dataset.value;
+                hoverStars(value);
+            });
+            
+            star.addEventListener('mouseout', function() {
+                const currentValue = levelInput.value || 1;
+                updateStars(currentValue);
+            });
+            
+            star.addEventListener('click', function() {
+                const value = this.dataset.value;
+                levelInput.value = value;
+                updateStars(value);
+            });
+        });
+        
+        function hoverStars(count) {
+            stars.forEach(star => {
+                if (star.dataset.value <= count) {
+                    star.classList.remove('far');
+                    star.classList.add('fas');
+                } else {
+                    star.classList.remove('fas');
+                    star.classList.add('far');
+                }
+            });
+        }
+        
+        function updateStars(count) {
+            stars.forEach(star => {
+                if (star.dataset.value <= count) {
+                    star.classList.remove('far');
+                    star.classList.add('fas');
+                } else {
+                    star.classList.remove('fas');
+                    star.classList.add('far');
+                }
+            });
+        }
+    });
+</script>
+{% endblock %} 

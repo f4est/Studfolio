@@ -1,0 +1,534 @@
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.utils.translation import gettext_lazy as _
+from django.http import HttpResponse, Http404, JsonResponse
+from django.views.decorators.http import require_POST
+import json
+
+from .models import Project, Certificate, Achievement, Review, ProjectPost, ProjectComment, ProjectView
+from .forms import ProjectForm, CertificateForm, AchievementForm, ReviewForm
+from users.models import CustomUser
+from users.views import get_client_ip
+
+
+# Проекты
+@login_required
+def project_list_view(request):
+    """Список проектов пользователя"""
+    projects = Project.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'portfolio/project_list.html', {'projects': projects})
+
+
+@login_required
+def project_add_view(request):
+    """Добавление нового проекта"""
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.user = request.user
+            project.save()
+            messages.success(request, _('Проект успешно добавлен!'))
+            return redirect('portfolio:project_list')
+    else:
+        form = ProjectForm()
+    
+    return render(request, 'portfolio/project_form.html', {'form': form, 'action': 'add'})
+
+
+@login_required
+def project_detail_view(request, project_id):
+    """Детальная информация о проекте"""
+    project = get_object_or_404(Project, id=project_id)
+    
+    # Проверяем доступ: только владелец или публичный профиль может видеть проект
+    if project.user != request.user and not project.user.is_public:
+        raise Http404(_("Проект не найден."))
+    
+    # Записываем просмотр проекта
+    if project.user != request.user:  # Не считаем просмотры своих проектов
+        # Получаем данные о пользователе и запросе
+        viewer = request.user if request.user.is_authenticated else None
+        ip_address = get_client_ip(request)
+        user_agent = request.META.get('HTTP_USER_AGENT', '')
+        referrer = request.META.get('HTTP_REFERER', '')
+        
+        # Создаем запись о просмотре
+        ProjectView.objects.create(
+            project=project,
+            viewer=viewer,
+            ip_address=ip_address,
+            user_agent=user_agent,
+            referrer=referrer
+        )
+    
+    # Получаем отзывы к проекту
+    reviews = Review.objects.filter(project=project, is_approved=True).order_by('-created_at')
+    
+    # Проверяем, может ли текущий пользователь оставлять отзывы
+    can_add_review = False
+    if request.user.is_authenticated and request.user.user_type in ['teacher', 'admin'] and project.user.user_type == 'student':
+        can_add_review = True
+    
+    return render(request, 'portfolio/project_detail.html', {
+        'project': project, 
+        'reviews': reviews,
+        'can_add_review': can_add_review
+    })
+
+
+@login_required
+def project_edit_view(request, project_id):
+    """Редактирование проекта"""
+    project = get_object_or_404(Project, id=project_id, user=request.user)
+    
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, request.FILES, instance=project)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _('Проект успешно обновлен!'))
+            return redirect('portfolio:project_detail', project_id=project.id)
+    else:
+        form = ProjectForm(instance=project)
+    
+    return render(request, 'portfolio/project_form.html', {
+        'form': form, 
+        'action': 'edit',
+        'project': project
+    })
+
+
+@login_required
+def project_delete_view(request, project_id):
+    """Удаление проекта"""
+    project = get_object_or_404(Project, id=project_id, user=request.user)
+    
+    if request.method == 'POST':
+        project.delete()
+        messages.success(request, _('Проект успешно удален!'))
+        return redirect('portfolio:project_list')
+    
+    return render(request, 'portfolio/project_confirm_delete.html', {'project': project})
+
+
+# Сертификаты
+@login_required
+def certificate_list_view(request):
+    """Список сертификатов пользователя"""
+    certificates = Certificate.objects.filter(user=request.user).order_by('-issue_date')
+    return render(request, 'portfolio/certificate_list.html', {'certificates': certificates})
+
+
+@login_required
+def certificate_add_view(request):
+    """Добавление нового сертификата"""
+    if request.method == 'POST':
+        form = CertificateForm(request.POST, request.FILES)
+        if form.is_valid():
+            certificate = form.save(commit=False)
+            certificate.user = request.user
+            
+            # Если credential_id заполнено, используем его вместо certificate_id
+            if certificate.credential_id:
+                certificate.certificate_id = certificate.credential_id
+                
+            # Если credential_url заполнено, используем его вместо certificate_url
+            if certificate.credential_url:
+                certificate.certificate_url = certificate.credential_url
+                
+            # Если issuing_organization заполнено, используем его вместо issuer
+            if certificate.issuing_organization:
+                certificate.issuer = certificate.issuing_organization
+                
+            # Если expiration_date заполнено, используем его вместо expiry_date
+            if certificate.expiration_date:
+                certificate.expiry_date = certificate.expiration_date
+                
+            certificate.save()
+            messages.success(request, _('Сертификат успешно добавлен!'))
+            return redirect('portfolio:certificate_list')
+    else:
+        form = CertificateForm()
+    
+    return render(request, 'portfolio/certificate_form.html', {'form': form, 'action': 'add'})
+
+
+@login_required
+def certificate_detail_view(request, certificate_id):
+    """Детальная информация о сертификате"""
+    certificate = get_object_or_404(Certificate, id=certificate_id)
+    
+    # Проверяем доступ: только владелец или публичный профиль может видеть сертификат
+    if certificate.user != request.user and not certificate.user.is_public:
+        raise Http404(_("Сертификат не найден."))
+    
+    return render(request, 'portfolio/certificate_detail.html', {'certificate': certificate})
+
+
+@login_required
+def certificate_edit_view(request, certificate_id):
+    """Редактирование сертификата"""
+    certificate = get_object_or_404(Certificate, id=certificate_id, user=request.user)
+    
+    if request.method == 'POST':
+        form = CertificateForm(request.POST, request.FILES, instance=certificate)
+        if form.is_valid():
+            certificate = form.save(commit=False)
+            
+            # Если credential_id заполнено, используем его вместо certificate_id
+            if certificate.credential_id:
+                certificate.certificate_id = certificate.credential_id
+                
+            # Если credential_url заполнено, используем его вместо certificate_url
+            if certificate.credential_url:
+                certificate.certificate_url = certificate.credential_url
+                
+            # Если issuing_organization заполнено, используем его вместо issuer
+            if certificate.issuing_organization:
+                certificate.issuer = certificate.issuing_organization
+                
+            # Если expiration_date заполнено, используем его вместо expiry_date
+            if certificate.expiration_date:
+                certificate.expiry_date = certificate.expiration_date
+                
+            certificate.save()
+            messages.success(request, _('Сертификат успешно обновлен!'))
+            return redirect('portfolio:certificate_detail', certificate_id=certificate.id)
+    else:
+        form = CertificateForm(instance=certificate)
+    
+    return render(request, 'portfolio/certificate_form.html', {
+        'form': form, 
+        'action': 'edit',
+        'certificate': certificate
+    })
+
+
+@login_required
+def certificate_delete_view(request, certificate_id):
+    """Удаление сертификата"""
+    certificate = get_object_or_404(Certificate, id=certificate_id, user=request.user)
+    
+    if request.method == 'POST':
+        certificate.delete()
+        messages.success(request, _('Сертификат успешно удален!'))
+        return redirect('portfolio:certificate_list')
+    
+    return render(request, 'portfolio/certificate_confirm_delete.html', {'certificate': certificate})
+
+
+# Достижения
+@login_required
+def achievement_list_view(request):
+    """Список достижений пользователя"""
+    achievements = Achievement.objects.filter(user=request.user).order_by('-date')
+    return render(request, 'portfolio/achievement_list.html', {'achievements': achievements})
+
+
+@login_required
+def achievement_add_view(request):
+    """Добавление нового достижения"""
+    if request.method == 'POST':
+        form = AchievementForm(request.POST, request.FILES)
+        if form.is_valid():
+            achievement = form.save(commit=False)
+            achievement.user = request.user
+            
+            # Если date_received заполнено, используем его вместо date
+            if achievement.date_received:
+                achievement.date = achievement.date_received
+                
+            # Если issuing_organization заполнено, используем его вместо organizer
+            if achievement.issuing_organization:
+                achievement.organizer = achievement.issuing_organization
+                
+            achievement.save()
+            messages.success(request, _('Достижение успешно добавлено!'))
+            return redirect('portfolio:achievement_list')
+    else:
+        form = AchievementForm()
+    
+    return render(request, 'portfolio/achievement_form.html', {'form': form, 'action': 'add'})
+
+
+@login_required
+def achievement_detail_view(request, achievement_id):
+    """Детальная информация о достижении"""
+    achievement = get_object_or_404(Achievement, id=achievement_id)
+    
+    # Проверяем доступ: только владелец или публичный профиль может видеть достижение
+    if achievement.user != request.user and not achievement.user.is_public:
+        raise Http404(_("Достижение не найдено."))
+    
+    return render(request, 'portfolio/achievement_detail.html', {'achievement': achievement})
+
+
+@login_required
+def achievement_edit_view(request, achievement_id):
+    """Редактирование достижения"""
+    achievement = get_object_or_404(Achievement, id=achievement_id, user=request.user)
+    
+    if request.method == 'POST':
+        form = AchievementForm(request.POST, request.FILES, instance=achievement)
+        if form.is_valid():
+            achievement = form.save(commit=False)
+            
+            # Если date_received заполнено, используем его вместо date
+            if achievement.date_received:
+                achievement.date = achievement.date_received
+                
+            # Если issuing_organization заполнено, используем его вместо organizer
+            if achievement.issuing_organization:
+                achievement.organizer = achievement.issuing_organization
+                
+            achievement.save()
+            messages.success(request, _('Достижение успешно обновлено!'))
+            return redirect('portfolio:achievement_detail', achievement_id=achievement.id)
+    else:
+        form = AchievementForm(instance=achievement)
+    
+    return render(request, 'portfolio/achievement_form.html', {
+        'form': form, 
+        'action': 'edit',
+        'achievement': achievement
+    })
+
+
+@login_required
+def achievement_delete_view(request, achievement_id):
+    """Удаление достижения"""
+    achievement = get_object_or_404(Achievement, id=achievement_id, user=request.user)
+    
+    if request.method == 'POST':
+        achievement.delete()
+        messages.success(request, _('Достижение успешно удалено!'))
+        return redirect('portfolio:achievement_list')
+    
+    return render(request, 'portfolio/achievement_confirm_delete.html', {'achievement': achievement})
+
+
+# Отзывы
+@login_required
+def review_list_view(request):
+    """Список отзывов"""
+    if request.user.user_type == 'student':
+        # Студент видит отзывы о себе
+        reviews = Review.objects.filter(student=request.user).order_by('-created_at')
+    elif request.user.user_type in ['teacher', 'admin']:
+        # Преподаватель или админ видит отзывы, которые он дал
+        reviews = Review.objects.filter(reviewer=request.user).order_by('-created_at')
+    else:
+        reviews = []
+    
+    return render(request, 'portfolio/review_list.html', {'reviews': reviews})
+
+
+@login_required
+def review_add_view(request, student_id):
+    """Добавление нового отзыва"""
+    # Проверяем, что текущий пользователь - преподаватель или админ
+    if request.user.user_type not in ['teacher', 'admin']:
+        messages.error(request, _('У вас нет прав для добавления отзывов!'))
+        return redirect('home')
+    
+    # Получаем студента
+    student = get_object_or_404(CustomUser, id=student_id, user_type='student')
+    
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.student = student
+            review.reviewer = request.user
+            
+            # Админы могут сразу одобрять отзывы
+            if request.user.user_type == 'admin':
+                review.is_approved = True
+            
+            review.save()
+            messages.success(request, _('Отзыв успешно добавлен и ожидает подтверждения!'))
+            return redirect('portfolio:review_list')
+    else:
+        # Получаем проекты студента для выбора
+        projects = Project.objects.filter(user=student)
+        form = ReviewForm()
+        form.fields['project'].queryset = projects
+    
+    return render(request, 'portfolio/review_form.html', {
+        'form': form, 
+        'action': 'add',
+        'student': student
+    })
+
+
+@login_required
+def review_detail_view(request, review_id):
+    """Детальная информация об отзыве"""
+    # Получаем отзыв
+    review = get_object_or_404(Review, id=review_id)
+    
+    # Проверяем доступ: могут просматривать студент (о котором отзыв), автор или администратор
+    if (review.student != request.user and review.reviewer != request.user and 
+            request.user.user_type != 'admin'):
+        if not (review.is_approved and review.student.is_public):
+            raise Http404(_("Отзыв не найден."))
+    
+    return render(request, 'portfolio/review_detail.html', {'review': review})
+
+
+@login_required
+def review_edit_view(request, review_id):
+    """Редактирование отзыва"""
+    # Только автор или админ может редактировать отзыв
+    review = get_object_or_404(Review, id=review_id)
+    if review.reviewer != request.user and request.user.user_type != 'admin':
+        messages.error(request, _('У вас нет прав для редактирования этого отзыва!'))
+        return redirect('portfolio:review_list')
+    
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            # Сбрасываем статус одобрения при редактировании (если не админ)
+            if request.user.user_type != 'admin':
+                review.is_approved = False
+            form.save()
+            messages.success(request, _('Отзыв успешно обновлен!'))
+            return redirect('portfolio:review_detail', review_id=review.id)
+    else:
+        form = ReviewForm(instance=review)
+        # Ограничиваем выбор проектов студента
+        form.fields['project'].queryset = Project.objects.filter(user=review.student)
+    
+    return render(request, 'portfolio/review_form.html', {
+        'form': form, 
+        'action': 'edit',
+        'review': review,
+        'student': review.student
+    })
+
+
+@login_required
+def review_delete_view(request, review_id):
+    """Удаление отзыва"""
+    # Только автор или админ может удалить отзыв
+    review = get_object_or_404(Review, id=review_id)
+    if review.reviewer != request.user and request.user.user_type != 'admin':
+        messages.error(request, _('У вас нет прав для удаления этого отзыва!'))
+        return redirect('portfolio:review_list')
+    
+    if request.method == 'POST':
+        review.delete()
+        messages.success(request, _('Отзыв успешно удален!'))
+        return redirect('portfolio:review_list')
+    
+    return render(request, 'portfolio/review_confirm_delete.html', {'review': review})
+
+
+@login_required
+def review_approve_view(request, review_id):
+    """Одобрение отзыва"""
+    # Только администратор может одобрять отзывы
+    if request.user.user_type != 'admin':
+        messages.error(request, _('У вас нет прав для одобрения отзывов!'))
+        return redirect('portfolio:review_list')
+    
+    review = get_object_or_404(Review, id=review_id)
+    review.is_approved = not review.is_approved
+    review.save()
+    
+    if review.is_approved:
+        message = _('Отзыв успешно одобрен!')
+    else:
+        message = _('Отзыв отмечен как неодобренный!')
+    
+    messages.success(request, message)
+    return redirect('portfolio:review_detail', review_id=review.id)
+
+
+# Лента проектов
+@login_required
+def project_feed(request):
+    """Лента проектов от всех пользователей"""
+    posts = ProjectPost.objects.select_related('project', 'author').prefetch_related('comments', 'likes').order_by('-created_at')
+    return render(request, 'portfolio/project_feed.html', {'posts': posts})
+
+@login_required
+def create_project_post(request, project_id):
+    """Создание публикации о проекте в ленте"""
+    project = get_object_or_404(Project, id=project_id, user=request.user)
+    
+    if request.method == 'POST':
+        content = request.POST.get('content', '').strip()
+        
+        if not content:
+            messages.error(request, _('Содержание публикации не может быть пустым'))
+            return redirect('portfolio:project_detail', pk=project_id)
+        
+        post = ProjectPost.objects.create(
+            project=project,
+            author=request.user,
+            content=content
+        )
+        
+        messages.success(request, _('Публикация успешно создана'))
+        return redirect('portfolio:project_feed')
+    
+    return render(request, 'portfolio/create_project_post.html', {'project': project})
+
+@login_required
+@require_POST
+def like_post(request, post_id):
+    """Лайк/анлайк публикации"""
+    post = get_object_or_404(ProjectPost, id=post_id)
+    
+    if request.user in post.likes.all():
+        post.likes.remove(request.user)
+        liked = False
+    else:
+        post.likes.add(request.user)
+        liked = True
+    
+    return JsonResponse({
+        'likes_count': post.like_count(),
+        'liked': liked
+    })
+
+@login_required
+@require_POST
+def add_comment(request, post_id):
+    """Добавление комментария к публикации"""
+    post = get_object_or_404(ProjectPost, id=post_id)
+    
+    data = json.loads(request.body)
+    text = data.get('text', '').strip()
+    
+    if not text:
+        return JsonResponse({'error': _('Комментарий не может быть пустым')}, status=400)
+    
+    comment = ProjectComment.objects.create(
+        post=post,
+        author=request.user,
+        text=text
+    )
+    
+    # Возвращаем данные нового комментария для добавления на страницу без перезагрузки
+    return JsonResponse({
+        'id': comment.id,
+        'text': comment.text,
+        'author': comment.author.username,
+        'author_avatar': comment.author.profile_image.url if comment.author.profile_image else None,
+        'created_at': comment.created_at.strftime('%d.%m.%Y %H:%M')
+    })
+
+@login_required
+def delete_post(request, post_id):
+    """Удаление публикации"""
+    post = get_object_or_404(ProjectPost, id=post_id, author=request.user)
+    
+    if request.method == 'POST':
+        post.delete()
+        messages.success(request, _('Публикация успешно удалена'))
+        return redirect('portfolio:project_feed')
+    
+    return render(request, 'portfolio/delete_post_confirm.html', {'post': post})

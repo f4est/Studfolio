@@ -1,0 +1,163 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Studfolio - {% trans "Электронное портфолио для студентов" %}{% endblock %}
+
+{% block content %}
+<div class="hero-section py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7 mb-4 mb-lg-0">
+                <h1 class="display-4 fw-bold mb-4" data-translatable>{% trans "Создайте ваше электронное портфолио" %}</h1>
+                <p class="lead mb-4" data-translatable>
+                    {% trans "Studfolio - платформа для студентов, где вы можете презентовать свои учебные и профессиональные достижения, проекты и получать отзывы от преподавателей." %}
+                </p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <a href="{% url 'users:profile' %}" class="btn btn-light btn-lg px-4 me-md-2">{% trans "Мой профиль" %}</a>
+                    <a href="{% url 'portfolio:project_list' %}" class="btn btn-outline-light btn-lg px-4">{% trans "Мои проекты" %}</a>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <img src="{% static 'img/portfolio-illustration.svg' %}" alt="{% trans 'Иллюстрация портфолио' %}" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="py-5 bg-dark text-white">
+    <div class="container">
+        <h2 class="text-center mb-5" data-translatable>{% trans "Почему Studfolio?" %}</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 bg-dark-subtle border-0 text-center">
+                    <div class="card-body">
+                        <div class="feature-icon bg-primary bg-gradient text-white rounded-circle mb-3 mx-auto d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                            <i class="fas fa-project-diagram fa-2x"></i>
+                        </div>
+                        <h3 class="card-title mb-3" data-translatable>{% trans "Управление проектами" %}</h3>
+                        <p class="card-text" data-translatable>{% trans "Создавайте и управляйте вашими учебными и профессиональными проектами в одном месте." %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 bg-dark-subtle border-0 text-center">
+                    <div class="card-body">
+                        <div class="feature-icon bg-primary bg-gradient text-white rounded-circle mb-3 mx-auto d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                            <i class="fas fa-certificate fa-2x"></i>
+                        </div>
+                        <h3 class="card-title mb-3" data-translatable>{% trans "Сертификаты и достижения" %}</h3>
+                        <p class="card-text" data-translatable>{% trans "Сохраняйте и демонстрируйте ваши сертификаты, награды и достижения." %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 bg-dark-subtle border-0 text-center">
+                    <div class="card-body">
+                        <div class="feature-icon bg-primary bg-gradient text-white rounded-circle mb-3 mx-auto d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                            <i class="fas fa-comments fa-2x"></i>
+                        </div>
+                        <h3 class="card-title mb-3" data-translatable>{% trans "Отзывы преподавателей" %}</h3>
+                        <p class="card-text" data-translatable>{% trans "Получайте конструктивную обратную связь от преподавателей по вашим работам и проектам." %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5" data-translatable>{% trans "Как это работает" %}</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="step-number bg-primary text-white rounded-circle mb-3 mx-auto d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                            <span>1</span>
+                        </div>
+                        <h3 class="card-title mb-3" data-translatable>{% trans "Создайте профиль" %}</h3>
+                        <p class="card-text" data-translatable>{% trans "Зарегистрируйтесь и заполните ваш профиль с информацией об образовании и навыках." %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="step-number bg-primary text-white rounded-circle mb-3 mx-auto d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                            <span>2</span>
+                        </div>
+                        <h3 class="card-title mb-3" data-translatable>{% trans "Добавьте проекты" %}</h3>
+                        <p class="card-text" data-translatable>{% trans "Загрузите ваши проекты, сертификаты и достижения в соответствующие разделы." %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="step-number bg-primary text-white rounded-circle mb-3 mx-auto d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                            <span>3</span>
+                        </div>
+                        <h3 class="card-title mb-3" data-translatable>{% trans "Делитесь и получайте отзывы" %}</h3>
+                        <p class="card-text" data-translatable>{% trans "Делитесь своим портфолио и получайте ценные отзывы от преподавателей и коллег." %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Секция с призывом к действию -->
+<div class="py-5 bg-light">
+    <div class="container">
+        <div class="p-4 p-md-5 border rounded-3 bg-white shadow-sm">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h2 class="mb-4" data-translatable>{% trans "Готовы начать создавать своё профессиональное портфолио?" %}</h2>
+                    <p class="lead mb-4" data-translatable>{% trans "Присоединяйтесь к тысячам студентов, которые уже используют Studfolio для презентации своих достижений." %}</p>
+                </div>
+                <div class="col-lg-4 d-flex justify-content-lg-end mt-4 mt-lg-0">
+                    <a href="{% url 'account_signup' %}" class="btn btn-primary btn-lg">{% trans "Зарегистрироваться" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero {
+        background-color: var(--primary-light);
+        border-radius: 0 0 100px 0;
+    }
+    
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .bg-primary-light {
+        background-color: var(--primary-light);
+    }
+    
+    .bg-light-gray {
+        background-color: var(--light-gray);
+    }
+    
+    .step-circle {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: var(--primary);
+    }
+</style>
+{% endblock %} 

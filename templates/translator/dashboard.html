@@ -1,0 +1,223 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Панель управления переводами" %} | Studfolio{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="mb-4">{% trans "Система автоматического перевода" %}</h1>
+            <p class="lead">{% trans "Управление кэшем переводов и автоматическим переводом контента" %}</p>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">{% trans "Статистика кэша переводов" %}</h5>
+                </div>
+                <div class="card-body">
+                    <h3 class="mb-4">{% trans "Всего записей" %}: {{ cache_count }}</h3>
+                    
+                    <h5>{% trans "По языкам" %}:</h5>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-striped">
+                            <thead>
+                                <tr>
+                                    <th>{% trans "Язык" %}</th>
+                                    <th>{% trans "Исходный язык" %}</th>
+                                    <th>{% trans "Целевой язык" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for lang_code, stats in language_stats.items %}
+                                <tr>
+                                    <td>{{ stats.name }} ({{ lang_code }})</td>
+                                    <td>{{ stats.source_count }}</td>
+                                    <td>{{ stats.target_count }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer bg-light">
+                    <a href="{% url 'admin:translator_translationcache_changelist' %}" class="btn btn-outline-primary">
+                        {% trans "Управление кэшем в административной панели" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">{% trans "Автоматический перевод контента" %}</h5>
+                </div>
+                <div class="card-body">
+                    <h3 class="mb-4">{% trans "Всего записей" %}: {{ auto_trans_count }}</h3>
+                    
+                    <h5>{% trans "Тестовый перевод" %}:</h5>
+                    <div class="mb-3">
+                        <label for="translationText" class="form-label">{% trans "Введите текст для перевода" %}:</label>
+                        <textarea id="translationText" class="form-control mb-2" rows="3"></textarea>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <label for="sourceLang" class="form-label">{% trans "Исходный язык" %}:</label>
+                                <select id="sourceLang" class="form-select">
+                                    <option value="auto">{% trans "Автоопределение" %}</option>
+                                    {% for lang_code, lang_name in LANGUAGES %}
+                                    <option value="{{ lang_code }}">{{ lang_name }} ({{ lang_code }})</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label for="targetLang" class="form-label">{% trans "Целевой язык" %}:</label>
+                                <select id="targetLang" class="form-select">
+                                    {% for lang_code, lang_name in LANGUAGES %}
+                                    <option value="{{ lang_code }}" {% if lang_code == LANGUAGE_CODE %}selected{% endif %}>
+                                        {{ lang_name }} ({{ lang_code }})
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <button id="translateBtn" class="btn btn-primary mt-2">
+                            <i class="fas fa-language me-2"></i>{% trans "Перевести" %}
+                        </button>
+                    </div>
+                    
+                    <div id="translationResult" class="alert alert-info d-none">
+                        <h6>{% trans "Результат" %}:</h6>
+                        <p id="translatedText"></p>
+                    </div>
+                </div>
+                <div class="card-footer bg-light">
+                    <a href="{% url 'admin:translator_autotranslatedcontent_changelist' %}" class="btn btn-outline-primary">
+                        {% trans "Управление автопереводом в административной панели" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">{% trans "Инструкции по интеграции" %}</h5>
+                </div>
+                <div class="card-body">
+                    <h5>{% trans "Использование в JavaScript" %}:</h5>
+                    <pre class="bg-light p-3 rounded">
+// Функция для перевода текста
+async function translateText(text, sourceLang = 'auto', targetLang) {
+    try {
+        const response = await fetch('/translator/api/translate/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                text: text,
+                source_lang: sourceLang,
+                target_lang: targetLang
+            })
+        });
+        
+        if (!response.ok) {
+            throw new Error('Ошибка перевода');
+        }
+        
+        const data = await response.json();
+        return data.translated_text;
+    } catch (error) {
+        console.error('Ошибка при переводе:', error);
+        return text; // При ошибке возвращаем исходный текст
+    }
+}
+
+// Пример использования
+translateText('Привет, мир!', 'ru', 'en')
+    .then(translatedText => {
+        console.log(translatedText); // 'Hello, world!'
+    });
+</pre>
+
+                    <h5 class="mt-4">{% trans "Использование в Python" %}:</h5>
+                    <pre class="bg-light p-3 rounded">
+from translator.services import TranslationService
+
+# Создаем экземпляр сервиса перевода
+translator = TranslationService()
+
+# Переводим текст
+translated_text = translator.translate_text(
+    text='Привет, мир!',
+    source_lang='ru',
+    target_lang='en'
+)
+
+print(translated_text)  # 'Hello, world!'
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const translateBtn = document.getElementById('translateBtn');
+        const translationText = document.getElementById('translationText');
+        const sourceLang = document.getElementById('sourceLang');
+        const targetLang = document.getElementById('targetLang');
+        const translationResult = document.getElementById('translationResult');
+        const translatedText = document.getElementById('translatedText');
+        
+        translateBtn.addEventListener('click', async function() {
+            const text = translationText.value.trim();
+            if (!text) return;
+            
+            translateBtn.disabled = true;
+            translateBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>{% trans "Переводим..." %}';
+            
+            try {
+                const response = await fetch('{% url "translator:translate_text" %}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        text: text,
+                        source_lang: sourceLang.value,
+                        target_lang: targetLang.value
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('{% trans "Ошибка перевода" %}');
+                }
+                
+                const data = await response.json();
+                translatedText.textContent = data.translated_text;
+                translationResult.classList.remove('d-none');
+                
+            } catch (error) {
+                console.error('{% trans "Ошибка при переводе" %}:', error);
+                alert('{% trans "Произошла ошибка при переводе" %}: ' + error.message);
+            } finally {
+                translateBtn.disabled = false;
+                translateBtn.innerHTML = '<i class="fas fa-language me-2"></i>{% trans "Перевести" %}';
+            }
+        });
+    });
+</script>
+{% endblock %} 

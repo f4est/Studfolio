@@ -1,0 +1,403 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Лента проектов" %} | Studfolio{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <!-- Основной контент -->
+        <div class="col-lg-8">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h2">{% trans "Лента проектов" %}</h1>
+                <div class="d-flex">
+                    <a href="{% url 'portfolio:project_list' %}" class="btn btn-outline-primary me-2">
+                        <i class="fas fa-folder me-2"></i>{% trans "Мои проекты" %}
+                    </a>
+                    <a href="{% url 'portfolio:project_add' %}" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>{% trans "Новый проект" %}
+                    </a>
+                </div>
+            </div>
+
+            {% if posts %}
+                {% for post in posts %}
+                <div class="card shadow-sm mb-4" id="post-{{ post.id }}">
+                    <!-- Шапка карточки с автором и датой -->
+                    <div class="card-header bg-light">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <a href="{% url 'users:public_profile' username=post.author.username %}" class="text-decoration-none">
+                                    <img src="{{ post.author.profile_image.url|default:'https://via.placeholder.com/40' }}" 
+                                         alt="{{ post.author.username }}" class="rounded-circle me-2" 
+                                         style="width: 40px; height: 40px; object-fit: cover;">
+                                </a>
+                                <div>
+                                    <a href="{% url 'users:public_profile' username=post.author.username %}" class="text-decoration-none">
+                                        <div class="fw-bold">{{ post.author.username }}</div>
+                                    </a>
+                                    <div class="text-muted small">{{ post.created_at|date:"d.m.Y H:i" }}</div>
+                                </div>
+                            </div>
+                            {% if post.author == user %}
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" 
+                                        type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <form action="{% url 'portfolio:delete_post' post.id %}" method="post">
+                                            {% csrf_token %}
+                                            <button type="submit" class="dropdown-item text-danger" 
+                                                    onclick="return confirm('{% trans "Вы уверены, что хотите удалить эту публикацию?" %}')">
+                                                <i class="fas fa-trash-alt me-2"></i>{% trans "Удалить" %}
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <!-- Содержимое поста -->
+                    <div class="card-body">
+                        <!-- Ссылка на проект -->
+                        <h5 class="card-title">
+                            <a href="{% url 'portfolio:project_detail' post.project.id %}" class="text-decoration-none">
+                                {{ post.project.title }}
+                            </a>
+                        </h5>
+                        
+                        <!-- Контент поста -->
+                        <p class="card-text">{{ post.content }}</p>
+                        
+                        <!-- Изображение проекта -->
+                        {% if post.project.image %}
+                        <div class="text-center mb-3">
+                            <img src="{{ post.project.image.url }}" alt="{{ post.project.title }}" 
+                                 class="img-fluid rounded" style="max-height: 300px; object-fit: contain;">
+                        </div>
+                        {% endif %}
+                        
+                        <!-- Технологии проекта -->
+                        {% if post.project.technologies %}
+                        <div class="mb-3">
+                            <div class="d-flex flex-wrap gap-1">
+                                {% for tech in post.project.technologies.split %}
+                                <span class="badge bg-light text-dark">{{ tech }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Действия с постом (лайки, комментарии, шеринг) -->
+                    <div class="card-footer bg-white d-flex justify-content-between align-items-center">
+                        <div class="d-flex">
+                            <!-- Кнопка лайка -->
+                            <button class="btn btn-sm {% if user in post.likes.all %}btn-danger{% else %}btn-outline-danger{% endif %} me-2 like-btn" 
+                                    data-post-id="{{ post.id }}">
+                                <i class="fas fa-heart me-1"></i>
+                                <span class="like-count">{{ post.likes.count }}</span>
+                            </button>
+                            
+                            <!-- Кнопка комментариев -->
+                            <button class="btn btn-sm btn-outline-primary me-2 comment-toggle" 
+                                    data-bs-toggle="collapse" data-bs-target="#comments-{{ post.id }}">
+                                <i class="fas fa-comment me-1"></i>
+                                <span class="comment-count">{{ post.comments.count }}</span>
+                            </button>
+                            
+                            <!-- Ссылка на проект -->
+                            <a href="{% url 'portfolio:project_detail' post.project.id %}" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-external-link-alt me-1"></i>{% trans "Открыть проект" %}
+                            </a>
+                        </div>
+                        
+                        <!-- Кнопка шеринга -->
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-outline-success dropdown-toggle" 
+                                    data-bs-toggle="dropdown">
+                                <i class="fas fa-share-alt me-1"></i>{% trans "Поделиться" %}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="https://t.me/share/url?url={{ request.build_absolute_uri }}%23post-{{ post.id }}&text={{ post.project.title|urlencode }}" 
+                                       target="_blank">
+                                        <i class="fab fa-telegram me-2"></i>Telegram
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="https://vk.com/share.php?url={{ request.build_absolute_uri }}%23post-{{ post.id }}&title={{ post.project.title|urlencode }}" 
+                                       target="_blank">
+                                        <i class="fab fa-vk me-2"></i>ВКонтакте
+                                    </a>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item copy-link" data-link="{{ request.build_absolute_uri }}#post-{{ post.id }}">
+                                        <i class="fas fa-copy me-2"></i>{% trans "Копировать ссылку" %}
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Блок комментариев (скрыт по умолчанию) -->
+                    <div class="collapse" id="comments-{{ post.id }}">
+                        <div class="card-body border-top bg-light">
+                            <h6 class="mb-3">{% trans "Комментарии" %}</h6>
+                            
+                            <!-- Список комментариев -->
+                            <div class="comments-container mb-3">
+                                {% for comment in post.comments.all %}
+                                <div class="d-flex mb-3">
+                                    <a href="{% url 'users:public_profile' username=comment.author.username %}" class="text-decoration-none me-2">
+                                        <img src="{{ comment.author.profile_image.url|default:'https://via.placeholder.com/32' }}" 
+                                             alt="{{ comment.author.username }}" class="rounded-circle" 
+                                             style="width: 32px; height: 32px; object-fit: cover;">
+                                    </a>
+                                    <div class="comment-bubble p-2 bg-white rounded shadow-sm w-100">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <a href="{% url 'users:public_profile' username=comment.author.username %}" class="text-decoration-none">
+                                                <div class="fw-bold">{{ comment.author.username }}</div>
+                                            </a>
+                                            <div class="text-muted small">{{ comment.created_at|date:"d.m.Y H:i" }}</div>
+                                        </div>
+                                        <div>{{ comment.text }}</div>
+                                    </div>
+                                </div>
+                                {% empty %}
+                                <div class="text-center text-muted py-3">
+                                    {% trans "Комментариев пока нет. Будьте первым!" %}
+                                </div>
+                                {% endfor %}
+                            </div>
+                            
+                            <!-- Форма добавления комментария -->
+                            <form class="comment-form" data-post-id="{{ post.id }}">
+                                <div class="input-group">
+                                    <input type="text" class="form-control comment-input" 
+                                           placeholder="{% trans 'Написать комментарий...' %}">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <!-- Если нет постов -->
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>{% trans "В ленте пока нет проектов. Создайте свой проект и расскажите о нем!" %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <!-- Боковая панель -->
+        <div class="col-lg-4">
+            <!-- Карточка с моими проектами -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">{% trans "Мои проекты" %}</h5>
+                </div>
+                <div class="card-body">
+                    {% if user.projects.exists %}
+                        <div class="list-group list-group-flush">
+                            {% for project in user.projects.all|slice:":5" %}
+                            <div class="list-group-item">
+                                <a href="{% url 'portfolio:project_detail' project.id %}" class="text-decoration-none">
+                                    {{ project.title }}
+                                </a>
+                                
+                                <!-- Кнопка создания поста о проекте -->
+                                <a href="{% url 'portfolio:create_post' project.id %}" class="btn btn-sm btn-outline-primary float-end">
+                                    <i class="fas fa-share me-1"></i>{% trans "Поделиться" %}
+                                </a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        {% if user.projects.count > 5 %}
+                        <div class="text-center mt-3">
+                            <a href="{% url 'portfolio:project_list' %}" class="btn btn-sm btn-outline-primary">
+                                {% trans "Показать все" %}
+                            </a>
+                        </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-folder-open display-4 text-muted mb-3"></i>
+                            <p>{% trans "У вас пока нет проектов" %}</p>
+                            <a href="{% url 'portfolio:project_add' %}" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i>{% trans "Создать проект" %}
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Рекомендации или подсказки -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">{% trans "Советы" %}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h6><i class="fas fa-lightbulb me-2 text-warning"></i>{% trans "Как создать пост" %}</h6>
+                        <p class="small">{% trans "Создайте проект и нажмите 'Поделиться' в списке проектов, чтобы рассказать о нем другим пользователям." %}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h6><i class="fas fa-image me-2 text-info"></i>{% trans "Изображения проектов" %}</h6>
+                        <p class="small">{% trans "Добавьте качественное изображение к вашему проекту, чтобы привлечь больше внимания в ленте." %}</p>
+                    </div>
+                    <div>
+                        <h6><i class="fas fa-users me-2 text-success"></i>{% trans "Взаимодействие" %}</h6>
+                        <p class="small">{% trans "Оставляйте комментарии к проектам других пользователей, чтобы получать обратную связь на свои." %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Обработка лайков
+        document.querySelectorAll('.like-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const postId = this.getAttribute('data-post-id');
+                
+                fetch(`{% url 'portfolio:like_post' 0 %}`.replace('0', postId), {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCsrfToken(),
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Обновляем счетчик лайков
+                    const likeCount = this.querySelector('.like-count');
+                    likeCount.textContent = data.likes_count;
+                    
+                    // Меняем стиль кнопки
+                    if (data.liked) {
+                        this.classList.remove('btn-outline-danger');
+                        this.classList.add('btn-danger');
+                    } else {
+                        this.classList.remove('btn-danger');
+                        this.classList.add('btn-outline-danger');
+                    }
+                })
+                .catch(error => console.error('Ошибка:', error));
+            });
+        });
+        
+        // Обработка отправки комментариев
+        document.querySelectorAll('.comment-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const postId = this.getAttribute('data-post-id');
+                const input = this.querySelector('.comment-input');
+                const text = input.value.trim();
+                
+                if (!text) return;
+                
+                fetch(`{% url 'portfolio:add_comment' 0 %}`.replace('0', postId), {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCsrfToken(),
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ text: text })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                        return;
+                    }
+                    
+                    // Добавляем новый комментарий в DOM без перезагрузки страницы
+                    const commentsContainer = document.querySelector(`#comments-${postId} .comments-container`);
+                    
+                    // Проверяем, есть ли сообщение "Комментариев пока нет"
+                    const noCommentsMessage = commentsContainer.querySelector('.text-center.text-muted');
+                    if (noCommentsMessage) {
+                        // Если есть, удаляем его
+                        noCommentsMessage.remove();
+                    }
+                    
+                    // Создаем элемент комментария
+                    const commentElement = document.createElement('div');
+                    commentElement.className = 'd-flex mb-3';
+                    
+                    // Создаем HTML для нового комментария с учетом ссылки на профиль
+                    const avatarUrl = data.author_avatar || 'https://via.placeholder.com/32';
+                    commentElement.innerHTML = `
+                        <a href="{% url 'users:public_profile' username='AUTHOR_USERNAME' %}".replace('AUTHOR_USERNAME', data.author) class="text-decoration-none me-2">
+                            <img src="${avatarUrl}" alt="${data.author}" class="rounded-circle" 
+                                style="width: 32px; height: 32px; object-fit: cover;">
+                        </a>
+                        <div class="comment-bubble p-2 bg-white rounded shadow-sm w-100">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <a href="{% url 'users:public_profile' username='AUTHOR_USERNAME' %}".replace('AUTHOR_USERNAME', data.author) class="text-decoration-none">
+                                    <div class="fw-bold">${data.author}</div>
+                                </a>
+                                <div class="text-muted small">${data.created_at}</div>
+                            </div>
+                            <div>${data.text}</div>
+                        </div>
+                    `;
+                    
+                    // Добавляем комментарий в контейнер
+                    commentsContainer.appendChild(commentElement);
+                    
+                    // Обновляем счетчик комментариев
+                    const commentButton = document.querySelector(`#post-${postId} .comment-toggle .comment-count`);
+                    const currentCount = parseInt(commentButton.textContent);
+                    commentButton.textContent = currentCount + 1;
+                })
+                .catch(error => console.error('Ошибка:', error));
+                
+                // Очищаем поле ввода
+                input.value = '';
+            });
+        });
+        
+        // Копирование ссылок
+        document.querySelectorAll('.copy-link').forEach(button => {
+            button.addEventListener('click', function() {
+                const link = this.getAttribute('data-link');
+                
+                navigator.clipboard.writeText(link)
+                    .then(() => {
+                        // Показываем уведомление
+                        const originalText = this.innerHTML;
+                        this.innerHTML = `<i class="fas fa-check me-2"></i>{% trans "Скопировано!" %}`;
+                        
+                        setTimeout(() => {
+                            this.innerHTML = originalText;
+                        }, 2000);
+                    })
+                    .catch(err => {
+                        console.error('Ошибка копирования:', err);
+                    });
+            });
+        });
+        
+        // Получение CSRF токена
+        function getCsrfToken() {
+            return document.querySelector('[name=csrfmiddlewaretoken]').value;
+        }
+    });
+</script>
+{% endblock %} 

@@ -1,0 +1,96 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Мои сертификаты" %}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2">{% trans "Мои сертификаты" %}</h1>
+        <a href="{% url 'portfolio:certificate_add' %}" class="btn btn-primary">
+            <i class="fas fa-plus-circle me-1"></i> {% trans "Добавить сертификат" %}
+        </a>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if certificates %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for certificate in certificates %}
+                <div class="col animate-fade-in">
+                    <div class="card certificate-card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="certificate-icon me-3">
+                                    <i class="fas fa-certificate fa-2x"></i>
+                                </div>
+                                <h5 class="card-title mb-0">{{ certificate.title }}</h5>
+                            </div>
+                            <h6 class="text-muted mb-2">{{ certificate.issuer }}</h6>
+                            {% if certificate.description %}
+                                <p class="card-text">{{ certificate.description|truncatechars:100 }}</p>
+                            {% endif %}
+                            <div class="d-flex align-items-center mt-2">
+                                <i class="far fa-calendar-alt text-muted me-1"></i>
+                                <small class="text-muted">{% trans "Выдан" %}: {{ certificate.issue_date|date:"d.m.Y" }}</small>
+                            </div>
+                            {% if certificate.expiry_date %}
+                                <div class="d-flex align-items-center mt-1">
+                                    <i class="far fa-clock text-muted me-1"></i>
+                                    <small class="text-muted">{% trans "Действителен до" %}: {{ certificate.expiry_date|date:"d.m.Y" }}</small>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    {% if certificate.certificate_file %}
+                                        <a href="{{ certificate.certificate_file.url }}" class="btn btn-sm btn-outline-secondary me-2" target="_blank">
+                                            <i class="fas fa-file-pdf me-1"></i> {% trans "Файл" %}
+                                        </a>
+                                    {% endif %}
+                                    {% if certificate.certificate_url %}
+                                        <a href="{{ certificate.certificate_url }}" class="btn btn-sm btn-outline-secondary" target="_blank">
+                                            <i class="fas fa-external-link-alt me-1"></i> {% trans "Ссылка" %}
+                                        </a>
+                                    {% endif %}
+                                </div>
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton{{ certificate.id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ certificate.id }}">
+                                        <li>
+                                            <a class="dropdown-item" href="{% url 'portfolio:certificate_edit' certificate.id %}">
+                                                <i class="fas fa-edit me-2"></i> {% trans "Редактировать" %}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item text-danger" href="{% url 'portfolio:certificate_delete' certificate.id %}">
+                                                <i class="fas fa-trash-alt me-2"></i> {% trans "Удалить" %}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i>
+            {% trans "У вас пока нет добавленных сертификатов. Нажмите кнопку 'Добавить сертификат', чтобы создать свой первый сертификат." %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %} 
