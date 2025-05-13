@@ -44,12 +44,18 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'crispy_forms',
+    'crispy_bootstrap5',
     
     # Custom apps
     'users',
     'portfolio',
     'translator',
+    'support',
 ]
+
+# Crispy Forms settings
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -11,6 +11,7 @@ class CustomUser(AbstractUser):
         ('student', _('Студент')),
         ('teacher', _('Преподаватель')),
         ('admin', _('Администратор')),
+        ('support', _('Специалист поддержки')),
     )
     
     email = models.EmailField(_('Email адрес'), unique=True)
@@ -44,6 +45,18 @@ class CustomUser(AbstractUser):
         if not self.subscription_end_date:
             return False
         return self.subscription_end_date > timezone.now()
+    
+    def is_support_staff(self):
+        """Проверяет, является ли пользователь сотрудником поддержки или администратором"""
+        return self.user_type in ['support', 'admin'] or self.is_superuser
+    
+    def can_manage_all_tickets(self):
+        """Проверяет, может ли пользователь управлять всеми тикетами"""
+        return self.user_type == 'admin' or self.is_superuser
+    
+    def can_view_internal_notes(self):
+        """Проверяет, может ли пользователь видеть внутренние заметки в тикетах"""
+        return self.is_support_staff()
 
     class Meta:
         verbose_name = _('Пользователь')

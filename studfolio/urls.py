@@ -35,6 +35,7 @@ urlpatterns += i18n_patterns(
     path('', include('users.urls')),
     path('accounts/', include('allauth.urls')),
     path('portfolio/', include('portfolio.urls')),
+    path('support/', include('support.urls')),
     path('', TemplateView.as_view(template_name='base/home.html'), name='home'),
     prefix_default_language=True
 )

@@ -209,8 +209,8 @@ a:hover {
 }
 
 [data-bs-theme="dark"] .navbar {
-    background-color: var(--card-bg) !important;
-    border-bottom-color: var(--border-color);
+    background-color: #202327 !important;
+    border-bottom-color: #343a40;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -223,6 +223,7 @@ a:hover {
 
 .navbar-brand:hover {
     transform: translateY(-1px);
+    text-decoration: none;
 }
 
 .navbar-brand .text-primary { color: var(--primary) !important; }
@@ -250,6 +251,10 @@ a:hover {
     white-space: nowrap;
     margin: 0.1rem;
     position: relative;
+}
+
+[data-bs-theme="dark"] .navbar .nav-link {
+    color: #a8b2c0;
 }
 
 .navbar .nav-link:after {
@@ -280,7 +285,7 @@ a:hover {
 
 [data-bs-theme="dark"] .navbar .nav-link:hover,
 [data-bs-theme="dark"] .navbar .nav-link.active {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.08);
     color: var(--primary) !important;
 }
 
@@ -299,6 +304,8 @@ a:hover {
     border: none;
     padding: 0.5rem;
     transition: transform 0.2s;
+    background-color: var(--light-gray);
+    border-radius: var(--border-radius);
 }
 
 .navbar-toggler:focus {
@@ -307,6 +314,15 @@ a:hover {
 
 .navbar-toggler:hover {
     transform: rotate(5deg);
+    background-color: var(--primary-light);
+}
+
+[data-bs-theme="dark"] .navbar-toggler {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-bs-theme="dark"] .navbar-toggler:hover {
+    background-color: rgba(255, 255, 255, 0.12);
 }
 
 /* Стили для выпадающих меню */
@@ -347,17 +363,17 @@ a:hover {
 }
 
 [data-bs-theme="dark"] .navbar-nav .dropdown-menu {
-    background-color: var(--card-bg);
-    border-color: var(--border-color);
+    background-color: #202327;
+    border-color: #343a40;
 }
 
 [data-bs-theme="dark"] .dropdown-item {
-    color: var(--dark);
+    color: #e9ecef;
 }
 
 [data-bs-theme="dark"] .dropdown-item:hover, 
 [data-bs-theme="dark"] .dropdown-item:focus {
-    background-color: var(--light-gray);
+    background-color: rgba(255, 255, 255, 0.08);
     color: var(--primary);
 }
 
@@ -368,14 +384,58 @@ a:hover {
     vertical-align: -0.125em;
 }
 
-/* Стили для мобильной навигации */
-.navbar-dark .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
-.navbar-light .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.65%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+/* Поиск в навигации */
+.navbar .form-control {
+    border-radius: var(--border-radius);
+    background-color: var(--light-gray);
+    border: 1px solid var(--border-color);
+    padding: 0.375rem 0.75rem;
+    font-size: 0.9rem;
 }
 
+.navbar .form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(var(--primary-rgb), 0.15);
+    border-color: var(--primary-light);
+}
+
+[data-bs-theme="dark"] .navbar .form-control {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: #343a40;
+    color: #e9ecef;
+}
+
+[data-bs-theme="dark"] .navbar .form-control::placeholder {
+    color: #a8b2c0;
+}
+
+[data-bs-theme="dark"] .navbar .form-control:focus {
+    background-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 0 0.2rem rgba(94, 155, 239, 0.25);
+    border-color: rgba(94, 155, 239, 0.4);
+}
+
+/* Стили для аватара в навигации */
+.navbar .dropdown-toggle .avatar-small {
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.navbar .dropdown-toggle:hover .avatar-small {
+    border-color: var(--primary-light);
+    transform: scale(1.05);
+}
+
+[data-bs-theme="dark"] .navbar .dropdown-toggle .avatar-small {
+    border-color: #343a40;
+}
+
+[data-bs-theme="dark"] .navbar .dropdown-toggle:hover .avatar-small {
+    border-color: rgba(94, 155, 239, 0.4);
+}
+
+/* Стили для мобильной навигации */
 @media (max-width: 991px) {
     .navbar .navbar-collapse {
         background-color: var(--white);
@@ -386,7 +446,8 @@ a:hover {
     }
     
     [data-bs-theme="dark"] .navbar .navbar-collapse {
-        background-color: var(--card-bg);
+        background-color: #202327;
+        border: 1px solid #343a40;
     }
 }
 
@@ -424,13 +485,18 @@ a:hover {
 
 /* Карточки */
 .card {
-    border-radius: var(--border-radius-lg); /* Более заметное скругление */
+    border-radius: var(--border-radius-lg);
     border: 1px solid var(--border-color);
     background-color: var(--card-bg);
     box-shadow: var(--shadow);
     transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
     margin-bottom: 1.5rem;
-    overflow: hidden; /* Для корректного отображения скругления с .card-img-top */
+    overflow: hidden;
+}
+
+[data-bs-theme="dark"] .card {
+    background-color: #202327;
+    border-color: #343a40;
 }
 
 .card:hover {
@@ -439,14 +505,25 @@ a:hover {
 }
 
 .card-header {
-    background-color: var(--light-gray); /* Светлый фон для заголовка */
+    background-color: var(--light-gray);
     border-bottom: 1px solid var(--border-color);
     padding: 0.75rem 1.25rem;
     font-weight: var(--font-weight-semibold);
     color: var(--primary-dark);
 }
 
-.card-header.bg-primary { /* Если используется явный .bg-primary для заголовка */
+[data-bs-theme="dark"] .card-header {
+    background-color: #2c3136;
+    border-color: #343a40;
+    color: #e9ecef;
+}
+
+[data-bs-theme="dark"] .card-header.bg-light {
+    background-color: #2c3136 !important;
+    color: #e9ecef !important;
+}
+
+.card-header.bg-primary {
     background-color: var(--primary) !important;
     color: var(--white) !important;
     border-bottom: none;
@@ -459,13 +536,22 @@ a:hover {
 }
 
 .card-body {
-    padding: 1.5rem; /* Больше отступов внутри карточки */
+    padding: 1.5rem;
+}
+
+[data-bs-theme="dark"] .card-body {
+    color: #e9ecef;
 }
 
 .card-footer {
     background-color: var(--light-gray);
     border-top: 1px solid var(--border-color);
     padding: 0.75rem 1.25rem;
+}
+
+[data-bs-theme="dark"] .card-footer {
+    background-color: #2c3136;
+    border-color: #343a40;
 }
 
 .card-img-top {
@@ -476,9 +562,13 @@ a:hover {
 
 .card-title {
     color: var(--primary-dark);
-    font-weight: var(--font-weight-bold); /* Заголовки карточек жирнее */
+    font-weight: var(--font-weight-bold);
     margin-bottom: 0.5rem;
     font-size: 1.2rem;
+}
+
+[data-bs-theme="dark"] .card-title {
+    color: #80B4F1;
 }
 
 /* Формы */
@@ -655,6 +745,105 @@ a:hover {
     color: var(--primary);
 }
 
+/* Новые стили для улучшенного футера */
+.footer {
+    padding: 3rem 0 2rem;
+}
+
+.footer h5, .footer h6 {
+    position: relative;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.footer h5:after, .footer h6:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.5rem;
+    height: 2px;
+    width: 40px;
+    background-color: var(--primary);
+}
+
+.footer-links .nav-link,
+.footer-contact-links .nav-link {
+    padding: 0.3rem 0;
+    color: var(--text-muted);
+    transition: all 0.2s ease;
+}
+
+.footer-links .nav-link:hover,
+.footer-contact-links .nav-link:hover {
+    color: var(--primary);
+    transform: translateX(5px);
+    text-decoration: none;
+}
+
+.footer-contact-links i {
+    width: 20px;
+    text-align: center;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.2);
+}
+
+[data-bs-theme="dark"] .footer {
+    background-color: #202327;
+    border-top: 1px solid #343a40;
+}
+
+[data-bs-theme="dark"] .footer .text-muted {
+    color: #adb5bd !important;
+}
+
+[data-bs-theme="dark"] .social-link {
+    border-color: #343a40;
+    color: #adb5bd;
+}
+
+[data-bs-theme="dark"] .social-link:hover {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+[data-bs-theme="dark"] .footer .btn-outline-primary {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+[data-bs-theme="dark"] .footer .btn-outline-primary:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+.footer hr {
+    background-color: var(--border-color);
+    opacity: 0.6;
+}
+
+[data-bs-theme="dark"] .footer hr {
+    background-color: #343a40;
+}
+
 /* Адаптивность (Основные точки Bootstrap, можно доработать) */
 @media (max-width: 768px) {
     .hero-section h1 {
@@ -736,6 +925,12 @@ a:hover {
     background: #23272B;
     color: var(--dark);
 }
+:root:not([data-bs-theme="dark"]) .benefit-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    border-radius: var(--border-radius-lg);
+}
 .benefit-card h5, .benefit-card h6, .benefit-card .card-title {
     color: var(--primary-dark);
     font-weight: var(--font-weight-bold);
@@ -799,16 +994,19 @@ a:hover {
     background-color: var(--primary-light);
     color: var(--primary-dark);
     border-color: var(--primary-light);
+    text-decoration: none;
 }
 
 [data-bs-theme="dark"] .language-btn {
-    background-color: var(--light-gray);
-    border-color: var(--border-color);
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: #343a40;
+    color: #a8b2c0;
 }
 
 [data-bs-theme="dark"] .language-btn:hover {
-    background-color: var(--primary-light);
-    color: var(--white);
+    background-color: rgba(94, 155, 239, 0.2);
+    color: var(--primary);
+    border-color: rgba(94, 155, 239, 0.3);
 }
 
 /* Стили для кнопки смены темы */
@@ -834,14 +1032,15 @@ a:hover {
 }
 
 [data-bs-theme="dark"] .theme-toggle-btn {
-    background-color: var(--light-gray);
-    border-color: var(--border-color);
-    color: var(--warning);
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: #343a40;
+    color: #FFC107;
 }
 
 [data-bs-theme="dark"] .theme-toggle-btn:hover {
-    background-color: var(--primary-light);
-    color: var(--warning-light);
+    background-color: rgba(255, 193, 7, 0.2);
+    color: #FFD54F;
+    border-color: rgba(255, 193, 7, 0.3);
 }
 
 [data-bs-theme="dark"] .navbar-nav .dropdown-menu::-webkit-scrollbar {
@@ -906,9 +1105,182 @@ a:hover {
 }
 
 [data-bs-theme="dark"] .dropdown-menu::-webkit-scrollbar-track {
-    background: var(--light-gray);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 [data-bs-theme="dark"] .dropdown-menu::-webkit-scrollbar-thumb {
+    background-color: rgba(94, 155, 239, 0.5);
+}
+
+/* Стили для иконок смены темы */
+#theme-icon-sun {
+    color: #FFC107;
+}
+
+#theme-icon-moon {
+    color: #5E9BEF;
+}
+
+[data-bs-theme="dark"] #theme-icon-sun {
+    color: #FFD54F;
+}
+
+[data-bs-theme="dark"] #theme-icon-moon {
+    color: #80B4F1;
+}
+
+/* Стили для кнопок в навигационной панели */
+.navbar .btn-primary {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
     background-color: var(--primary);
+    border-color: var(--primary);
+    color: var(--white);
+}
+
+.navbar .btn-primary:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+[data-bs-theme="dark"] .navbar .btn-primary {
+    background-color: var(--primary);
+    border-color: rgba(94, 155, 239, 0.7);
+}
+
+[data-bs-theme="dark"] .navbar .btn-primary:hover {
+    background-color: #3A7BC8;
+    border-color: #3A7BC8;
+}
+
+.navbar .nav-link.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0.5rem;
+    text-decoration: none !important;
+}
+
+.navbar .nav-link.btn:after {
+    display: none;
+}
+
+/* Стили для активной страницы в навигации */
+.navbar .nav-link.active {
+    font-weight: var(--font-weight-semibold);
+}
+
+/* CTA блок в темной теме */
+[data-bs-theme="dark"] .bg-light {
+    background-color: #1A1D20 !important;
+}
+
+[data-bs-theme="dark"] .bg-white, 
+[data-bs-theme="dark"] .bg-body {
+    background-color: #202327 !important;
+}
+
+[data-bs-theme="dark"] .border {
+    border-color: #343a40 !important;
+}
+
+/* Карточки процессов */
+[data-bs-theme="dark"] .shadow-sm {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Стили для карточек процессов в домашней странице */
+[data-bs-theme="dark"] .step-number {
+    background-color: var(--primary);
+    color: #ffffff;
+}
+
+[data-bs-theme="dark"] .bg-dark-subtle {
+    background-color: #202327 !important;
+    border-color: #343a40 !important;
+}
+
+/* Секция "Почему Studfolio" в темной теме */
+[data-bs-theme="dark"] .bg-dark {
+    background-color: #151719 !important;
+}
+
+/* Текст на карточках */
+[data-bs-theme="dark"] .card-text {
+    color: #ADB5BD;
+}
+
+/* Дополнительные стили для домашней страницы в темной теме */
+[data-bs-theme="dark"] .p-4.p-md-5.border.rounded-3.bg-white {
+    background-color: #202327 !important;
+    border-color: #343a40 !important;
+}
+
+[data-bs-theme="dark"] .lead {
+    color: #ADB5BD;
+}
+
+/* Дополнительные стили для Bootstrap компонентов в темной теме */
+[data-bs-theme="dark"] .h-100.border-0.shadow-sm {
+    background-color: #202327;
+    border: 1px solid #343a40 !important;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Стили для карточек в светлой теме */
+:root:not([data-bs-theme="dark"]) .h-100.border-0.shadow-sm {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6 !important;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+/* Учитываем инлайновые стили */
+[data-bs-theme="dark"] [style*="background-color: var(--light-gray)"] {
+    background-color: #2c3136 !important;
+}
+
+:root:not([data-bs-theme="dark"]) [style*="background-color: var(--light-gray)"] {
+    background-color: #F1F3F5 !important;
+}
+
+[data-bs-theme="dark"] [style*="background-color: white"],
+[data-bs-theme="dark"] [style*="background-color: #fff"],
+[data-bs-theme="dark"] [style*="background-color: #ffffff"] {
+    background-color: #202327 !important;
+}
+
+/* Стили для CTA секции в зависимости от темы */
+:root:not([data-bs-theme="dark"]) .py-5.bg-light {
+    background-color: #F8F9FA !important;
+}
+
+[data-bs-theme="dark"] .py-5.bg-light {
+    background-color: #151719 !important;
+}
+
+/* Стили для белых блоков в светлой теме */
+:root:not([data-bs-theme="dark"]) .bg-white, 
+:root:not([data-bs-theme="dark"]) .bg-body {
+    background-color: #ffffff !important;
+}
+
+/* Специальный стиль для карточек с шагами */
+:root:not([data-bs-theme="dark"]) .step-number {
+    background-color: var(--primary);
+    color: #ffffff;
+}
+
+:root:not([data-bs-theme="dark"]) .card.h-100.border-0.shadow-sm {
+    background-color: #ffffff !important;
+}
+
+/* Улучшаем контраст в темной теме */
+[data-bs-theme="dark"] h1, 
+[data-bs-theme="dark"] h2, 
+[data-bs-theme="dark"] h3, 
+[data-bs-theme="dark"] h4, 
+[data-bs-theme="dark"] h5, 
+[data-bs-theme="dark"] h6 {
+    color: #e9ecef;
 } 

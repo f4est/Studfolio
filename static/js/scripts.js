@@ -124,4 +124,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    // Инициализация переводчика с автоматическим переводом
+    if (typeof StudfolioTranslator !== 'undefined') {
+        window.translator = new StudfolioTranslator({
+            autoTranslate: true,      // Автоматический перевод
+            debugMode: false           // Режим отладки
+        });
+    }
 }); 

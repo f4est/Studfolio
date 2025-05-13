@@ -1,0 +1,209 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Поддержка" %} | Studfolio{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Заголовок страницы -->
+    <div class="row mb-5">
+        <div class="col-lg-12 text-center">
+            <h1 class="display-5 fw-bold text-primary">{% trans "Центр поддержки Studfolio" %}</h1>
+            <p class="lead text-muted">{% trans "Получите помощь, изучите базу знаний или создайте тикет поддержки" %}</p>
+        </div>
+    </div>
+
+    <!-- Основные разделы поддержки -->
+    <div class="row mb-5 g-4">
+        <!-- База знаний -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3">
+                        <i class="fas fa-book text-primary fa-3x"></i>
+                    </div>
+                    <h3 class="h4 mb-3">{% trans "База знаний" %}</h3>
+                    <p class="card-text text-muted">{% trans "Изучите наши руководства, часто задаваемые вопросы и учебные материалы" %}</p>
+                    <a href="{% url 'support:knowledge_base' %}" class="btn btn-outline-primary mt-3">
+                        {% trans "Перейти к базе знаний" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Создать тикет -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3">
+                        <i class="fas fa-ticket-alt text-secondary fa-3x"></i>
+                    </div>
+                    <h3 class="h4 mb-3">{% trans "Создать тикет" %}</h3>
+                    <p class="card-text text-muted">{% trans "Обратитесь в службу поддержки, если у вас возникли проблемы или вопросы" %}</p>
+                    <a href="{% url 'support:ticket_create' %}" class="btn btn-primary mt-3">
+                        {% trans "Создать запрос в поддержку" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Мои тикеты -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3">
+                        <i class="fas fa-clipboard-list text-info fa-3x"></i>
+                    </div>
+                    <h3 class="h4 mb-3">{% trans "Мои тикеты" %}</h3>
+                    <p class="card-text text-muted">{% trans "Просмотрите статус ваших существующих обращений в службу поддержки" %}</p>
+                    <a href="{% url 'support:ticket_list' %}" class="btn btn-outline-primary mt-3">
+                        {% trans "Просмотреть мои тикеты" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Последние тикеты пользователя -->
+    {% if user_tickets %}
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h3 class="h5 mb-0">{% trans "Ваши последние обращения" %}</h3>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">{% trans "Тема" %}</th>
+                                    <th scope="col">{% trans "Категория" %}</th>
+                                    <th scope="col">{% trans "Статус" %}</th>
+                                    <th scope="col">{% trans "Дата создания" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ticket in user_tickets %}
+                                <tr>
+                                    <th scope="row">{{ ticket.id }}</th>
+                                    <td>
+                                        <a href="{% url 'support:ticket_detail' pk=ticket.id %}">{{ ticket.subject }}</a>
+                                    </td>
+                                    <td>{{ ticket.get_category_display }}</td>
+                                    <td>
+                                        {% if ticket.status == 'new' %}
+                                            <span class="badge bg-info">{{ ticket.get_status_display }}</span>
+                                        {% elif ticket.status == 'in_progress' %}
+                                            <span class="badge bg-primary">{{ ticket.get_status_display }}</span>
+                                        {% elif ticket.status == 'waiting' %}
+                                            <span class="badge bg-warning">{{ ticket.get_status_display }}</span>
+                                        {% elif ticket.status == 'resolved' %}
+                                            <span class="badge bg-success">{{ ticket.get_status_display }}</span>
+                                        {% elif ticket.status == 'closed' %}
+                                            <span class="badge bg-secondary">{{ ticket.get_status_display }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ ticket.created_at|date:"d.m.Y H:i" }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer text-end">
+                    <a href="{% url 'support:ticket_list' %}" class="btn btn-sm btn-outline-primary">
+                        {% trans "Все мои тикеты" %} <i class="fas fa-chevron-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Популярные статьи базы знаний -->
+    {% if popular_articles %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <h3 class="h4 mb-4 text-primary">{% trans "Популярные статьи" %}</h3>
+        </div>
+        
+        {% for article in popular_articles %}
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fas fa-file-alt text-primary me-3 fa-lg"></i>
+                        <h5 class="mb-0">
+                            <a href="{% url 'support:knowledge_article' category_slug=article.category.slug article_slug=article.slug %}" class="text-decoration-none">
+                                {{ article.title }}
+                            </a>
+                        </h5>
+                    </div>
+                    <p class="card-text text-muted small">
+                        {{ article.content|striptags|truncatewords:20 }}
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="badge bg-light text-primary">{{ article.category.name }}</span>
+                        <span class="text-muted small">
+                            <i class="fas fa-eye me-1"></i> {{ article.views_count }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Категории базы знаний -->
+    {% if categories %}
+    <div class="row mb-4">
+        <div class="col-12 mb-4">
+            <h3 class="h4 text-primary">{% trans "Категории базы знаний" %}</h3>
+        </div>
+        
+        {% for category in categories %}
+        <div class="col-md-3 col-sm-6 mb-4">
+            <a href="{% url 'support:knowledge_category' category_slug=category.slug %}" class="text-decoration-none">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="card-body text-center p-4">
+                        <i class="fas {{ category.icon|default:'fa-folder' }} text-primary fa-2x mb-3"></i>
+                        <h6 class="card-title">{{ category.name }}</h6>
+                        <p class="card-text small text-muted">{{ category.description|truncatewords:10 }}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Call to Action -->
+    <div class="row">
+        <div class="col-12">
+            <div class="cta-block p-4 p-md-5 text-center">
+                <h3>{% trans "Не нашли ответ на ваш вопрос?" %}</h3>
+                <p class="cta-subtext">{% trans "Свяжитесь с нашей командой поддержки, и мы поможем решить ваш вопрос" %}</p>
+                <a href="{% url 'support:ticket_create' %}" class="btn btn-primary btn-lg px-4 mt-3">
+                    <i class="fas fa-paper-plane me-2"></i>{% trans "Обратиться в поддержку" %}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hover-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hover-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+    }
+</style>
+{% endblock %} 
