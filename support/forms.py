@@ -2,13 +2,28 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from .models import SupportTicket, TicketResponse, TicketAttachment
 
+class MultipleFileInput(forms.ClearableFileInput):
+    allow_multiple_selected = True
+
+class MultipleFileField(forms.FileField):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault("widget", MultipleFileInput())
+        super().__init__(*args, **kwargs)
+
+    def clean(self, data, initial=None):
+        single_file_clean = super().clean
+        if isinstance(data, (list, tuple)):
+            result = [single_file_clean(d, initial) for d in data]
+        else:
+            result = single_file_clean(data, initial)
+        return result
+
 class SupportTicketForm(forms.ModelForm):
     """Форма создания нового тикета поддержки"""
     
-    attachments = forms.FileField(
+    attachments = MultipleFileField(
         label=_('Вложения'),
         required=False,
-        widget=forms.ClearableFileInput(attrs={'multiple': True}),
         help_text=_('Вы можете загрузить до 5 файлов (макс. 10 МБ каждый).')
     )
     
@@ -39,10 +54,9 @@ class SupportTicketForm(forms.ModelForm):
 class TicketResponseForm(forms.ModelForm):
     """Форма для ответа на тикет"""
     
-    attachments = forms.FileField(
+    attachments = MultipleFileField(
         label=_('Вложения'),
         required=False,
-        widget=forms.ClearableFileInput(attrs={'multiple': True}),
         help_text=_('Вы можете загрузить до 5 файлов (макс. 10 МБ каждый).')
     )
     

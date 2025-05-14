@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 import os
+import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,12 +22,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-REPLACE_WITH_YOUR_SECRET_KEY'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-REPLACE_WITH_YOUR_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
 
 ALLOWED_HOSTS = []
+# Если определена переменная RENDER_EXTERNAL_HOSTNAME, добавляем ее в ALLOWED_HOSTS
+RENDER_EXTERNAL_HOSTNAME = os.getenv('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+# Добавляем значения из ALLOWED_HOSTS env var
+ALLOWED_HOSTS += [host.strip() for host in os.getenv('ALLOWED_HOSTS', '').split(',') if host.strip()]
 
 
 # Application definition
@@ -46,6 +54,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'crispy_forms',
     'crispy_bootstrap5',
+    'sslserver',  # Добавляем django-sslserver
     
     # Custom apps
     'users',
@@ -59,6 +68,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Добавляем для статических файлов на Render
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -99,6 +109,15 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# Заменяем конфигурацию БД, если определена переменная DATABASE_URL
+DATABASE_URL = os.getenv('DATABASE_URL')
+if DATABASE_URL:
+    DATABASES['default'] = dj_database_url.config(
+        default=DATABASE_URL,
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 
 
 # Password validation
@@ -173,6 +192,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -193,36 +213,15 @@ AUTHENTICATION_BACKENDS = [
 SITE_ID = 1
 
 # Настройки django-allauth (обновленные)
-# ACCOUNT_AUTHENTICATION_METHOD = 'username_email' # Устарело
-# ACCOUNT_EMAIL_REQUIRED = True # Устарело
-# ACCOUNT_USERNAME_REQUIRED = True # Устарело
-# ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5 # Устарело
-# ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300 # Устарело
+# Исправление конфликта ACCOUNT_LOGIN_METHODS и ACCOUNT_SIGNUP_FIELDS
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'  # Устанавливаем метод аутентификации
 
-ACCOUNT_EMAIL_VERIFICATION = 'optional' # Верификация email: 'mandatory', 'optional', 'none'
-ACCOUNT_UNIQUE_EMAIL = True # Требовать уникальный email
-
-# Обязательные поля при регистрации.
-# По умолчанию allauth требует username и email, если они есть в модели пользователя.
-# Это поле больше для кастомизации формы регистрации через ACCOUNT_SIGNUP_FORM_CLASS,
-# чтобы указать, какие поля из формы обязательны.
-# Для стандартного поведения можно не указывать, если USERNAME_FIELD и EMAIL_FIELD определены.
+# Обязательные поля при регистрации
 ACCOUNT_SIGNUP_FIELDS = {
-    # 'username': True, # allauth автоматически делает username обязательным, если он есть
-    # 'email': True,    # allauth автоматически делает email обязательным
-    'password': True, # Это укажет allauth, что поле пароля (и его подтверждение) должно быть в форме
+    'username': True,
+    'email': True,
+    'password': True,
 }
-# Если быть точным как в предупреждении (с явным указанием полей):
-# ACCOUNT_SIGNUP_FIELDS = {
-#     'username': True, # Обязательно
-#     'email': True,    # Обязательно
-#     # allauth сам добавит password2 если password есть и ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE было бы True
-#     # Для явного контроля формы, если бы мы кастомизировали SignupForm, можно было бы указать password1, password2
-# }
-# Для простоты и если стандартная форма allauth используется, указания 'password': True должно быть достаточно,
-# allauth подхватит и создаст два поля для пароля.
-
-# ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True # Требовать ввод пароля дважды при регистрации # <-- Устарело, закомментируем
 
 # Настройка ограничения попыток входа (замена для ACCOUNT_LOGIN_ATTEMPTS_LIMIT/TIMEOUT)
 ACCOUNT_RATE_LIMITS = {

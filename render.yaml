@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: studfolio
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn studfolio.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: false
+      - key: ALLOWED_HOSTS
+        value: ".onrender.com"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: studfolio_db
+          property: connectionString
+
+databases:
+  - name: studfolio_db
+    plan: free 
