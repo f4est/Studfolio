@@ -1,0 +1,452 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Преимущества Premium" %} | Studfolio{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Заголовок страницы -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-10 text-center">
+            <h1 class="display-5 fw-bold mb-3">
+                <span class="gradient-text">{% trans "Преимущества Studfolio Premium" %}</span>
+            </h1>
+            <p class="lead text-muted">{% trans "Раскройте полный потенциал вашего портфолио с расширенными возможностями Premium-подписки" %}</p>
+        </div>
+    </div>
+
+    <!-- Премиум баннер -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-10">
+            <div class="premium-banner">
+                <div class="row align-items-center">
+                    <div class="col-lg-7">
+                        <h2 class="banner-title">{% trans "Поднимите ваше портфолио на новый уровень" %}</h2>
+                        <p class="banner-text">{% trans "Получите доступ к эксклюзивным возможностям и привилегиям для максимально эффективной демонстрации ваших достижений" %}</p>
+                        <div class="d-flex gap-3 flex-wrap">
+                            <a href="{% url 'users:subscription' %}" class="btn btn-warning">
+                                <i class="fas fa-crown me-2"></i> {% trans "Подключить Premium" %}
+                            </a>
+                            <a href="#features" class="btn btn-outline-light">
+                                {% trans "Узнать больше" %} <i class="fas fa-chevron-down ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 d-none d-lg-block">
+                        <img src="{% static 'img/premium_illustration.svg' %}" class="img-fluid" alt="Premium illustration">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Сравнение тарифов -->
+    <div class="row justify-content-center mb-5" id="features">
+        <div class="col-lg-10">
+            <h2 class="text-center mb-4">{% trans "Сравнение тарифных планов" %}</h2>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">{% trans "Возможности" %}</th>
+                            <th scope="col" class="text-center">{% trans "Базовый план" %}</th>
+                            <th scope="col" class="text-center bg-light">
+                                <span class="text-primary">
+                                    <i class="fas fa-crown text-warning me-2"></i>{% trans "Premium" %}
+                                </span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{% trans "Количество проектов" %}</td>
+                            <td class="text-center">5</td>
+                            <td class="text-center bg-light"><strong>{% trans "Без ограничений" %}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Количество сертификатов и достижений" %}</td>
+                            <td class="text-center">10</td>
+                            <td class="text-center bg-light"><strong>{% trans "Без ограничений" %}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Максимальный размер файла" %}</td>
+                            <td class="text-center">100 МБ</td>
+                            <td class="text-center bg-light"><strong>500 МБ</strong></td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Общее место для хранения" %}</td>
+                            <td class="text-center">1 ГБ</td>
+                            <td class="text-center bg-light"><strong>10 ГБ</strong></td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Шаблоны оформления портфолио" %}</td>
+                            <td class="text-center">3</td>
+                            <td class="text-center bg-light"><strong>15+</strong></td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Персональный домен" %}</td>
+                            <td class="text-center"><i class="fas fa-times text-danger"></i></td>
+                            <td class="text-center bg-light"><i class="fas fa-check text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Аналитика просмотров" %}</td>
+                            <td class="text-center">{% trans "Базовая" %}</td>
+                            <td class="text-center bg-light"><strong>{% trans "Расширенная" %}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Экспорт портфолио в PDF" %}</td>
+                            <td class="text-center"><i class="fas fa-times text-danger"></i></td>
+                            <td class="text-center bg-light"><i class="fas fa-check text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Скрытие рекламы" %}</td>
+                            <td class="text-center"><i class="fas fa-times text-danger"></i></td>
+                            <td class="text-center bg-light"><i class="fas fa-check text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Приоритетная техническая поддержка" %}</td>
+                            <td class="text-center"><i class="fas fa-times text-danger"></i></td>
+                            <td class="text-center bg-light"><i class="fas fa-check text-success"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ключевые преимущества -->
+    <div class="row justify-content-center mt-5 mb-5">
+        <div class="col-lg-10">
+            <h2 class="text-center mb-5">{% trans "Ключевые преимущества Premium" %}</h2>
+            
+            <div class="row g-4">
+                <!-- Преимущество 1 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="benefit-card">
+                        <div class="display-4">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h4>{% trans "Неограниченные проекты" %}</h4>
+                        <p class="text-body">{% trans "Добавляйте столько проектов, сколько необходимо, для полной демонстрации ваших навыков и достижений без ограничений." %}</p>
+                    </div>
+                </div>
+                
+                <!-- Преимущество 2 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="benefit-card">
+                        <div class="display-4">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h4>{% trans "Премиум шаблоны" %}</h4>
+                        <p class="text-body">{% trans "Доступ к эксклюзивным шаблонам портфолио с расширенными возможностями настройки и визуализации." %}</p>
+                    </div>
+                </div>
+                
+                <!-- Преимущество 3 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="benefit-card">
+                        <div class="display-4">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4>{% trans "Расширенная аналитика" %}</h4>
+                        <p class="text-body">{% trans "Подробная статистика просмотров и взаимодействий с вашим портфолио — узнайте, кто и когда интересуется вашими работами." %}</p>
+                    </div>
+                </div>
+                
+                <!-- Преимущество 4 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="benefit-card">
+                        <div class="display-4">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h4>{% trans "Персональный домен" %}</h4>
+                        <p class="text-body">{% trans "Получите красивый и запоминающийся адрес для вашего портфолио в формате username.studfolio.com." %}</p>
+                    </div>
+                </div>
+                
+                <!-- Преимущество 5 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="benefit-card">
+                        <div class="display-4">
+                            <i class="fas fa-file-export"></i>
+                        </div>
+                        <h4>{% trans "Экспорт портфолио" %}</h4>
+                        <p class="text-body">{% trans "Экспортируйте ваше портфолио в различные форматы (PDF, ZIP) для презентации в режиме оффлайн или отправки по email." %}</p>
+                    </div>
+                </div>
+                
+                <!-- Преимущество 6 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="benefit-card">
+                        <div class="display-4">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h4>{% trans "Приоритетная поддержка" %}</h4>
+                        <p class="text-body">{% trans "Получите ответы на ваши вопросы в течение 24 часов от выделенной команды поддержки Premium-клиентов." %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Тарифные планы -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-10">
+            <h2 class="text-center mb-5">{% trans "Выберите оптимальный план" %}</h2>
+            
+            <div class="row g-4 justify-content-center">
+                <!-- Ежемесячная подписка -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-light text-center py-3">
+                            <h5 class="mb-0">{% trans "Ежемесячная подписка" %}</h5>
+                        </div>
+                        <div class="card-body text-center d-flex flex-column">
+                            <div class="mb-3">
+                                <span class="display-5 fw-bold">1290 ₸</span>
+                                <span class="text-muted">/ {% trans "месяц" %}</span>
+                            </div>
+                            <p class="card-text text-body">{% trans "Идеально для краткосрочных проектов или тестирования Premium возможностей" %}</p>
+                            <ul class="list-unstyled text-start mb-4">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>{% trans "Все Premium функции" %}</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>{% trans "Без долгосрочных обязательств" %}</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>{% trans "Можно отменить в любой момент" %}</li>
+                            </ul>
+                            <a href="{% url 'users:subscription' %}" class="btn btn-outline-primary mt-auto">{% trans "Выбрать план" %}</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Годовая подписка -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow border-primary">
+                        <div class="card-header bg-primary text-white text-center py-3">
+                            <h5 class="mb-0">{% trans "Годовая подписка" %}</h5>
+                            <span class="badge bg-warning text-dark mt-2">{% trans "Экономия 20%" %}</span>
+                        </div>
+                        <div class="card-body text-center d-flex flex-column">
+                            <div class="mb-3">
+                                <span class="display-5 fw-bold">12900 ₸</span>
+                                <span class="text-muted">/ {% trans "год" %}</span>
+                                <div class="text-muted small"><del>15480 ₸</del></div>
+                            </div>
+                            <p class="card-text text-body">{% trans "Лучшее соотношение цены и качества для долгосрочного использования" %}</p>
+                            <ul class="list-unstyled text-start mb-4">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>{% trans "Все Premium функции" %}</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>{% trans "Экономия 3900 ₸ в год" %}</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>{% trans "Приоритетная поддержка" %}</li>
+                            </ul>
+                            <a href="{% url 'users:subscription' %}" class="btn btn-primary mt-auto">{% trans "Выбрать план" %}</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Студенческая подписка -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-light text-center py-3">
+                            <h5 class="mb-0">{% trans "Студенческая подписка" %}</h5>
+                        </div>
+                        <div class="card-body text-center d-flex flex-column">
+                            <div class="mb-3">
+                                <span class="display-5 fw-bold">990 ₸</span>
+                                <span class="text-muted">/ {% trans "месяц" %}</span>
+                            </div>
+                            <p class="card-text text-body">{% trans "Специальное предложение для студентов образовательных учреждений" %}</p>
+                            <ul class="list-unstyled text-start mb-4">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>{% trans "Все Premium функции" %}</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>{% trans "Скидка для студентов" %}</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>{% trans "Требуется подтверждение статуса студента" %}</li>
+                            </ul>
+                            <a href="{% url 'users:subscription' %}" class="btn btn-outline-primary mt-auto">{% trans "Выбрать план" %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Корпоративные тарифы -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-10">
+            <div class="card bg-light border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <h3>{% trans "Корпоративные тарифы для организаций" %}</h3>
+                            <p class="mb-0 text-body">{% trans "Для образовательных учреждений, компаний и организаций мы предлагаем специальные условия и скидки при групповом подключении. Свяжитесь с нашим отделом продаж для получения индивидуального предложения." %}</p>
+                        </div>
+                        <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                            <a href="{% url 'support:contact_us' %}" class="btn btn-outline-primary">{% trans "Узнать условия" %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Отзывы пользователей -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-10">
+            <h2 class="text-center mb-5">{% trans "Отзывы Premium-пользователей" %}</h2>
+            
+            <div class="row g-4">
+                <!-- Отзыв 1 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="testimonial-card p-4">
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="{% static 'img/avatars/avatar1.jpg' %}" alt="User avatar" class="rounded-circle me-3" width="50" height="50">
+                            <div>
+                                <h5 class="mb-0">Анна К.</h5>
+                                <p class="text-muted mb-0 small">{% trans "Студентка, дизайнер" %}</p>
+                            </div>
+                        </div>
+                        <p class="mb-0 text-body">{% trans "Premium подписка стоит каждой копейки! Мои работы теперь выглядят намного профессиональнее, а возможность создавать больше проектов позволила мне разделить портфолио по категориям и упорядочить все мои достижения." %}</p>
+                    </div>
+                </div>
+                
+                <!-- Отзыв 2 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="testimonial-card p-4">
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="{% static 'img/avatars/avatar2.jpg' %}" alt="User avatar" class="rounded-circle me-3" width="50" height="50">
+                            <div>
+                                <h5 class="mb-0">Марат Т.</h5>
+                                <p class="text-muted mb-0 small">{% trans "Веб-разработчик" %}</p>
+                            </div>
+                        </div>
+                        <p class="mb-0 text-body">{% trans "Аналитика просмотров в Premium версии — это просто находка! Теперь я точно знаю, какие проекты привлекают больше внимания, и могу фокусироваться на их развитии. Также очень удобно экспортировать портфолио в PDF для собеседований." %}</p>
+                    </div>
+                </div>
+                
+                <!-- Отзыв 3 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="testimonial-card p-4">
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="{% static 'img/avatars/avatar3.jpg' %}" alt="User avatar" class="rounded-circle me-3" width="50" height="50">
+                            <div>
+                                <h5 class="mb-0">Ольга М.</h5>
+                                <p class="text-muted mb-0 small">{% trans "Преподаватель" %}</p>
+                            </div>
+                        </div>
+                        <p class="mb-0 text-body">{% trans "Мы подключили Premium для всего нашего курса дизайна. Студенты в восторге от возможностей, а я как преподаватель могу более эффективно оценивать и комментировать их работы. Техподдержка всегда оперативно отвечает на вопросы." %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Часто задаваемые вопросы -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-10">
+            <h2 class="text-center mb-4">{% trans "Часто задаваемые вопросы" %}</h2>
+            
+            <div class="accordion" id="faqAccordion">
+                <!-- Вопрос 1 -->
+                <div class="accordion-item border mb-3 shadow-sm">
+                    <h2 class="accordion-header" id="faq1">
+                        <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" 
+                            data-bs-target="#collapseFaq1" aria-expanded="false" aria-controls="collapseFaq1">
+                            {% trans "Как оформить подписку Premium?" %}
+                        </button>
+                    </h2>
+                    <div id="collapseFaq1" class="accordion-collapse collapse" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p>{% trans "Для оформления Premium-подписки выполните следующие шаги:" %}</p>
+                            <ol>
+                                <li>{% trans "Войдите в свою учетную запись" %}</li>
+                                <li>{% trans "Перейдите в раздел 'Управление подпиской' через меню пользователя" %}</li>
+                                <li>{% trans "Выберите подходящий тарифный план (месячный, годовой или студенческий)" %}</li>
+                                <li>{% trans "Выберите способ оплаты и следуйте инструкциям для завершения платежа" %}</li>
+                            </ol>
+                            <p>{% trans "После успешной оплаты ваш аккаунт будет мгновенно обновлен до Premium, и вы получите доступ ко всем расширенным функциям." %}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Вопрос 2 -->
+                <div class="accordion-item border mb-3 shadow-sm">
+                    <h2 class="accordion-header" id="faq2">
+                        <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" 
+                            data-bs-target="#collapseFaq2" aria-expanded="false" aria-controls="collapseFaq2">
+                            {% trans "Можно ли отменить подписку в любое время?" %}
+                        </button>
+                    </h2>
+                    <div id="collapseFaq2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p>{% trans "Да, вы можете отменить подписку в любое время. Для этого:" %}</p>
+                            <ol>
+                                <li>{% trans "Войдите в свою учетную запись" %}</li>
+                                <li>{% trans "Перейдите в раздел 'Управление подпиской'" %}</li>
+                                <li>{% trans "Нажмите на кнопку 'Отменить подписку'" %}</li>
+                                <li>{% trans "Подтвердите действие" %}</li>
+                            </ol>
+                            <p>{% trans "Важно: после отмены подписки вы сохраните доступ ко всем Premium-функциям до конца текущего оплаченного периода. По его истечении ваш аккаунт автоматически вернется к базовому тарифному плану, но все ваши данные и проекты сохранятся." %}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Вопрос 3 -->
+                <div class="accordion-item border mb-3 shadow-sm">
+                    <h2 class="accordion-header" id="faq3">
+                        <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" 
+                            data-bs-target="#collapseFaq3" aria-expanded="false" aria-controls="collapseFaq3">
+                            {% trans "Как подтвердить статус студента для получения скидки?" %}
+                        </button>
+                    </h2>
+                    <div id="collapseFaq3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p>{% trans "Для подтверждения статуса студента и получения скидки на Premium-подписку вам необходимо:" %}</p>
+                            <ol>
+                                <li>{% trans "При выборе студенческого тарифа нажмите кнопку 'Подтвердить статус студента'" %}</li>
+                                <li>{% trans "Загрузите скан или фото вашего студенческого билета или справки из учебного заведения" %}</li>
+                                <li>{% trans "Укажите название учебного заведения и срок обучения" %}</li>
+                                <li>{% trans "Дождитесь проверки документов (обычно занимает не более 24 часов)" %}</li>
+                            </ol>
+                            <p>{% trans "После успешной верификации вы получите доступ к студенческому тарифу. Обратите внимание, что статус студента нужно будет подтверждать ежегодно." %}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Вопрос 4 -->
+                <div class="accordion-item border mb-3 shadow-sm">
+                    <h2 class="accordion-header" id="faq4">
+                        <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" 
+                            data-bs-target="#collapseFaq4" aria-expanded="false" aria-controls="collapseFaq4">
+                            {% trans "Что происходит с моими проектами, если я отменю Premium?" %}
+                        </button>
+                    </h2>
+                    <div id="collapseFaq4" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p>{% trans "При переходе с Premium на базовый план:" %}</p>
+                            <ul>
+                                <li>{% trans "Все ваши проекты и данные сохраняются" %}</li>
+                                <li>{% trans "Если у вас больше проектов, чем позволяет базовый план (более 5), лишние проекты не будут удалены, но вы не сможете добавлять новые, пока не освободите место" %}</li>
+                                <li>{% trans "Вы потеряете доступ к Premium-шаблонам, но оформление уже созданных проектов с использованием этих шаблонов сохранится" %}</li>
+                                <li>{% trans "Расширенная аналитика станет недоступной" %}</li>
+                                <li>{% trans "Ваш персональный домен будет деактивирован" %}</li>
+                            </ul>
+                            <p>{% trans "Мы рекомендуем перед отменой Premium-подписки организовать ваши проекты таким образом, чтобы наиболее важные из них оставались в пределах лимита базового плана." %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="cta-block p-5 text-center">
+                <h2 class="text-white mb-3">{% trans "Готовы раскрыть полный потенциал вашего портфолио?" %}</h2>
+                <p class="lead mb-4 text-white">{% trans "Присоединяйтесь к тысячам пользователей, которые уже оценили преимущества Premium-подписки" %}</p>
+                <a href="{% url 'users:subscription' %}" class="btn btn-warning btn-lg">
+                    <i class="fas fa-crown me-2"></i> {% trans "Подключить Premium" %}
+                </a>
+                <p class="text-white mt-3">{% trans "Нет обязательств. Отменить можно в любое время." %}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

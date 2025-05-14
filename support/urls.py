@@ -23,4 +23,12 @@ urlpatterns = [
     path('knowledge/', views.knowledge_base, name='knowledge_base'),
     path('knowledge/<slug:category_slug>/', views.knowledge_category, name='knowledge_category'),
     path('knowledge/<slug:category_slug>/<slug:article_slug>/', views.knowledge_article, name='knowledge_article'),
+    
+    # Новые страницы
+    path('faq/', views.faq, name='faq'),
+    path('premium-benefits/', views.premium_benefits, name='premium_benefits'),
+    path('terms-of-service/', views.terms_of_service, name='terms_of_service'),
+    path('privacy-policy/', views.privacy_policy, name='privacy_policy'),
+    path('contact-us/', views.contact_us, name='contact_us'),
+    path('contact-us/submit/', views.contact_us_submit, name='contact_us_submit'),
 ] 

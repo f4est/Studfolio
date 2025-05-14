@@ -32,10 +32,10 @@ urlpatterns = [
 # URL-шаблоны, которые БУДУТ переводиться
 # Все пути внутри i18n_patterns будут иметь префикс языка (например, /en/users/, /ru/users/)
 urlpatterns += i18n_patterns(
-    path('', include('users.urls')),
+    path('support/', include('support.urls')),
     path('accounts/', include('allauth.urls')),
     path('portfolio/', include('portfolio.urls')),
-    path('support/', include('support.urls')),
+    path('', include('users.urls')),
     path('', TemplateView.as_view(template_name='base/home.html'), name='home'),
     prefix_default_language=True
 )

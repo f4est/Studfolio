@@ -312,22 +312,85 @@ def knowledge_category(request, category_slug):
     return render(request, 'support/knowledge/category.html', context)
 
 def knowledge_article(request, category_slug, article_slug):
-    """Страница статьи в базе знаний"""
+    """Отображение статьи из базы знаний"""
     category = get_object_or_404(SupportCategory, slug=category_slug)
-    article = get_object_or_404(
-        KnowledgeBaseArticle, 
-        slug=article_slug, 
-        category=category,
-        is_published=True
-    )
+    article = get_object_or_404(KnowledgeBaseArticle, slug=article_slug, category=category, is_published=True)
     
     # Увеличиваем счетчик просмотров
     article.views_count += 1
     article.save()
     
+    # Получаем связанные статьи из той же категории
+    related_articles = KnowledgeBaseArticle.objects.filter(
+        category=category, 
+        is_published=True
+    ).exclude(id=article.id).order_by('-created_at')[:3]
+    
     context = {
-        'category': category,
         'article': article,
+        'category': category,
+        'related_articles': related_articles,
     }
     
     return render(request, 'support/knowledge/article.html', context)
+
+# Новые представления для дополнительных страниц
+
+def faq(request):
+    """Страница часто задаваемых вопросов"""
+    return render(request, 'support/knowledge/faq.html')
+
+def premium_benefits(request):
+    """Страница преимуществ премиум-подписки"""
+    return render(request, 'support/knowledge/premium_benefits.html')
+
+def terms_of_service(request):
+    """Страница условий использования"""
+    return render(request, 'support/knowledge/terms_of_service.html')
+
+def privacy_policy(request):
+    """Страница политики конфиденциальности"""
+    return render(request, 'support/knowledge/privacy_policy.html')
+
+def contact_us(request):
+    """Страница с формой обратной связи"""
+    return render(request, 'support/contact_us.html')
+
+def contact_us_submit(request):
+    """Обработка отправки формы обратной связи"""
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+        category = request.POST.get('category')
+        captcha = request.POST.get('captcha')
+        
+        # Валидация капчи
+        if captcha != '5':
+            messages.error(request, _('Неверный ответ на проверочный вопрос.'))
+            return redirect('support:contact_us')
+        
+        # TODO: Здесь можно добавить отправку email или создание тикета
+        # Или сохранение в базу данных
+        
+        # Пример создания тикета из формы обратной связи
+        if request.user.is_authenticated:
+            # Для авторизованных пользователей создаем тикет
+            ticket = SupportTicket.objects.create(
+                user=request.user,
+                subject=subject,
+                description=message,
+                category_id=1,  # ID категории "Общие вопросы"
+                priority='medium'
+            )
+            messages.success(request, _('Ваше сообщение успешно отправлено. Мы ответим вам в ближайшее время. Тикет #{} создан.').format(ticket.id))
+        else:
+            # Для анонимных пользователей просто показываем сообщение об успехе
+            # В реальном проекте здесь можно добавить отправку email
+            messages.success(request, _('Ваше сообщение успешно отправлено. Мы ответим вам на указанный email в ближайшее время.'))
+        
+        return redirect('support:contact_us')
+    
+    # Если запрос не POST, перенаправляем на страницу формы
+    return redirect('support:contact_us')

@@ -13,22 +13,31 @@
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
-    <!-- Google Fonts (Roboto) -->
+    <!-- Google Fonts (Inter & Roboto) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <!-- Custom CSS -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
     
     <!-- Дополнительные стили -->
     {% block extra_css %}{% endblock %}
+
 </head>
 <body class="d-flex flex-column min-vh-100">
+    <!-- Прелоадер -->
+    <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+
     <!-- Навигационная панель -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">
+            <a class="navbar-brand" href="{% url 'home' %}" data-aos="fade-right" data-aos-duration="800">
                 <span class="text-primary">Stud</span><span class="text-secondary">folio</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,51 +45,51 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item">
+                    <li class="nav-item" data-aos="fade-down" data-aos-delay="100">
                         <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'home' %}">
                             <i class="fas fa-home"></i> {% trans "Главная" %}
                         </a>
                     </li>
                     {% if user.is_authenticated %}
-                        <li class="nav-item">
+                        <li class="nav-item" data-aos="fade-down" data-aos-delay="150">
                             <a class="nav-link {% if request.resolver_match.view_name == 'users:profile' %}active{% endif %}" href="{% url 'users:profile' %}">
                                 <i class="fas fa-user"></i> {% trans "Мой профиль" %}
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" data-aos="fade-down" data-aos-delay="200">
                             <a class="nav-link {% if 'portfolio:project' in request.resolver_match.view_name %}active{% endif %}" href="{% url 'portfolio:project_list' %}">
                                 <i class="fas fa-project-diagram"></i> {% trans "Мои проекты" %}
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" data-aos="fade-down" data-aos-delay="250">
                             <a class="nav-link {% if request.resolver_match.view_name == 'portfolio:project_feed' %}active{% endif %}" href="{% url 'portfolio:project_feed' %}">
                                 <i class="fas fa-stream"></i> {% trans "Лента проектов" %}
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" data-aos="fade-down" data-aos-delay="300">
                             <a class="nav-link {% if 'portfolio:certificate' in request.resolver_match.view_name %}active{% endif %}" href="{% url 'portfolio:certificate_list' %}">
                                 <i class="fas fa-certificate"></i> {% trans "Сертификаты" %}
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" data-aos="fade-down" data-aos-delay="350">
                             <a class="nav-link {% if 'portfolio:achievement' in request.resolver_match.view_name %}active{% endif %}" href="{% url 'portfolio:achievement_list' %}">
                                 <i class="fas fa-trophy"></i> {% trans "Достижения" %}
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" data-aos="fade-down" data-aos-delay="400">
                             <a class="nav-link {% if request.resolver_match.view_name == 'users:search_users' %}active{% endif %}" href="{% url 'users:search_users' %}">
                                 <i class="fas fa-search"></i> {% trans "Поиск портфолио" %}
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" data-aos="fade-down" data-aos-delay="450">
                             <a class="nav-link {% if 'support:' in request.resolver_match.view_name %}active{% endif %}" href="{% url 'support:home' %}">
                                 <i class="fas fa-question-circle"></i> {% trans "Поддержка" %}
                             </a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" data-aos="fade-down" data-aos-delay="500">
                             <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 {% if user.profile_image %}
-                                    <img src="{{ user.profile_image.url }}" alt="{{ user.username }}" class="avatar-small me-1">
+                                    <img src="{{ user.profile_image.url }}" alt="{{ user.username }}" class="avatar-small me-1 rounded-circle">
                                 {% else %}
                                     <i class="fas fa-user-circle"></i>
                                 {% endif %}
@@ -121,23 +130,23 @@
                             </ul>
                         </li>
                     {% else %}
-                        <li class="nav-item">
+                        <li class="nav-item" data-aos="fade-down" data-aos-delay="100">
                             <a class="nav-link {% if 'support:' in request.resolver_match.view_name %}active{% endif %}" href="{% url 'support:home' %}">
                                 <i class="fas fa-question-circle"></i> {% trans "Поддержка" %}
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" data-aos="fade-down" data-aos-delay="150">
                             <a class="nav-link {% if request.resolver_match.url_name == 'account_login' %}active{% endif %}" href="{% url 'account_login' %}">
                                 <i class="fas fa-sign-in-alt"></i> {% trans "Вход" %}
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-primary btn-sm text-white ms-2 {% if request.resolver_match.url_name == 'account_signup' %}active{% endif %}" href="{% url 'account_signup' %}">
+                        <li class="nav-item" data-aos="fade-down" data-aos-delay="200">
+                            <a class="nav-link btn btn-primary text-white ms-2 {% if request.resolver_match.url_name == 'account_signup' %}active{% endif %}" href="{% url 'account_signup' %}">
                                 <i class="fas fa-user-plus"></i> {% trans "Регистрация" %}
                             </a>
                         </li>
                     {% endif %}
-                    <li class="nav-item dropdown ms-lg-2 language-dropdown">
+                    <li class="nav-item dropdown ms-lg-2 language-dropdown" data-aos="fade-down" data-aos-delay="550">
                         {% get_current_language as LANGUAGE_CODE %}
                         <a class="nav-link dropdown-toggle language-btn" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-globe"></i> 
@@ -170,10 +179,9 @@
                             {% endfor %}
                         </ul>
                     </li>
-                    <li class="nav-item ms-lg-2">
-                        <button class="theme-toggle-btn" id="theme-toggler" type="button">
-                            <i class="fas fa-sun" id="theme-icon-sun"></i>
-                            <i class="fas fa-moon d-none" id="theme-icon-moon"></i>
+                    <li class="nav-item ms-lg-2" data-aos="fade-down" data-aos-delay="600">
+                        <button class="btn btn-icon theme-toggle" id="themeToggle">
+                            <i class="fas fa-moon"></i>
                         </button>
                     </li>
                 </ul>
@@ -204,32 +212,32 @@
             <div class="row g-4">
                 <!-- Информация и лого -->
                 <div class="col-lg-4 col-md-6">
-                    <h5 class="mb-3 text-primary fw-bold">
+                    <h5 class="mb-3 fw-bold">
                         <span class="text-primary">Stud</span><span class="text-secondary">folio</span>
                     </h5>
                     <p class="mb-3">{% trans "Создайте профессиональное портфолио и продемонстрируйте свои достижения. Платформа для студентов и профессионалов." %}</p>
                     <div class="d-flex gap-3 mb-3">
                         <a href="#" class="social-link" aria-label="Telegram">
-                            <i class="fab fa-telegram fa-lg"></i>
+                            <i class="fab fa-telegram"></i>
                         </a>
                         <a href="#" class="social-link" aria-label="VK">
-                            <i class="fab fa-vk fa-lg"></i>
+                            <i class="fab fa-vk"></i>
                         </a>
                         <a href="#" class="social-link" aria-label="Instagram">
-                            <i class="fab fa-instagram fa-lg"></i>
+                            <i class="fab fa-instagram"></i>
                         </a>
                         <a href="#" class="social-link" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin fa-lg"></i>
+                            <i class="fab fa-linkedin"></i>
                         </a>
                         <a href="#" class="social-link" aria-label="GitHub">
-                            <i class="fab fa-github fa-lg"></i>
+                            <i class="fab fa-github"></i>
                         </a>
                     </div>
                 </div>
 
                 <!-- Быстрые ссылки -->
                 <div class="col-lg-2 col-md-6 col-6">
-                    <h6 class="mb-3 text-primary fw-semibold">{% trans "Быстрые ссылки" %}</h6>
+                    <h6 class="mb-3 fw-semibold">{% trans "Быстрые ссылки" %}</h6>
                     <ul class="nav flex-column footer-links">
                         <li class="nav-item mb-2"><a href="{% url 'home' %}" class="nav-link p-0">{% trans "Главная" %}</a></li>
                         {% if user.is_authenticated %}
@@ -247,18 +255,18 @@
 
                 <!-- Премиум -->
                 <div class="col-lg-3 col-md-6 col-6">
-                    <h6 class="mb-3 text-primary fw-semibold">{% trans "Premium" %}</h6>
+                    <h6 class="mb-3 fw-semibold">{% trans "Premium" %}</h6>
                     <ul class="nav flex-column footer-links">
                         <li class="nav-item mb-2"><a href="{% url 'users:subscription' %}" class="nav-link p-0">{% trans "Получить Premium" %}</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">{% trans "Преимущества" %}</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">{% trans "Часто задаваемые вопросы" %}</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">{% trans "Конфиденциальность" %}</a></li>
+                        <li class="nav-item mb-2"><a href="{% url 'support:premium_benefits' %}" class="nav-link p-0">{% trans "Преимущества" %}</a></li>
+                        <li class="nav-item mb-2"><a href="{% url 'support:faq' %}" class="nav-link p-0">{% trans "Часто задаваемые вопросы" %}</a></li>
+                        <li class="nav-item mb-2"><a href="{% url 'support:privacy_policy' %}" class="nav-link p-0">{% trans "Конфиденциальность" %}</a></li>
                     </ul>
                 </div>
 
                 <!-- Контакты -->
                 <div class="col-lg-3 col-md-6">
-                    <h6 class="mb-3 text-primary fw-semibold">{% trans "Контакты" %}</h6>
+                    <h6 class="mb-3 fw-semibold">{% trans "Контакты" %}</h6>
                     <ul class="nav flex-column footer-contact-links">
                         <li class="nav-item mb-2">
                             <i class="fas fa-envelope me-2 text-secondary"></i>
@@ -274,7 +282,7 @@
                         </li>
                     </ul>
                     <div class="mt-3">
-                        <a href="#" class="btn btn-sm btn-outline-primary">{% trans "Связаться с нами" %}</a>
+                        <a href="{% url 'support:contact_us' %}" class="btn btn-outline-primary">{% trans "Связаться с нами" %}</a>
                     </div>
                 </div>
             </div>
@@ -285,8 +293,8 @@
             <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center">
                 <p class="mb-2 mb-sm-0 text-muted">© {% now "Y" %} Studfolio. {% trans "Все права защищены." %}</p>
                 <ul class="nav list-inline">
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">{% trans "Условия использования" %}</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">{% trans "Конфиденциальность" %}</a></li>
+                    <li class="nav-item"><a href="{% url 'support:terms_of_service' %}" class="nav-link px-2 text-muted">{% trans "Условия использования" %}</a></li>
+                    <li class="nav-item"><a href="{% url 'support:privacy_policy' %}" class="nav-link px-2 text-muted">{% trans "Конфиденциальность" %}</a></li>
                 </ul>
             </div>
         </div>
@@ -295,45 +303,54 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
     <!-- Custom JS -->
+    <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/scripts.js' %}"></script>
     <script src="{% static 'js/translator.js' %}"></script>
     
-    <!-- Переключение языка через AJAX -->
+    <!-- Инициализация AOS -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Находим все кнопки переключения языка
-            const languageSwitchers = document.querySelectorAll('.language-switch');
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
             
-            // Добавляем обработчик для каждой кнопки
-            languageSwitchers.forEach(button => {
-                button.addEventListener('click', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                const htmlElement = document.documentElement;
+                const icon = themeToggle.querySelector('i');
+                
+                if (localStorage.getItem('theme') === 'dark') {
+                    htmlElement.setAttribute('data-bs-theme', 'dark');
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                }
+                
+                themeToggle.addEventListener('click', function() {
+                    if (htmlElement.getAttribute('data-bs-theme') === 'dark') {
+                        htmlElement.setAttribute('data-bs-theme', 'light');
+                        localStorage.setItem('theme', 'light');
+                        icon.classList.remove('fa-sun');
+                        icon.classList.add('fa-moon');
+                    } else {
+                        htmlElement.setAttribute('data-bs-theme', 'dark');
+                        localStorage.setItem('theme', 'dark');
+                        icon.classList.remove('fa-moon');
+                        icon.classList.add('fa-sun');
+                    }
+                });
+            }
+            
+            const languageSwitches = document.querySelectorAll('.language-switch');
+            languageSwitches.forEach(btn => {
+                btn.addEventListener('click', function() {
                     const form = this.closest('form');
-                    const language = this.getAttribute('data-language');
-                    const csrfToken = form.querySelector('input[name="csrfmiddlewaretoken"]').value;
-                    const nextUrl = form.querySelector('input[name="next"]').value;
-                    
-                    // Отправляем AJAX запрос
-                    fetch('{% url "set_language" %}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                            'X-CSRFToken': csrfToken
-                        },
-                        body: new URLSearchParams({
-                            'language': language,
-                            'next': nextUrl
-                        })
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            // Перезагружаем страницу для применения изменений
-                            window.location.reload();
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Ошибка при переключении языка:', error);
-                    });
+                    form.submit();
                 });
             });
         });
@@ -341,23 +358,5 @@
     
     <!-- Дополнительные скрипты -->
     {% block extra_js %}{% endblock %}
-
-    <!-- Удаляем внешние сервисы авто-перевода -->
-    <style>
-        /* Скрываем кнопку перевода Google Translate и другие подобные элементы */
-        .goog-te-banner-frame,
-        .goog-te-balloon-frame,
-        #google_translate_element,
-        .skiptranslate,
-        .gtx-trans,
-        #Yandex_Translate_Widget,
-        .ya-translate,
-        #yt-widget {
-            display: none !important;
-        }
-        body {
-            top: 0 !important;
-        }
-    </style>
 </body>
 </html> 

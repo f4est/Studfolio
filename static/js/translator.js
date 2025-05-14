@@ -5,51 +5,59 @@
 
 class StudfolioTranslator {
     constructor(options = {}) {
-        // Настройки по умолчанию
-        this.options = {
-            apiUrl: '/translator/api/translate/',
-            translateButtonClass: 'auto-translate-btn',
-            translateableSelector: '[data-translatable]',
-            loadingClass: 'translation-loading',
-            translatedClass: 'translated',
-            debugMode: false, // Отключаем режим отладки по умолчанию
-            autoTranslate: true, // Включаем автоматический перевод
-            ...options
-        };
-        
-        // Текущий язык пользователя
-        this.currentLanguage = document.documentElement.lang || 'ru';
-        
-        // Кэш переводов в рамках текущей сессии
-        this.translationCache = new Map();
-        
-        // Добавляем отладочный div только если включен режим отладки
-        if (this.options.debugMode) {
-            this.createDebugPanel();
+        try {
+            // Настройки по умолчанию
+            this.options = {
+                apiUrl: '/translator/api/translate/',
+                translateButtonClass: 'auto-translate-btn',
+                translateableSelector: '[data-translatable]',
+                loadingClass: 'translation-loading',
+                translatedClass: 'translated',
+                debugMode: false, // Отключаем режим отладки по умолчанию
+                autoTranslate: true, // Включаем автоматический перевод
+                ...options
+            };
+            
+            // Текущий язык пользователя
+            this.currentLanguage = document.documentElement.lang || 'ru';
+            
+            // Кэш переводов в рамках текущей сессии
+            this.translationCache = new Map();
+            
+            // Добавляем отладочный div только если включен режим отладки
+            if (this.options.debugMode) {
+                this.createDebugPanel();
+            }
+            
+            // Инициализация
+            this.init();
+        } catch (error) {
+            console.error('Ошибка при инициализации переводчика:', error);
         }
-        
-        // Инициализация
-        this.init();
     }
     
     /**
      * Инициализация функционала перевода
      */
     init() {
-        this.log('Инициализация системы перевода. Текущий язык: ' + this.currentLanguage);
-        
-        // Находим все элементы на странице, доступные для перевода
-        this.translatableElements = document.querySelectorAll(this.options.translateableSelector);
-        this.log(`Найдено ${this.translatableElements.length} элементов для перевода`);
-        
-        // Если включен режим автоперевода
-        if (this.options.autoTranslate && this.currentLanguage !== 'ru') {
-            // Автоматически переводим контент после загрузки страницы
-            this.translateAllContent();
+        try {
+            this.log('Инициализация системы перевода. Текущий язык: ' + this.currentLanguage);
+            
+            // Находим все элементы на странице, доступные для перевода
+            this.translatableElements = document.querySelectorAll(this.options.translateableSelector);
+            this.log(`Найдено ${this.translatableElements.length} элементов для перевода`);
+            
+            // Если включен режим автоперевода
+            if (this.options.autoTranslate && this.currentLanguage !== 'ru') {
+                // Автоматически переводим контент после загрузки страницы
+                this.translateAllContent();
+            }
+            
+            // Добавляем обработчик события для динамически добавленных элементов
+            this.observeDynamicContent();
+        } catch (error) {
+            console.error('Ошибка при инициализации переводчика:', error);
         }
-        
-        // Добавляем обработчик события для динамически добавленных элементов
-        this.observeDynamicContent();
     }
     
     /**

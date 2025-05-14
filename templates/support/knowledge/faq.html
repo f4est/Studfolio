@@ -1,0 +1,466 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Часто задаваемые вопросы" %} | Studfolio{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Заголовок страницы -->
+    <div class="row mb-5">
+        <div class="col-lg-12 text-center">
+            <h1 class="display-5 fw-bold mb-3">{% trans "Часто задаваемые вопросы" %}</h1>
+            <p class="lead text-muted">{% trans "Ответы на распространенные вопросы о платформе Studfolio" %}</p>
+        </div>
+    </div>
+
+    <!-- Поиск по FAQ -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-8">
+            <div class="input-group input-group-lg mb-3">
+                <span class="input-group-text bg-white border-end-0">
+                    <i class="fas fa-search text-muted"></i>
+                </span>
+                <input type="text" id="faqSearch" class="form-control border-start-0" 
+                    placeholder="{% trans 'Поиск по часто задаваемым вопросам...' %}">
+            </div>
+        </div>
+    </div>
+
+    <!-- Категории вопросов -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <ul class="nav nav-tabs justify-content-center mb-4" id="faqTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="general-tab" data-bs-toggle="tab" 
+                        data-bs-target="#general" type="button" role="tab" aria-selected="true">
+                        <i class="fas fa-info-circle me-1"></i> {% trans "Общие вопросы" %}
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="account-tab" data-bs-toggle="tab" 
+                        data-bs-target="#account" type="button" role="tab" aria-selected="false">
+                        <i class="fas fa-user me-1"></i> {% trans "Учетная запись" %}
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="portfolio-tab" data-bs-toggle="tab" 
+                        data-bs-target="#portfolio" type="button" role="tab" aria-selected="false">
+                        <i class="fas fa-briefcase me-1"></i> {% trans "Портфолио" %}
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="premium-tab" data-bs-toggle="tab" 
+                        data-bs-target="#premium" type="button" role="tab" aria-selected="false">
+                        <i class="fas fa-crown me-1"></i> {% trans "Premium" %}
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Вопросы и ответы -->
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="tab-content" id="faqTabContent">
+                <!-- Общие вопросы -->
+                <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+                    <div class="accordion" id="accordionGeneral">
+                        <!-- Вопрос 1 -->
+                        <div class="accordion-item border mb-3 shadow-sm">
+                            <h2 class="accordion-header" id="general1">
+                                <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapseGeneral1" aria-expanded="false" aria-controls="collapseGeneral1">
+                                    {% trans "Что такое Studfolio?" %}
+                                </button>
+                            </h2>
+                            <div id="collapseGeneral1" class="accordion-collapse collapse" aria-labelledby="general1" data-bs-parent="#accordionGeneral">
+                                <div class="accordion-body">
+                                    <p>{% trans "Studfolio — это платформа для создания профессиональных портфолио, ориентированная на студентов и молодых специалистов. Наш сервис позволяет вам демонстрировать свои учебные и профессиональные достижения, проекты и получать отзывы от преподавателей и потенциальных работодателей." %}</p>
+                                    <p>{% trans "С помощью Studfolio вы можете:" %}</p>
+                                    <ul>
+                                        <li>{% trans "Создать персональное онлайн-портфолио" %}</li>
+                                        <li>{% trans "Загружать и структурировать ваши проекты" %}</li>
+                                        <li>{% trans "Добавлять сертификаты и достижения" %}</li>
+                                        <li>{% trans "Получать отзывы от преподавателей" %}</li>
+                                        <li>{% trans "Повысить свою привлекательность для работодателей" %}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Вопрос 2 -->
+                        <div class="accordion-item border mb-3 shadow-sm">
+                            <h2 class="accordion-header" id="general2">
+                                <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapseGeneral2" aria-expanded="false" aria-controls="collapseGeneral2">
+                                    {% trans "Как начать пользоваться Studfolio?" %}
+                                </button>
+                            </h2>
+                            <div id="collapseGeneral2" class="accordion-collapse collapse" aria-labelledby="general2" data-bs-parent="#accordionGeneral">
+                                <div class="accordion-body">
+                                    <p>{% trans "Начать пользоваться Studfolio очень просто! Выполните следующие шаги:" %}</p>
+                                    <ol>
+                                        <li>{% trans "Зарегистрируйтесь на платформе, используя электронную почту или социальные сети" %}</li>
+                                        <li>{% trans "Заполните свой профиль, добавив фотографию, образование, навыки и опыт" %}</li>
+                                        <li>{% trans "Создайте ваш первый проект, загрузив соответствующие материалы и описание" %}</li>
+                                        <li>{% trans "Добавьте сертификаты и достижения, чтобы подтвердить ваши компетенции" %}</li>
+                                        <li>{% trans "Поделитесь своим портфолио с преподавателями или потенциальными работодателями" %}</li>
+                                    </ol>
+                                    <p>{% trans "После регистрации вы получите доступ к подробной инструкции по использованию всех функций платформы." %}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Вопрос 3 -->
+                        <div class="accordion-item border mb-3 shadow-sm">
+                            <h2 class="accordion-header" id="general3">
+                                <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapseGeneral3" aria-expanded="false" aria-controls="collapseGeneral3">
+                                    {% trans "Studfolio — платная платформа?" %}
+                                </button>
+                            </h2>
+                            <div id="collapseGeneral3" class="accordion-collapse collapse" aria-labelledby="general3" data-bs-parent="#accordionGeneral">
+                                <div class="accordion-body">
+                                    <p>{% trans "Studfolio предлагает как бесплатный, так и премиум доступ:" %}</p>
+                                    <ul>
+                                        <li><strong>{% trans "Бесплатный аккаунт:" %}</strong> {% trans "Позволяет создать базовое портфолио с ограниченным количеством проектов, получать отзывы и просматривать публичные проекты других пользователей." %}</li>
+                                        <li><strong>{% trans "Premium-аккаунт:" %}</strong> {% trans "Предоставляет расширенные возможности, включая неограниченное количество проектов, продвинутую аналитику, дополнительные шаблоны оформления и приоритетную поддержку." %}</li>
+                                    </ul>
+                                    <p>{% trans "Для студентов и образовательных учреждений действуют специальные тарифы и групповые скидки. Более подробную информацию о ценах и возможностях Premium-аккаунта вы можете найти на странице" %} <a href="{% url 'support:premium_benefits' %}" class="text-primary">{% trans "Преимущества Premium" %}</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Вопрос 4 -->
+                        <div class="accordion-item border mb-3 shadow-sm">
+                            <h2 class="accordion-header" id="general4">
+                                <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapseGeneral4" aria-expanded="false" aria-controls="collapseGeneral4">
+                                    {% trans "Как связаться с поддержкой?" %}
+                                </button>
+                            </h2>
+                            <div id="collapseGeneral4" class="accordion-collapse collapse" aria-labelledby="general4" data-bs-parent="#accordionGeneral">
+                                <div class="accordion-body">
+                                    <p>{% trans "Вы можете связаться с нашей службой поддержки несколькими способами:" %}</p>
+                                    <ul>
+                                        <li>{% trans "Создать тикет в разделе" %} <a href="{% url 'support:ticket_create' %}" class="text-primary">{% trans "Поддержка" %}</a></li>
+                                        <li>{% trans "Отправить письмо на электронную почту" %} <a href="mailto:support@studfolio.kz" class="text-primary">support@studfolio.kz</a></li>
+                                        <li>{% trans "Заполнить форму обратной связи на странице" %} <a href="{% url 'support:contact_us' %}" class="text-primary">{% trans "Связаться с нами" %}</a></li>
+                                    </ul>
+                                    <p>{% trans "Наша команда поддержки доступна в рабочие дни с 9:00 до 18:00 и отвечает на большинство запросов в течение 24 часов." %}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Учетная запись -->
+                <div class="tab-pane fade" id="account" role="tabpanel" aria-labelledby="account-tab">
+                    <div class="accordion" id="accordionAccount">
+                        <!-- Вопрос 1 -->
+                        <div class="accordion-item border mb-3 shadow-sm">
+                            <h2 class="accordion-header" id="account1">
+                                <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapseAccount1" aria-expanded="false" aria-controls="collapseAccount1">
+                                    {% trans "Как изменить данные моего профиля?" %}
+                                </button>
+                            </h2>
+                            <div id="collapseAccount1" class="accordion-collapse collapse" aria-labelledby="account1" data-bs-parent="#accordionAccount">
+                                <div class="accordion-body">
+                                    <p>{% trans "Для изменения данных вашего профиля:" %}</p>
+                                    <ol>
+                                        <li>{% trans "Войдите в свою учетную запись" %}</li>
+                                        <li>{% trans "Нажмите на ваше имя пользователя в верхнем правом углу" %}</li>
+                                        <li>{% trans "Выберите 'Редактировать профиль' в выпадающем меню" %}</li>
+                                        <li>{% trans "Внесите необходимые изменения в ваш профиль" %}</li>
+                                        <li>{% trans "Нажмите 'Сохранить изменения'" %}</li>
+                                    </ol>
+                                    <p>{% trans "Вы можете изменить свои личные данные, фотографию профиля, информацию об образовании, навыках и контактные данные." %}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Вопрос 2 -->
+                        <div class="accordion-item border mb-3 shadow-sm">
+                            <h2 class="accordion-header" id="account2">
+                                <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapseAccount2" aria-expanded="false" aria-controls="collapseAccount2">
+                                    {% trans "Как изменить пароль или email?" %}
+                                </button>
+                            </h2>
+                            <div id="collapseAccount2" class="accordion-collapse collapse" aria-labelledby="account2" data-bs-parent="#accordionAccount">
+                                <div class="accordion-body">
+                                    <p>{% trans "Для изменения пароля:" %}</p>
+                                    <ol>
+                                        <li>{% trans "Войдите в свою учетную запись" %}</li>
+                                        <li>{% trans "Нажмите на ваше имя пользователя в верхнем правом углу" %}</li>
+                                        <li>{% trans "Выберите 'Настройки аккаунта'" %}</li>
+                                        <li>{% trans "Перейдите во вкладку 'Безопасность'" %}</li>
+                                        <li>{% trans "Введите текущий пароль и дважды новый пароль" %}</li>
+                                        <li>{% trans "Нажмите 'Сохранить новый пароль'" %}</li>
+                                    </ol>
+                                    
+                                    <p>{% trans "Для изменения email:" %}</p>
+                                    <ol>
+                                        <li>{% trans "В разделе 'Настройки аккаунта' перейдите во вкладку 'Основная информация'" %}</li>
+                                        <li>{% trans "Введите новый email и ваш текущий пароль" %}</li>
+                                        <li>{% trans "Нажмите 'Изменить email'" %}</li>
+                                        <li>{% trans "На новый email будет отправлено письмо для подтверждения. Перейдите по ссылке в этом письме, чтобы подтвердить новый email" %}</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Вопрос 3 -->
+                        <div class="accordion-item border mb-3 shadow-sm">
+                            <h2 class="accordion-header" id="account3">
+                                <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapseAccount3" aria-expanded="false" aria-controls="collapseAccount3">
+                                    {% trans "Как удалить мою учетную запись?" %}
+                                </button>
+                            </h2>
+                            <div id="collapseAccount3" class="accordion-collapse collapse" aria-labelledby="account3" data-bs-parent="#accordionAccount">
+                                <div class="accordion-body">
+                                    <p>{% trans "Для удаления учетной записи выполните следующие шаги:" %}</p>
+                                    <ol>
+                                        <li>{% trans "Войдите в свою учетную запись" %}</li>
+                                        <li>{% trans "Нажмите на ваше имя пользователя в верхнем правом углу" %}</li>
+                                        <li>{% trans "Выберите 'Настройки аккаунта'" %}</li>
+                                        <li>{% trans "Прокрутите вниз до раздела 'Удаление аккаунта'" %}</li>
+                                        <li>{% trans "Нажмите кнопку 'Удалить мой аккаунт'" %}</li>
+                                        <li>{% trans "Подтвердите действие, введя ваш пароль" %}</li>
+                                    </ol>
+                                    <div class="alert alert-warning">
+                                        <i class="fas fa-exclamation-triangle me-2"></i>
+                                        {% trans "Важно: Удаление аккаунта - необратимое действие. Все ваши проекты, сертификаты и достижения будут удалены. Перед удалением рекомендуем сохранить копии важных материалов." %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Портфолио -->
+                <div class="tab-pane fade" id="portfolio" role="tabpanel" aria-labelledby="portfolio-tab">
+                    <div class="accordion" id="accordionPortfolio">
+                        <!-- Вопрос 1 -->
+                        <div class="accordion-item border mb-3 shadow-sm">
+                            <h2 class="accordion-header" id="portfolio1">
+                                <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapsePortfolio1" aria-expanded="false" aria-controls="collapsePortfolio1">
+                                    {% trans "Как создать новый проект?" %}
+                                </button>
+                            </h2>
+                            <div id="collapsePortfolio1" class="accordion-collapse collapse" aria-labelledby="portfolio1" data-bs-parent="#accordionPortfolio">
+                                <div class="accordion-body">
+                                    <p>{% trans "Для создания нового проекта в вашем портфолио:" %}</p>
+                                    <ol>
+                                        <li>{% trans "Войдите в свою учетную запись" %}</li>
+                                        <li>{% trans "Перейдите в раздел 'Мои проекты'" %}</li>
+                                        <li>{% trans "Нажмите кнопку 'Создать новый проект'" %}</li>
+                                        <li>{% trans "Заполните форму с информацией о проекте:" %}
+                                            <ul>
+                                                <li>{% trans "Название проекта" %}</li>
+                                                <li>{% trans "Описание" %}</li>
+                                                <li>{% trans "Категория" %}</li>
+                                                <li>{% trans "Теги" %}</li>
+                                                <li>{% trans "Статус проекта" %}</li>
+                                            </ul>
+                                        </li>
+                                        <li>{% trans "Загрузите файлы, изображения или добавьте ссылки на внешние ресурсы" %}</li>
+                                        <li>{% trans "Настройте приватность проекта" %}</li>
+                                        <li>{% trans "Нажмите 'Сохранить проект'" %}</li>
+                                    </ol>
+                                    <p>{% trans "После создания вы сможете редактировать проект, добавлять новые материалы и приглашать преподавателей для оценки и отзывов." %}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Вопрос 2 -->
+                        <div class="accordion-item border mb-3 shadow-sm">
+                            <h2 class="accordion-header" id="portfolio2">
+                                <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapsePortfolio2" aria-expanded="false" aria-controls="collapsePortfolio2">
+                                    {% trans "Какие форматы файлов поддерживаются?" %}
+                                </button>
+                            </h2>
+                            <div id="collapsePortfolio2" class="accordion-collapse collapse" aria-labelledby="portfolio2" data-bs-parent="#accordionPortfolio">
+                                <div class="accordion-body">
+                                    <p>{% trans "Studfolio поддерживает широкий спектр форматов файлов для ваших проектов:" %}</p>
+                                    <ul>
+                                        <li><strong>{% trans "Изображения:" %}</strong> JPG, JPEG, PNG, GIF, SVG, WebP</li>
+                                        <li><strong>{% trans "Документы:" %}</strong> PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, TXT</li>
+                                        <li><strong>{% trans "Архивы:" %}</strong> ZIP, RAR (до 50 МБ)</li>
+                                        <li><strong>{% trans "Аудио:" %}</strong> MP3, WAV, OGG</li>
+                                        <li><strong>{% trans "Видео:" %}</strong> MP4, WebM (до 100 МБ)</li>
+                                        <li><strong>{% trans "Дизайн:" %}</strong> AI, PSD, SKETCH (до 100 МБ)</li>
+                                    </ul>
+                                    <p>{% trans "Для файлов большего размера или других форматов рекомендуем использовать внешние сервисы (Google Drive, Dropbox, GitHub и т.д.) и добавлять ссылки на них в описании проекта." %}</p>
+                                    <p>{% trans "Максимальный размер файла для загрузки: для базовых аккаунтов — 100 МБ, для Premium — 500 МБ." %}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Вопрос 3 -->
+                        <div class="accordion-item border mb-3 shadow-sm">
+                            <h2 class="accordion-header" id="portfolio3">
+                                <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapsePortfolio3" aria-expanded="false" aria-controls="collapsePortfolio3">
+                                    {% trans "Как получить отзывы на мои проекты?" %}
+                                </button>
+                            </h2>
+                            <div id="collapsePortfolio3" class="accordion-collapse collapse" aria-labelledby="portfolio3" data-bs-parent="#accordionPortfolio">
+                                <div class="accordion-body">
+                                    <p>{% trans "Для получения отзывов на ваши проекты:" %}</p>
+                                    <ol>
+                                        <li>{% trans "Убедитесь, что ваш проект полностью заполнен и содержит достаточно информации" %}</li>
+                                        <li>{% trans "Откройте страницу проекта" %}</li>
+                                        <li>{% trans "Нажмите кнопку 'Запросить отзыв'" %}</li>
+                                        <li>{% trans "Выберите один из способов приглашения:" %}
+                                            <ul>
+                                                <li>{% trans "По электронной почте — введите email преподавателя или ментора" %}</li>
+                                                <li>{% trans "По имени пользователя — если преподаватель уже зарегистрирован на платформе" %}</li>
+                                                <li>{% trans "Сгенерировать ссылку — создает уникальную ссылку для доступа к проекту и форме отзыва" %}</li>
+                                            </ul>
+                                        </li>
+                                        <li>{% trans "Добавьте персональное сообщение (опционально)" %}</li>
+                                        <li>{% trans "Нажмите 'Отправить приглашение'" %}</li>
+                                    </ol>
+                                    <p>{% trans "После отправки приглашения преподаватель получит уведомление и сможет оставить развернутый отзыв и оценку по различным критериям. Вы получите уведомление, когда отзыв будет оставлен." %}</p>
+                                    <p>{% trans "Если у вас Premium-аккаунт, вы можете запрашивать отзывы неограниченное количество раз и получать расширенную аналитику по отзывам." %}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Premium -->
+                <div class="tab-pane fade" id="premium" role="tabpanel" aria-labelledby="premium-tab">
+                    <div class="accordion" id="accordionPremium">
+                        <!-- Вопрос 1 -->
+                        <div class="accordion-item border mb-3 shadow-sm">
+                            <h2 class="accordion-header" id="premium1">
+                                <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapsePremium1" aria-expanded="false" aria-controls="collapsePremium1">
+                                    {% trans "Какие преимущества дает Premium-аккаунт?" %}
+                                </button>
+                            </h2>
+                            <div id="collapsePremium1" class="accordion-collapse collapse" aria-labelledby="premium1" data-bs-parent="#accordionPremium">
+                                <div class="accordion-body">
+                                    <p>{% trans "Premium-аккаунт предоставляет расширенные возможности для вашего портфолио:" %}</p>
+                                    <ul>
+                                        <li>{% trans "Неограниченное количество проектов и сертификатов" %}</li>
+                                        <li>{% trans "Расширенные шаблоны оформления портфолио" %}</li>
+                                        <li>{% trans "Увеличенный лимит хранения файлов (до 500 МБ на проект)" %}</li>
+                                        <li>{% trans "Подробная аналитика просмотров вашего портфолио" %}</li>
+                                        <li>{% trans "Персональный домен для вашего портфолио (username.studfolio.com)" %}</li>
+                                        <li>{% trans "Возможность экспорта портфолио в PDF и другие форматы" %}</li>
+                                        <li>{% trans "Расширенные настройки приватности" %}</li>
+                                        <li>{% trans "Приоритетная техническая поддержка" %}</li>
+                                        <li>{% trans "Специальные бейджи Premium на вашем профиле" %}</li>
+                                    </ul>
+                                    <p>{% trans "Полный список преимуществ можно найти на странице" %} <a href="{% url 'support:premium_benefits' %}" class="text-primary">{% trans "Преимущества Premium" %}</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Вопрос 2 -->
+                        <div class="accordion-item border mb-3 shadow-sm">
+                            <h2 class="accordion-header" id="premium2">
+                                <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapsePremium2" aria-expanded="false" aria-controls="collapsePremium2">
+                                    {% trans "Сколько стоит Premium-подписка?" %}
+                                </button>
+                            </h2>
+                            <div id="collapsePremium2" class="accordion-collapse collapse" aria-labelledby="premium2" data-bs-parent="#accordionPremium">
+                                <div class="accordion-body">
+                                    <p>{% trans "Studfolio предлагает гибкие планы подписки Premium:" %}</p>
+                                    <ul>
+                                        <li><strong>{% trans "Месячная подписка:" %}</strong> 1290 ₸ в месяц</li>
+                                        <li><strong>{% trans "Годовая подписка:" %}</strong> 12900 ₸ в год (экономия 20%)</li>
+                                        <li><strong>{% trans "Студенческая подписка:" %}</strong> 990 ₸ в месяц (с подтверждением статуса студента)</li>
+                                    </ul>
+                                    <p>{% trans "Для образовательных учреждений доступны специальные корпоративные тарифы с дополнительными скидками в зависимости от количества пользователей. Для получения информации о корпоративных тарифах, пожалуйста, свяжитесь с нашим отделом продаж." %}</p>
+                                    <p>{% trans "Все тарифы включают в себя полный набор Premium-функций. Более подробную информацию и возможность оформить подписку вы найдете на странице" %} <a href="{% url 'users:subscription' %}" class="text-primary">{% trans "Управление подпиской" %}</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Вопрос 3 -->
+                        <div class="accordion-item border mb-3 shadow-sm">
+                            <h2 class="accordion-header" id="premium3">
+                                <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapsePremium3" aria-expanded="false" aria-controls="collapsePremium3">
+                                    {% trans "Как отменить Premium-подписку?" %}
+                                </button>
+                            </h2>
+                            <div id="collapsePremium3" class="accordion-collapse collapse" aria-labelledby="premium3" data-bs-parent="#accordionPremium">
+                                <div class="accordion-body">
+                                    <p>{% trans "Для отмены Premium-подписки:" %}</p>
+                                    <ol>
+                                        <li>{% trans "Войдите в свою учетную запись" %}</li>
+                                        <li>{% trans "Нажмите на ваше имя пользователя в верхнем правом углу" %}</li>
+                                        <li>{% trans "Выберите 'Управление подпиской'" %}</li>
+                                        <li>{% trans "Нажмите кнопку 'Отменить подписку'" %}</li>
+                                        <li>{% trans "Подтвердите действие, выбрав причину отмены (опционально)" %}</li>
+                                    </ol>
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-info-circle me-2"></i>
+                                        {% trans "Важно: После отмены подписки вы сохраните доступ к Premium-функциям до конца оплаченного периода. По истечении этого срока ваш аккаунт автоматически перейдет на базовый тарифный план." %}
+                                    </div>
+                                    <p>{% trans "Если у вас возникли проблемы с отменой подписки или вопросы о возврате средств, пожалуйста, обратитесь в нашу службу поддержки через страницу" %} <a href="{% url 'support:contact_us' %}" class="text-primary">{% trans "Связаться с нами" %}</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Дополнительная помощь (CTA) -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="cta-block text-center p-5">
+                <h3 class="mb-3 text-white">{% trans "Не нашли ответ на ваш вопрос?" %}</h3>
+                <p class="mb-4 text-white">{% trans "Наша команда поддержки готова помочь вам с любыми вопросами о платформе" %}</p>
+                <div class="d-flex justify-content-center gap-2">
+                    <a href="{% url 'support:ticket_create' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-ticket-alt me-2"></i>{% trans "Создать тикет" %}
+                    </a>
+                    <a href="{% url 'support:contact_us' %}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-envelope me-2"></i>{% trans "Связаться с нами" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('faqSearch');
+        
+        if (searchInput) {
+            searchInput.addEventListener('keyup', function() {
+                const searchText = this.value.toLowerCase();
+                const accordionItems = document.querySelectorAll('.accordion-item');
+                
+                accordionItems.forEach(item => {
+                    const questionText = item.querySelector('.accordion-button').textContent.toLowerCase();
+                    const answerText = item.querySelector('.accordion-body').textContent.toLowerCase();
+                    
+                    if (questionText.includes(searchText) || answerText.includes(searchText)) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        }
+    });
+</script>
+{% endblock %} 

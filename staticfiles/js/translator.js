@@ -5,47 +5,59 @@
 
 class StudfolioTranslator {
     constructor(options = {}) {
-        // Настройки по умолчанию
-        this.options = {
-            apiUrl: '/translator/api/translate/',
-            translateButtonClass: 'auto-translate-btn',
-            translateableSelector: '[data-translatable]',
-            loadingClass: 'translation-loading',
-            translatedClass: 'translated',
-            debugMode: true, // Включаем режим отладки
-            ...options
-        };
-        
-        // Текущий язык пользователя
-        this.currentLanguage = document.documentElement.lang || 'ru';
-        
-        // Кэш переводов в рамках текущей сессии
-        this.translationCache = new Map();
-        
-        // Добавляем отладочный div
-        if (this.options.debugMode) {
-            this.createDebugPanel();
+        try {
+            // Настройки по умолчанию
+            this.options = {
+                apiUrl: '/translator/api/translate/',
+                translateButtonClass: 'auto-translate-btn',
+                translateableSelector: '[data-translatable]',
+                loadingClass: 'translation-loading',
+                translatedClass: 'translated',
+                debugMode: false, // Отключаем режим отладки по умолчанию
+                autoTranslate: true, // Включаем автоматический перевод
+                ...options
+            };
+            
+            // Текущий язык пользователя
+            this.currentLanguage = document.documentElement.lang || 'ru';
+            
+            // Кэш переводов в рамках текущей сессии
+            this.translationCache = new Map();
+            
+            // Добавляем отладочный div только если включен режим отладки
+            if (this.options.debugMode) {
+                this.createDebugPanel();
+            }
+            
+            // Инициализация
+            this.init();
+        } catch (error) {
+            console.error('Ошибка при инициализации переводчика:', error);
         }
-        
-        // Инициализация
-        this.init();
     }
     
     /**
      * Инициализация функционала перевода
      */
     init() {
-        this.log('Инициализация системы перевода. Текущий язык: ' + this.currentLanguage);
-        
-        // Создаем глобальную кнопку перевода
-        this.createGlobalTranslateButton();
-        
-        // Находим все элементы на странице, доступные для перевода
-        this.translatableElements = document.querySelectorAll(this.options.translateableSelector);
-        this.log(`Найдено ${this.translatableElements.length} элементов для перевода`);
-        
-        // Добавляем обработчик события для динамически добавленных элементов
-        this.observeDynamicContent();
+        try {
+            this.log('Инициализация системы перевода. Текущий язык: ' + this.currentLanguage);
+            
+            // Находим все элементы на странице, доступные для перевода
+            this.translatableElements = document.querySelectorAll(this.options.translateableSelector);
+            this.log(`Найдено ${this.translatableElements.length} элементов для перевода`);
+            
+            // Если включен режим автоперевода
+            if (this.options.autoTranslate && this.currentLanguage !== 'ru') {
+                // Автоматически переводим контент после загрузки страницы
+                this.translateAllContent();
+            }
+            
+            // Добавляем обработчик события для динамически добавленных элементов
+            this.observeDynamicContent();
+        } catch (error) {
+            console.error('Ошибка при инициализации переводчика:', error);
+        }
     }
     
     /**
@@ -127,7 +139,7 @@ class StudfolioTranslator {
         this.debugPanel.appendChild(header);
         document.body.appendChild(this.debugPanel);
         
-        // Добавляем кнопку для отображения отладочной панели
+        // В режиме отладки создаем кнопку для отображения панели
         const debugButton = document.createElement('button');
         debugButton.textContent = 'Debug';
         debugButton.className = 'btn btn-sm btn-dark debug-toggle-btn';
@@ -137,32 +149,12 @@ class StudfolioTranslator {
             right: 10px;
             z-index: 9999;
             opacity: 0.7;
+            display: ${this.options.debugMode ? 'block' : 'none'};
         `;
         debugButton.addEventListener('click', () => {
             this.debugPanel.style.display = this.debugPanel.style.display === 'none' ? 'block' : 'none';
         });
         document.body.appendChild(debugButton);
-    }
-    
-    /**
-     * Создает глобальную кнопку "Перевести страницу"
-     */
-    createGlobalTranslateButton() {
-        const existingButton = document.querySelector('.global-translate-btn');
-        if (existingButton) return;
-        
-        const button = document.createElement('button');
-        button.className = 'global-translate-btn btn btn-sm btn-outline-primary fixed-bottom m-4 ms-auto';
-        button.style.width = 'auto';
-        button.style.right = '1rem';
-        button.style.left = 'auto';
-        button.style.bottom = '1rem';
-        button.innerHTML = '<i class="fas fa-language me-2"></i>Перевести страницу';
-        
-        button.addEventListener('click', () => this.translateAllContent());
-        
-        document.body.appendChild(button);
-        this.log('Добавлена кнопка перевода страницы');
     }
     
     /**
@@ -173,17 +165,10 @@ class StudfolioTranslator {
         
         if (translatableElements.length === 0) {
             this.log('На странице нет контента для перевода', 'warn');
-            alert('На странице нет контента для перевода');
             return;
         }
         
         this.log(`Начинаем перевод ${translatableElements.length} элементов на язык: ${this.currentLanguage}`);
-        
-        const button = document.querySelector('.global-translate-btn');
-        if (button) {
-            button.disabled = true;
-            button.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Переводим...';
-        }
         
         // Целевой язык - текущий язык пользователя
         const targetLang = this.currentLanguage;
@@ -196,25 +181,9 @@ class StudfolioTranslator {
         try {
             await Promise.all(promises);
             this.log('Перевод всех элементов завершен успешно');
-            
-            if (button) {
-                button.disabled = false;
-                button.innerHTML = '<i class="fas fa-check me-2"></i>Переведено';
-                setTimeout(() => {
-                    button.innerHTML = '<i class="fas fa-language me-2"></i>Перевести страницу';
-                }, 2000);
-            }
         } catch (error) {
             this.log('Ошибка при переводе всего контента: ' + error, 'error');
             console.error('Ошибка при переводе всего контента:', error);
-            
-            if (button) {
-                button.disabled = false;
-                button.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i>Ошибка';
-                setTimeout(() => {
-                    button.innerHTML = '<i class="fas fa-language me-2"></i>Перевести страницу';
-                }, 2000);
-            }
         }
     }
     
@@ -348,41 +317,52 @@ class StudfolioTranslator {
     }
     
     /**
-     * Наблюдает за динамически добавляемым контентом
+     * Наблюдает за добавлением новых элементов в DOM
      */
     observeDynamicContent() {
-        // Создаем MutationObserver для отслеживания изменений DOM
+        // Используем MutationObserver для отслеживания изменений в DOM
         const observer = new MutationObserver((mutations) => {
+            let newTranslatableElements = [];
+            
             mutations.forEach(mutation => {
-                if (mutation.addedNodes && mutation.addedNodes.length > 0) {
+                // Проходим только по добавленным узлам
+                if (mutation.type === 'childList' && mutation.addedNodes.length) {
                     mutation.addedNodes.forEach(node => {
-                        // Проверяем только элементы DOM
-                        if (node.nodeType === 1) {
-                            // Если элемент имеет атрибут data-translatable
-                            if (node.matches(this.options.translateableSelector)) {
-                                this.translatableElements = document.querySelectorAll(this.options.translateableSelector);
-                                this.log('Обнаружен новый элемент для перевода');
+                        // Проверяем только элементы (не текстовые узлы)
+                        if (node.nodeType === Node.ELEMENT_NODE) {
+                            // Проверяем, является ли сам узел переводимым
+                            if (node.matches && node.matches(this.options.translateableSelector)) {
+                                newTranslatableElements.push(node);
                             }
                             
-                            // Также проверяем дочерние элементы
+                            // Проверяем детей узла
                             const childTranslatables = node.querySelectorAll(this.options.translateableSelector);
-                            if (childTranslatables.length > 0) {
-                                this.translatableElements = document.querySelectorAll(this.options.translateableSelector);
-                                this.log(`Обнаружено ${childTranslatables.length} новых элементов для перевода`);
+                            if (childTranslatables.length) {
+                                newTranslatableElements = [...newTranslatableElements, ...childTranslatables];
                             }
                         }
                     });
                 }
             });
+            
+            // Если нашли новые элементы и включен автоперевод
+            if (newTranslatableElements.length > 0 && this.options.autoTranslate && this.currentLanguage !== 'ru') {
+                this.log(`Обнаружено ${newTranslatableElements.length} новых переводимых элементов`);
+                
+                // Переводим каждый новый элемент
+                newTranslatableElements.forEach(element => {
+                    this.translateElement(element, 'ru', this.currentLanguage);
+                });
+            }
         });
         
-        // Начинаем наблюдение за изменениями в DOM
+        // Наблюдаем за всем body, включая изменение потомков
         observer.observe(document.body, {
-            childList: true,   // Наблюдаем за добавлением/удалением дочерних элементов
-            subtree: true      // Наблюдаем за всем поддеревом
+            childList: true,
+            subtree: true
         });
         
-        this.log('Наблюдение за динамическим контентом запущено');
+        this.log('Добавлен обработчик для динамического контента');
     }
 }
 

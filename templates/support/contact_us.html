@@ -1,0 +1,213 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Связаться с нами" %} | Studfolio{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Заголовок страницы -->
+    <div class="row mb-5">
+        <div class="col-lg-12 text-center">
+            <h1 class="display-5 fw-bold mb-3">{% trans "Связаться с нами" %}</h1>
+            <p class="lead text-muted">{% trans "У вас есть вопросы или предложения? Мы всегда рады помочь!" %}</p>
+        </div>
+    </div>
+
+    <div class="row g-5">
+        <!-- Контактная информация -->
+        <div class="col-lg-5">
+            <div class="card shadow-sm h-100">
+                <div class="card-body p-4">
+                    <h3 class="card-title fw-bold mb-4">{% trans "Наши контакты" %}</h3>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="flex-shrink-0">
+                            <div class="bg-primary bg-opacity-10 p-3 rounded-circle">
+                                <i class="fas fa-envelope text-primary"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="fw-semibold">{% trans "Электронная почта" %}</h5>
+                            <p class="mb-0"><a href="mailto:support@studfolio.kz" class="text-primary text-decoration-none">support@studfolio.kz</a></p>
+                            <p class="text-muted small">{% trans "Мы отвечаем в течение 24 часов" %}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="flex-shrink-0">
+                            <div class="bg-primary bg-opacity-10 p-3 rounded-circle">
+                                <i class="fas fa-phone text-primary"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="fw-semibold">{% trans "Телефон" %}</h5>
+                            <p class="mb-0"><a href="tel:+77001234567" class="text-primary text-decoration-none">+7 (700) 123-45-67</a></p>
+                            <p class="text-muted small">{% trans "Пн-Пт, с 9:00 до 18:00" %}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="flex-shrink-0">
+                            <div class="bg-primary bg-opacity-10 p-3 rounded-circle">
+                                <i class="fas fa-map-marker-alt text-primary"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="fw-semibold">{% trans "Адрес" %}</h5>
+                            <p class="mb-0 text-body">{% trans "Алматы, Казахстан" %}</p>
+                            <p class="text-muted small">{% trans "По предварительной записи" %}</p>
+                        </div>
+                    </div>
+                    
+                    <h5 class="fw-semibold mt-5 mb-3">{% trans "Социальные сети" %}</h5>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="social-link" aria-label="Telegram">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="VK">
+                            <i class="fab fa-vk"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Форма обратной связи -->
+        <div class="col-lg-7">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h3 class="card-title fw-bold mb-4">{% trans "Отправить сообщение" %}</h3>
+                    
+                    <form id="contactForm" method="post" action="{% url 'support:contact_us_submit' %}">
+                        {% csrf_token %}
+                        
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        
+                        <!-- Личная информация -->
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <label for="name" class="form-label fw-medium">{% trans "Ваше имя" %} <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label fw-medium">{% trans "Электронная почта" %} <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                        </div>
+                        
+                        <!-- Тема и категория -->
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <label for="subject" class="form-label fw-medium">{% trans "Тема" %} <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="subject" name="subject" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="category" class="form-label fw-medium">{% trans "Категория" %}</label>
+                                <select class="form-select" id="category" name="category">
+                                    <option value="general">{% trans "Общий вопрос" %}</option>
+                                    <option value="technical">{% trans "Техническая поддержка" %}</option>
+                                    <option value="billing">{% trans "Вопросы оплаты" %}</option>
+                                    <option value="partnership">{% trans "Сотрудничество" %}</option>
+                                    <option value="feedback">{% trans "Отзыв о сервисе" %}</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Сообщение -->
+                        <div class="mb-4">
+                            <label for="message" class="form-label fw-medium">{% trans "Ваше сообщение" %} <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="message" name="message" rows="6" required></textarea>
+                        </div>
+                        
+                        <!-- Согласие на обработку персональных данных -->
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" id="privacyConsent" name="privacy_consent" required>
+                            <label class="form-check-label" for="privacyConsent">
+                                {% trans "Я согласен на обработку моих персональных данных в соответствии с " %}
+                                <a href="{% url 'support:privacy_policy' %}" target="_blank" class="text-primary">{% trans "Политикой конфиденциальности" %}</a>
+                            </label>
+                        </div>
+                        
+                        <!-- Защита от спама (можно заменить на reCAPTCHA) -->
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label for="captcha" class="form-label fw-medium">{% trans "Сколько будет 2 + 3?" %} <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="captcha" name="captcha" required>
+                            </div>
+                        </div>
+                        
+                        <!-- Кнопка отправки -->
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-paper-plane me-2"></i>{% trans "Отправить сообщение" %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Часто задаваемые вопросы -->
+            <div class="mt-4">
+                <h5 class="fw-semibold mb-3">{% trans "Часто ищут" %}:</h5>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="{% url 'support:faq' %}#general3" class="badge bg-light text-dark text-decoration-none p-2 fw-medium">{% trans "Studfolio — платная платформа?" %}</a>
+                    <a href="{% url 'support:faq' %}#portfolio1" class="badge bg-light text-dark text-decoration-none p-2 fw-medium">{% trans "Как создать проект?" %}</a>
+                    <a href="{% url 'support:premium_benefits' %}" class="badge bg-light text-dark text-decoration-none p-2 fw-medium">{% trans "Преимущества Premium" %}</a>
+                    <a href="{% url 'support:terms_of_service' %}#account" class="badge bg-light text-dark text-decoration-none p-2 fw-medium">{% trans "Учетные записи" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- FAQ CTA -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card border-0 bg-light shadow-sm">
+                <div class="card-body p-4 text-center">
+                    <h4 class="mb-3">{% trans "Ищете ответы на популярные вопросы?" %}</h4>
+                    <p class="mb-4 text-body">{% trans "Посетите нашу страницу часто задаваемых вопросов, чтобы найти ответы на популярные вопросы о Studfolio" %}</p>
+                    <a href="{% url 'support:faq' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-question-circle me-2"></i>{% trans "Перейти к FAQ" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const contactForm = document.getElementById('contactForm');
+        
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                const captchaValue = document.getElementById('captcha').value;
+                
+                if (captchaValue !== '5') {
+                    e.preventDefault();
+                    alert('{% trans "Пожалуйста, правильно решите пример для защиты от спама." %}');
+                }
+            });
+        }
+    });
+</script>
+{% endblock %} 
