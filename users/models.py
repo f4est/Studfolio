@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from datetime import timedelta
+import uuid
 
 class CustomUser(AbstractUser):
     """Расширенная модель пользователя с дополнительными полями"""
@@ -29,7 +30,7 @@ class CustomUser(AbstractUser):
     
     # Публичный профиль
     is_public = models.BooleanField(_('Публичный профиль'), default=False)
-    custom_url = models.SlugField(_('Уникальный URL'), max_length=50, blank=True, unique=True)
+    custom_url = models.SlugField(_('Уникальный URL'), max_length=50, blank=True, unique=True, null=True)
     
     # Для уведомлений
     notifications_enabled = models.BooleanField(_('Уведомления включены'), default=True)
@@ -39,6 +40,15 @@ class CustomUser(AbstractUser):
     
     def __str__(self):
         return self.username
+    
+    def save(self, *args, **kwargs):
+        """При сохранении пользователя автоматически генерируем custom_url, если он не указан"""
+        if not self.custom_url:
+            # Генерируем случайный URL на основе имени пользователя и случайного UUID
+            base_url = self.username.lower()
+            random_suffix = str(uuid.uuid4())[:8]
+            self.custom_url = f"{base_url}-{random_suffix}"
+        super().save(*args, **kwargs)
     
     def has_active_subscription(self):
         """Проверяет, имеет ли пользователь активную подписку"""
@@ -149,6 +159,83 @@ class PortfolioSettings(models.Model):
     class Meta:
         verbose_name = _('Настройки портфолио')
         verbose_name_plural = _('Настройки портфолио')
+
+
+class ResumeTemplate(models.Model):
+    """Модель для шаблонов резюме"""
+    TEMPLATE_TYPE_CHOICES = (
+        ('basic', _('Базовый')),
+        ('professional', _('Профессиональный')),
+        ('creative', _('Креативный')),
+        ('academic', _('Академический')),
+        ('technical', _('Технический')),
+    )
+    
+    COLOR_SCHEME_CHOICES = (
+        ('blue', _('Синяя')),
+        ('green', _('Зеленая')),
+        ('red', _('Красная')),
+        ('purple', _('Фиолетовая')),
+        ('orange', _('Оранжевая')),
+        ('black', _('Черно-белая')),
+        ('custom', _('Пользовательская')),
+    )
+    
+    name = models.CharField(_('Название шаблона'), max_length=100)
+    description = models.TextField(_('Описание'), blank=True)
+    template_type = models.CharField(_('Тип шаблона'), max_length=20, choices=TEMPLATE_TYPE_CHOICES)
+    color_scheme = models.CharField(_('Цветовая схема'), max_length=20, choices=COLOR_SCHEME_CHOICES, default='blue')
+    primary_color = models.CharField(_('Основной цвет'), max_length=20, default='#3498db')
+    secondary_color = models.CharField(_('Вторичный цвет'), max_length=20, default='#2c3e50')
+    accent_color = models.CharField(_('Акцентный цвет'), max_length=20, default='#e74c3c')
+    background_color = models.CharField(_('Цвет фона'), max_length=20, default='#ffffff')
+    text_color = models.CharField(_('Цвет текста'), max_length=20, default='#333333')
+    font_family = models.CharField(_('Шрифт'), max_length=100, default='Arial, sans-serif')
+    header_font = models.CharField(_('Шрифт заголовков'), max_length=100, blank=True)
+    css_template = models.TextField(_('Шаблон CSS'), blank=True)
+    html_template = models.TextField(_('Шаблон HTML'), blank=True)
+    preview_image = models.ImageField(_('Изображение для предпросмотра'), upload_to='resume_templates/', blank=True, null=True)
+    is_premium = models.BooleanField(_('Премиум шаблон'), default=False)
+    is_editable = models.BooleanField(_('Редактируемый шаблон'), default=True)
+    created_at = models.DateTimeField(_('Создано'), auto_now_add=True)
+    updated_at = models.DateTimeField(_('Обновлено'), auto_now=True)
+    
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = _('Шаблон резюме')
+        verbose_name_plural = _('Шаблоны резюме')
+
+
+class UserResumeSettings(models.Model):
+    """Настройки резюме пользователя"""
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='resume_settings')
+    template = models.ForeignKey(ResumeTemplate, on_delete=models.SET_NULL, blank=True, null=True, related_name='users')
+    primary_color = models.CharField(_('Основной цвет'), max_length=20, blank=True)
+    secondary_color = models.CharField(_('Вторичный цвет'), max_length=20, blank=True)
+    accent_color = models.CharField(_('Акцентный цвет'), max_length=20, blank=True)
+    background_color = models.CharField(_('Цвет фона'), max_length=20, blank=True)
+    text_color = models.CharField(_('Цвет текста'), max_length=20, blank=True)
+    font_family = models.CharField(_('Шрифт'), max_length=100, blank=True)
+    custom_css = models.TextField(_('Пользовательский CSS'), blank=True)
+    show_profile_image = models.BooleanField(_('Показывать фото профиля'), default=True)
+    show_skills = models.BooleanField(_('Показывать навыки'), default=True)
+    show_education = models.BooleanField(_('Показывать образование'), default=True)
+    show_projects = models.BooleanField(_('Показывать проекты'), default=True)
+    show_certificates = models.BooleanField(_('Показывать сертификаты'), default=True)
+    show_achievements = models.BooleanField(_('Показывать достижения'), default=True)
+    show_contact_info = models.BooleanField(_('Показывать контактную информацию'), default=True)
+    max_projects = models.PositiveSmallIntegerField(_('Максимальное количество проектов'), default=5)
+    max_certificates = models.PositiveSmallIntegerField(_('Максимальное количество сертификатов'), default=5)
+    max_achievements = models.PositiveSmallIntegerField(_('Максимальное количество достижений'), default=5)
+    
+    def __str__(self):
+        return f"Настройки резюме {self.user.username}"
+    
+    class Meta:
+        verbose_name = _('Настройки резюме')
+        verbose_name_plural = _('Настройки резюме')
 
 
 class SubscriptionCode(models.Model):

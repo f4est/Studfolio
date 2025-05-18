@@ -15,47 +15,48 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
 from django.views.i18n import JavaScriptCatalog
 from django.views.generic import TemplateView
+from django.shortcuts import redirect
 
-# URL-шаблоны, которые НЕ будут переводиться (например, админка, API)
+# URL-шаблоны, которые НЕ будут переводиться (только необходимые пути, которые должны быть без префикса)
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
-    path('translator/', include('translator.urls')),
+    # Перенаправление с корневого URL на версию с префиксом языка
+    path('', lambda request: redirect('/' + request.LANGUAGE_CODE + '/'), name='root'),
 ]
 
 # URL-шаблоны, которые БУДУТ переводиться
 # Все пути внутри i18n_patterns будут иметь префикс языка (например, /en/users/, /ru/users/)
 urlpatterns += i18n_patterns(
+    # Административные пути
+    path('admin/', admin.site.urls),
+    
+    # Пути для интернационализации
+    path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
+    path('i18n/', include('django.conf.urls.i18n')),
+    
+    # Пути для языковых модулей
+    path('translator/', include('translator.urls')),
+    path('language/', include('language.urls')),
+    
+    # Интерфейс переводов Rosetta (только для админов)
+    path('rosetta/', include('rosetta.urls')),
+    
+    # Основные пути
+    path('', TemplateView.as_view(template_name='base/home.html'), name='home'),
     path('support/', include('support.urls')),
     path('accounts/', include('allauth.urls')),
     path('portfolio/', include('portfolio.urls')),
     path('', include('users.urls')),
-    path('', TemplateView.as_view(template_name='base/home.html'), name='home'),
-    prefix_default_language=True
+    
+    prefix_default_language=True  # Добавлять префикс языка по умолчанию тоже
 )
 
-# Главная страница (необходимо удалить или закомментировать)
-# urlpatterns += [
-#     path('', TemplateView.as_view(template_name='base/home.html'), name='home'),
-# ]
-
-# Добавляем URL для медиа-файлов в режиме разработки
+# Добавляем URL для медиа-файлов и статики (без языкового префикса)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-# Обратите внимание, что явное добавление path('i18n/', include('django.conf.urls.i18n'))
-# или path('set_language/', ...) не всегда требуется, если `LocaleMiddleware` активен
-# и `USE_I18N = True`. Django и allauth могут обрабатывать `set_language`.
-# Однако, чтобы быть уверенным, что Django точно знает о `set_language`,
-# особенно если возникают проблемы, можно добавить его явно:
-
-urlpatterns += [
-    path('i18n/', include('django.conf.urls.i18n')),
-]

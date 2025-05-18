@@ -4,16 +4,6 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Инициализация прелоадера
-    const preloader = document.querySelector('.preloader');
-    if (preloader) {
-        window.addEventListener('load', function() {
-            preloader.classList.add('fade-out');
-            setTimeout(function() {
-                preloader.style.display = 'none';
-            }, 500);
-        });
-    }
 
     // Плавная прокрутка к якорям
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

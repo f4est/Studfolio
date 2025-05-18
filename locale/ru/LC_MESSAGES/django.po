@@ -1,0 +1,5727 @@
+# Russian translation
+msgid ""
+msgstr ""
+"Project-Id-Version: Studfolio\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-16 13:57+0500\n"
+"PO-Revision-Date: 2025-05-12 09:00+0000\n"
+"Last-Translator: You\n"
+"Language-Team: Russian\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\portfolio\admin.py:37
+#, python-format
+msgid "Одобрено %(count)d отзывов."
+msgstr ""
+
+#: .\portfolio\admin.py:38
+msgid "Одобрить выбранные отзывы"
+msgstr ""
+
+#: .\portfolio\admin.py:42
+#, python-format
+msgid "Отклонено %(count)d отзывов."
+msgstr ""
+
+#: .\portfolio\admin.py:43
+msgid "Отклонить выбранные отзывы"
+msgstr ""
+
+#: .\portfolio\forms.py:18
+msgid "Например: Python, Django, JavaScript"
+msgstr ""
+
+#: .\portfolio\models.py:9 .\portfolio\models.py:33 .\portfolio\models.py:62
+#: .\support\models.py:122 .\templates\portfolio\achievement_form.html:26
+#: .\templates\portfolio\certificate_form.html:26
+#: .\templates\portfolio\project_form.html:40
+msgid "Название"
+msgstr ""
+
+#: .\portfolio\models.py:10 .\portfolio\models.py:35 .\portfolio\models.py:64
+#: .\support\models.py:124 .\templates\portfolio\achievement_form.html:61
+#: .\templates\portfolio\certificate_form.html:80
+#: .\templates\portfolio\project_form.html:53
+#: .\templates\support\knowledge\faq.html:265 .\users\models.py:175
+msgid "Описание"
+msgstr ""
+
+#: .\portfolio\models.py:11 .\portfolio\models.py:75
+#, fuzzy
+#| msgid "Достижения"
+msgid "Изображение"
+msgstr "Достижения"
+
+#: .\portfolio\models.py:12 .\templates\portfolio\project_form.html:107
+#, fuzzy
+#| msgid "Лента проектов"
+msgid "Ссылка на проект"
+msgstr "Лента проектов"
+
+#: .\portfolio\models.py:13 .\templates\portfolio\project_form.html:120
+msgid "Ссылка на GitHub"
+msgstr ""
+
+#: .\portfolio\models.py:14 .\templates\portfolio\project_form.html:93
+msgid "Используемые технологии"
+msgstr ""
+
+#: .\portfolio\models.py:15 .\templates\portfolio\project_form.html:67
+msgid "Дата начала"
+msgstr ""
+
+#: .\portfolio\models.py:16 .\templates\portfolio\project_form.html:79
+#, fuzzy
+#| msgid "Достижения"
+msgid "Дата завершения"
+msgstr "Достижения"
+
+#: .\portfolio\models.py:17
+#, fuzzy
+#| msgid "Лента проектов"
+msgid "Избранный проект"
+msgstr "Лента проектов"
+
+#: .\portfolio\models.py:18 .\portfolio\models.py:41 .\portfolio\models.py:69
+#: .\portfolio\models.py:94 .\portfolio\models.py:111 .\portfolio\models.py:132
+#: .\support\models.py:145 .\users\models.py:190
+msgid "Создано"
+msgstr ""
+
+#: .\portfolio\models.py:19 .\portfolio\models.py:112 .\support\models.py:146
+#: .\users\models.py:191
+msgid "Обновлено"
+msgstr ""
+
+#: .\portfolio\models.py:25 .\templates\users\analytics.html:169
+#, fuzzy
+#| msgid "Мои проекты"
+msgid "Проект"
+msgstr "Мои проекты"
+
+#: .\portfolio\models.py:26 .\support\models.py:27
+#: .\templates\base\base.html:263 .\templates\users\profile.html:160
+#, fuzzy
+#| msgid "Мои проекты"
+msgid "Проекты"
+msgstr "Мои проекты"
+
+#: .\portfolio\models.py:34 .\templates\portfolio\certificate_list.html:43
+#: .\templates\users\profile.html:250
+msgid "Выдан"
+msgstr ""
+
+#: .\portfolio\models.py:36
+#, fuzzy
+#| msgid "Сертификаты"
+msgid "Номер сертификата"
+msgstr "Сертификаты"
+
+#: .\portfolio\models.py:37 .\templates\portfolio\certificate_form.html:45
+msgid "Дата выдачи"
+msgstr ""
+
+#: .\portfolio\models.py:38
+msgid "Срок действия"
+msgstr ""
+
+#: .\portfolio\models.py:39 .\templates\portfolio\certificate_form.html:89
+#, fuzzy
+#| msgid "Сертификаты"
+msgid "Файл сертификата"
+msgstr "Сертификаты"
+
+#: .\portfolio\models.py:40
+#, fuzzy
+#| msgid "Сертификаты"
+msgid "Ссылка на сертификат"
+msgstr "Сертификаты"
+
+#: .\portfolio\models.py:44 .\templates\portfolio\certificate_form.html:62
+#, fuzzy
+#| msgid "Сертификаты"
+msgid "ID сертификата"
+msgstr "Сертификаты"
+
+#: .\portfolio\models.py:45 .\templates\portfolio\certificate_form.html:71
+msgid "URL для проверки"
+msgstr ""
+
+#: .\portfolio\models.py:46 .\portfolio\models.py:74
+#: .\templates\portfolio\certificate_form.html:35
+msgid "Выдавшая организация"
+msgstr ""
+
+#: .\portfolio\models.py:47 .\templates\portfolio\certificate_form.html:52
+msgid "Дата окончания"
+msgstr ""
+
+#: .\portfolio\models.py:48
+msgid "Изображение сертификата"
+msgstr ""
+
+#: .\portfolio\models.py:54
+#, fuzzy
+#| msgid "Сертификаты"
+msgid "Сертификат"
+msgstr "Сертификаты"
+
+#: .\portfolio\models.py:55 .\support\models.py:28
+#: .\templates\base\base.html:68 .\templates\base\base.html:264
+#: .\templates\users\profile.html:222
+msgid "Сертификаты"
+msgstr "Сертификаты"
+
+#: .\portfolio\models.py:63 .\templates\portfolio\achievement_form.html:35
+msgid "Организатор"
+msgstr ""
+
+#: .\portfolio\models.py:65 .\templates\portfolio\achievement_list.html:46
+msgid "Дата"
+msgstr ""
+
+#: .\portfolio\models.py:66 .\templates\portfolio\achievement_form.html:52
+msgid "Занятое место"
+msgstr ""
+
+#: .\portfolio\models.py:67 .\templates\portfolio\achievement_form.html:70
+#, fuzzy
+#| msgid "Подтверждение пароля"
+msgid "Подтверждающий документ"
+msgstr "Подтверждение пароля"
+
+#: .\portfolio\models.py:68 .\templates\portfolio\achievement_form.html:86
+#, fuzzy
+#| msgid "Подтверждение пароля"
+msgid "Ссылка на подтверждение"
+msgstr "Подтверждение пароля"
+
+#: .\portfolio\models.py:72 .\support\forms.py:124 .\support\models.py:36
+#: .\templates\support\contact_us.html:122 .\templates\support\home.html:126
+#: .\templates\support\knowledge\faq.html:266
+msgid "Категория"
+msgstr ""
+
+#: .\portfolio\models.py:73 .\templates\portfolio\achievement_form.html:44
+#, fuzzy
+#| msgid "Достижения"
+msgid "Дата получения"
+msgstr "Достижения"
+
+#: .\portfolio\models.py:81
+#, fuzzy
+#| msgid "Достижения"
+msgid "Достижение"
+msgstr "Достижения"
+
+#: .\portfolio\models.py:82 .\support\models.py:29
+#: .\templates\base\base.html:73 .\templates\users\profile.html:289
+msgid "Достижения"
+msgstr "Достижения"
+
+#: .\portfolio\models.py:91
+msgid "Текст отзыва"
+msgstr ""
+
+#: .\portfolio\models.py:92
+msgid "Оценка"
+msgstr ""
+
+#: .\portfolio\models.py:93
+msgid "Одобрен"
+msgstr ""
+
+#: .\portfolio\models.py:100
+msgid "Отзыв"
+msgstr ""
+
+#: .\portfolio\models.py:101
+msgid "Отзывы"
+msgstr ""
+
+#: .\portfolio\models.py:110 .\support\models.py:106 .\support\models.py:143
+#, fuzzy
+#| msgid "Поддержка"
+msgid "Содержание"
+msgstr "Поддержка"
+
+#: .\portfolio\models.py:122
+#, fuzzy
+#| msgid "Мои проекты"
+msgid "Пост о проекте"
+msgstr "Мои проекты"
+
+#: .\portfolio\models.py:123
+#, fuzzy
+#| msgid "Мои проекты"
+msgid "Посты о проектах"
+msgstr "Мои проекты"
+
+#: .\portfolio\models.py:131
+msgid "Текст комментария"
+msgstr ""
+
+#: .\portfolio\models.py:138
+msgid "Комментарий к посту"
+msgstr ""
+
+#: .\portfolio\models.py:139
+msgid "Комментарии к постам"
+msgstr ""
+
+#: .\portfolio\models.py:147 .\users\models.py:277
+msgid "IP адрес"
+msgstr ""
+
+#: .\portfolio\models.py:148 .\users\models.py:278
+msgid "User Agent"
+msgstr ""
+
+#: .\portfolio\models.py:149 .\users\models.py:279
+#, fuzzy
+#| msgid "Лента проектов"
+msgid "Время просмотра"
+msgstr "Лента проектов"
+
+#: .\portfolio\models.py:150 .\users\models.py:280
+msgid "Источник перехода"
+msgstr ""
+
+#: .\portfolio\models.py:153
+#, fuzzy
+#| msgid "Лента проектов"
+msgid "Просмотр проекта"
+msgstr "Лента проектов"
+
+#: .\portfolio\models.py:154
+#, fuzzy
+#| msgid "Лента проектов"
+msgid "Просмотры проекта"
+msgstr "Лента проектов"
+
+#: .\portfolio\views.py:54
+msgid "Проект успешно добавлен!"
+msgstr ""
+
+#: .\portfolio\views.py:79
+msgid "Проект не найден."
+msgstr ""
+
+#: .\portfolio\views.py:122
+msgid "Проект успешно обновлен!"
+msgstr ""
+
+#: .\portfolio\views.py:141
+msgid "Проект успешно удален!"
+msgstr ""
+
+#: .\portfolio\views.py:183
+msgid "Сертификат успешно добавлен!"
+msgstr ""
+
+#: .\portfolio\views.py:208
+#, fuzzy
+#| msgid "Сертификаты"
+msgid "Сертификат не найден."
+msgstr "Сертификаты"
+
+#: .\portfolio\views.py:240
+msgid "Сертификат успешно обновлен!"
+msgstr ""
+
+#: .\portfolio\views.py:259
+msgid "Сертификат успешно удален!"
+msgstr ""
+
+#: .\portfolio\views.py:284
+msgid "Достижение успешно добавлено!"
+msgstr ""
+
+#: .\portfolio\views.py:309
+msgid "Достижение не найдено."
+msgstr ""
+
+#: .\portfolio\views.py:333
+msgid "Достижение успешно обновлено!"
+msgstr ""
+
+#: .\portfolio\views.py:352
+msgid "Достижение успешно удалено!"
+msgstr ""
+
+#: .\portfolio\views.py:379
+msgid "У вас нет прав для добавления отзывов!"
+msgstr ""
+
+#: .\portfolio\views.py:397
+msgid "Отзыв успешно добавлен и ожидает подтверждения!"
+msgstr ""
+
+#: .\portfolio\views.py:422
+msgid "Отзыв не найден."
+msgstr ""
+
+#: .\portfolio\views.py:433
+msgid "У вас нет прав для редактирования этого отзыва!"
+msgstr ""
+
+#: .\portfolio\views.py:443
+msgid "Отзыв успешно обновлен!"
+msgstr ""
+
+#: .\portfolio\views.py:464
+msgid "У вас нет прав для удаления этого отзыва!"
+msgstr ""
+
+#: .\portfolio\views.py:469
+msgid "Отзыв успешно удален!"
+msgstr ""
+
+#: .\portfolio\views.py:480
+msgid "У вас нет прав для одобрения отзывов!"
+msgstr ""
+
+#: .\portfolio\views.py:488
+msgid "Отзыв успешно одобрен!"
+msgstr ""
+
+#: .\portfolio\views.py:490
+msgid "Отзыв отмечен как неодобренный!"
+msgstr ""
+
+#: .\portfolio\views.py:512
+msgid "Содержание публикации не может быть пустым"
+msgstr ""
+
+#: .\portfolio\views.py:521
+msgid "Публикация успешно создана"
+msgstr ""
+
+#: .\portfolio\views.py:554
+msgid "Комментарий не может быть пустым"
+msgstr ""
+
+#: .\portfolio\views.py:578
+msgid "Публикация успешно удалена"
+msgstr ""
+
+#: .\support\admin.py:20
+msgid "Дополнительно"
+msgstr ""
+
+#: .\support\admin.py:37
+msgid "Информация о тикете"
+msgstr ""
+
+#: .\support\admin.py:40
+msgid "Статус и приоритет"
+msgstr ""
+
+#: .\support\admin.py:43
+msgid "Даты"
+msgstr ""
+
+#: .\support\admin.py:52
+msgid "Пометить как 'В обработке'"
+msgstr ""
+
+#: .\support\admin.py:58
+msgid "Пометить как 'Решены'"
+msgstr ""
+
+#: .\support\admin.py:64
+msgid "Пометить как 'Закрыты'"
+msgstr ""
+
+#: .\support\admin.py:77 .\support\admin.py:90
+msgid "Тикет"
+msgstr ""
+
+#: .\support\admin.py:113
+#, fuzzy
+#| msgid "Регистрация"
+msgid "Публикация"
+msgstr "Регистрация"
+
+#: .\support\forms.py:25 .\support\forms.py:58
+#, fuzzy
+#| msgid "Достижения"
+msgid "Вложения"
+msgstr "Достижения"
+
+#: .\support\forms.py:27 .\support\forms.py:60
+msgid "Вы можете загрузить до 5 файлов (макс. 10 МБ каждый)."
+msgstr ""
+
+#: .\support\forms.py:34
+msgid "Кратко опишите вашу проблему"
+msgstr ""
+
+#: .\support\forms.py:36
+msgid "Подробно опишите вашу проблему..."
+msgstr ""
+
+#: .\support\forms.py:67
+msgid "Ваш ответ..."
+msgstr ""
+
+#: .\support\forms.py:105
+msgid "Все статусы"
+msgstr ""
+
+#: .\support\forms.py:106
+#, fuzzy
+#| msgid "Все права защищены."
+msgid "Все приоритеты"
+msgstr "Все права защищены."
+
+#: .\support\forms.py:107
+msgid "Все категории"
+msgstr ""
+
+#: .\support\forms.py:110 .\support\models.py:38
+#: .\templates\support\home.html:127
+msgid "Статус"
+msgstr ""
+
+#: .\support\forms.py:117 .\support\models.py:39
+msgid "Приоритет"
+msgstr ""
+
+#: .\support\forms.py:131
+msgid "Поиск"
+msgstr ""
+
+#: .\support\forms.py:133
+#, fuzzy
+#| msgid "Поиск портфолио"
+msgid "Поиск по теме или описанию"
+msgstr "Поиск портфолио"
+
+#: .\support\forms.py:137
+msgid "От даты"
+msgstr ""
+
+#: .\support\forms.py:143
+msgid "До даты"
+msgstr ""
+
+#: .\support\models.py:9
+msgid "Новый"
+msgstr ""
+
+#: .\support\models.py:10
+msgid "В обработке"
+msgstr ""
+
+#: .\support\models.py:11
+msgid "Ожидает ответа пользователя"
+msgstr ""
+
+#: .\support\models.py:12 .\support\models.py:50
+msgid "Решен"
+msgstr ""
+
+#: .\support\models.py:13 .\support\models.py:51
+msgid "Закрыт"
+msgstr ""
+
+#: .\support\models.py:17
+msgid "Низкий"
+msgstr ""
+
+#: .\support\models.py:18
+msgid "Средний"
+msgstr ""
+
+#: .\support\models.py:19
+msgid "Высокий"
+msgstr ""
+
+#: .\support\models.py:20
+msgid "Срочный"
+msgstr ""
+
+#: .\support\models.py:24
+msgid "Аккаунт"
+msgstr ""
+
+#: .\support\models.py:25 .\templates\premium_guide.html:15 .\users\admin.py:39
+msgid "Подписка"
+msgstr "Подписка"
+
+#: .\support\models.py:26 .\templates\support\knowledge\faq.html:49
+#, fuzzy
+#| msgid "Поиск портфолио"
+msgid "Портфолио"
+msgstr "Поиск портфолио"
+
+#: .\support\models.py:30
+msgid "Технические вопросы"
+msgstr ""
+
+#: .\support\models.py:31
+msgid "Другое"
+msgstr ""
+
+#: .\support\models.py:35 .\templates\support\contact_us.html:118
+#: .\templates\support\home.html:125
+msgid "Тема"
+msgstr ""
+
+#: .\support\models.py:37
+msgid "Описание проблемы"
+msgstr ""
+
+#: .\support\models.py:40 .\support\models.py:107
+#: .\templates\portfolio\create_project_post.html:31 .\users\models.py:236
+msgid "Создан"
+msgstr ""
+
+#: .\support\models.py:41
+msgid "Обновлен"
+msgstr ""
+
+#: .\support\models.py:78
+#, fuzzy
+#| msgid "Поддержка"
+msgid "Тикет поддержки"
+msgstr "Поддержка"
+
+#: .\support\models.py:79
+#, fuzzy
+#| msgid "Поддержка"
+msgid "Тикеты поддержки"
+msgstr "Поддержка"
+
+#: .\support\models.py:90 .\templates\portfolio\certificate_list.html:57
+msgid "Файл"
+msgstr ""
+
+#: .\support\models.py:91
+msgid "Имя файла"
+msgstr ""
+
+#: .\support\models.py:92
+msgid "Загружен"
+msgstr ""
+
+#: .\support\models.py:98
+msgid "Вложение к тикету"
+msgstr ""
+
+#: .\support\models.py:99
+msgid "Вложения к тикетам"
+msgstr ""
+
+#: .\support\models.py:108
+msgid "Внутренняя заметка"
+msgstr ""
+
+#: .\support\models.py:109
+msgid ""
+"Отметьте, если это внутренняя заметка, видимая только сотрудникам поддержки"
+msgstr ""
+
+#: .\support\models.py:115
+msgid "Ответ на тикет"
+msgstr ""
+
+#: .\support\models.py:116
+msgid "Ответы на тикеты"
+msgstr ""
+
+#: .\support\models.py:123 .\support\models.py:141
+msgid "Slug"
+msgstr ""
+
+#: .\support\models.py:125
+msgid "Иконка FontAwesome"
+msgstr ""
+
+#: .\support\models.py:126
+msgid "Например: fa-question-circle"
+msgstr ""
+
+#: .\support\models.py:127
+msgid "Порядок"
+msgstr ""
+
+#: .\support\models.py:133
+msgid "Категория поддержки"
+msgstr ""
+
+#: .\support\models.py:134
+msgid "Категории поддержки"
+msgstr ""
+
+#: .\support\models.py:140
+msgid "Заголовок"
+msgstr ""
+
+#: .\support\models.py:144
+msgid "Опубликовано"
+msgstr ""
+
+#: .\support\models.py:147
+#, fuzzy
+#| msgid "Лента проектов"
+msgid "Количество просмотров"
+msgstr "Лента проектов"
+
+#: .\support\models.py:153
+msgid "Статья базы знаний"
+msgstr ""
+
+#: .\support\models.py:154
+msgid "Статьи базы знаний"
+msgstr ""
+
+#: .\support\views.py:101
+msgid "Ваш тикет успешно создан! Мы свяжемся с вами в ближайшее время."
+msgstr ""
+
+#: .\support\views.py:119 .\support\views.py:159 .\support\views.py:174
+msgid "У вас нет доступа к этому тикету."
+msgstr ""
+
+#: .\support\views.py:131
+msgid "Ваш ответ успешно отправлен!"
+msgstr ""
+
+#: .\support\views.py:162
+msgid "Тикет успешно закрыт."
+msgstr ""
+
+#: .\support\views.py:177
+msgid "Тикет успешно переоткрыт."
+msgstr ""
+
+#: .\support\views.py:187 .\support\views.py:246 .\support\views.py:273
+msgid "У вас нет доступа к этой странице."
+msgstr ""
+
+#: .\support\views.py:259
+msgid "Тикет назначен на {}."
+msgstr ""
+
+#: .\support\views.py:263
+msgid "Тикет успешно назначен вам."
+msgstr ""
+
+#: .\support\views.py:283
+msgid "Тикет отмечен как решенный."
+msgstr ""
+
+#: .\support\views.py:287
+msgid "Тикет успешно отмечен как решенный."
+msgstr ""
+
+#: .\support\views.py:371
+msgid "Неверный ответ на проверочный вопрос."
+msgstr ""
+
+#: .\support\views.py:387
+msgid ""
+"Ваше сообщение успешно отправлено. Мы ответим вам в ближайшее время. Тикет "
+"#{} создан."
+msgstr ""
+
+#: .\support\views.py:391
+msgid ""
+"Ваше сообщение успешно отправлено. Мы ответим вам на указанный email в "
+"ближайшее время."
+msgstr ""
+
+#: .\templates\account\login.html:5 .\templates\base\base.html:144
+#: .\templates\base\base.html:267
+msgid "Вход"
+msgstr "Вход"
+
+#: .\templates\account\login.html:13
+msgid "Вход в систему"
+msgstr "Вход в систему"
+
+#: .\templates\account\login.html:36
+msgid "Имя пользователя или Email"
+msgstr "Имя пользователя или Email"
+
+#: .\templates\account\login.html:48 .\templates\account\signup.html:63
+msgid "Пароль"
+msgstr "Пароль"
+
+#: .\templates\account\login.html:61
+msgid "Запомнить меня"
+msgstr "Запомнить меня"
+
+#: .\templates\account\login.html:65 .\templates\account\signup.html:116
+#: .\templates\home.html:21
+msgid "Войти"
+msgstr "Войти"
+
+#: .\templates\account\login.html:75
+#, fuzzy
+#| msgid "Сменить пароль"
+msgid "Забыли пароль?"
+msgstr "Сменить пароль"
+
+#: .\templates\account\login.html:76 .\templates\account\signup.html:5
+#: .\templates\base\base.html:149 .\templates\base\base.html:268
+msgid "Регистрация"
+msgstr "Регистрация"
+
+#: .\templates\account\logout.html:4
+msgid "Выход"
+msgstr ""
+
+#: .\templates\account\logout.html:12
+msgid "Выход из системы"
+msgstr "Выход из системы"
+
+#: .\templates\account\logout.html:15
+msgid "Вы уверены, что хотите выйти?"
+msgstr "Вы уверены, что хотите выйти?"
+
+#: .\templates\account\logout.html:22
+msgid "Да, выйти"
+msgstr "Да, выйти"
+
+#: .\templates\account\logout.html:23
+#: .\templates\portfolio\delete_post_confirm.html:33
+#: .\templates\support\ticket_create.html:110
+#: .\templates\users\profile_edit.html:245
+msgid "Отмена"
+msgstr "Отмена"
+
+#: .\templates\account\signup.html:13
+msgid "Регистрация в Studfolio"
+msgstr "Регистрация в Studfolio"
+
+#: .\templates\account\signup.html:37
+#, fuzzy
+#| msgid "Имя пользователя или Email"
+msgid "Имя пользователя"
+msgstr "Имя пользователя или Email"
+
+#: .\templates\account\signup.html:49
+msgid "Email"
+msgstr ""
+
+#: .\templates\account\signup.html:73
+msgid "Пароль должен содержать минимум 8 символов и не быть слишком простым"
+msgstr "Пароль должен содержать минимум 8 символов и не быть слишком простым"
+
+#: .\templates\account\signup.html:78
+msgid "Подтверждение пароля"
+msgstr "Подтверждение пароля"
+
+#: .\templates\account\signup.html:91
+msgid "Тип учетной записи"
+msgstr ""
+
+#: .\templates\account\signup.html:93 .\users\models.py:11
+msgid "Студент"
+msgstr ""
+
+#: .\templates\account\signup.html:94
+#: .\templates\support\knowledge\premium_benefits.html:330 .\users\models.py:12
+msgid "Преподаватель"
+msgstr ""
+
+#: .\templates\account\signup.html:106 .\templates\base\home.html:120
+#: .\templates\home.html:18
+#, fuzzy
+#| msgid "Регистрация"
+msgid "Зарегистрироваться"
+msgstr "Регистрация"
+
+#: .\templates\account\signup.html:116
+msgid "Уже есть аккаунт?"
+msgstr ""
+
+#: .\templates\base\base.html:47 .\templates\base\base.html:260
+#: .\templates\premium_guide.html:14 .\templates\support\ticket_create.html:13
+msgid "Главная"
+msgstr "Главная"
+
+#: .\templates\base\base.html:53 .\templates\base\base.html:98
+#: .\templates\base\home.html:17 .\templates\home.html:28
+#: .\templates\users\resume_settings.html:18
+msgid "Мой профиль"
+msgstr "Мой профиль"
+
+#: .\templates\base\base.html:58 .\templates\base\home.html:18
+#: .\templates\home.html:25 .\templates\portfolio\project_feed.html:16
+#: .\templates\portfolio\project_feed.html:206
+msgid "Мои проекты"
+msgstr "Мои проекты"
+
+#: .\templates\base\base.html:63 .\templates\portfolio\project_feed.html:5
+#: .\templates\portfolio\project_feed.html:13
+msgid "Лента проектов"
+msgstr "Лента проектов"
+
+#: .\templates\base\base.html:78
+msgid "Поиск портфолио"
+msgstr "Поиск портфолио"
+
+#: .\templates\base\base.html:83 .\templates\base\base.html:139
+#: .\templates\base\base.html:265 .\templates\base\base.html:269
+#: .\templates\support\home.html:5 .\templates\support\knowledge\faq.html:147
+#: .\templates\support\ticket_create.html:14
+msgid "Поддержка"
+msgstr "Поддержка"
+
+#: .\templates\base\base.html:103 .\templates\users\analytics.html:44
+#: .\templates\users\portfolio_settings.html:20
+#: .\templates\users\profile.html:31 .\templates\users\profile_edit.html:20
+#: .\templates\users\subscription.html:20
+msgid "Редактировать профиль"
+msgstr "Редактировать профиль"
+
+#: .\templates\base\base.html:108 .\templates\users\analytics.html:47
+#: .\templates\users\portfolio_settings.html:5
+#: .\templates\users\portfolio_settings.html:23
+#: .\templates\users\profile_edit.html:23
+#: .\templates\users\resume_settings.html:21
+#: .\templates\users\subscription.html:23 .\users\admin.py:36
+#: .\users\models.py:150 .\users\models.py:151
+msgid "Настройки портфолио"
+msgstr "Настройки портфолио"
+
+#: .\templates\base\base.html:113 .\templates\support\knowledge\faq.html:385
+#: .\templates\users\analytics.html:50
+#: .\templates\users\portfolio_settings.html:26
+#: .\templates\users\profile_edit.html:26 .\templates\users\subscription.html:5
+#: .\templates\users\subscription.html:26
+msgid "Управление подпиской"
+msgstr "Управление подпиской"
+
+#: .\templates\base\base.html:118 .\templates\users\analytics.html:53
+#: .\templates\users\portfolio_settings.html:29
+#: .\templates\users\profile_edit.html:29
+#: .\templates\users\subscription.html:29
+msgid "Аналитика"
+msgstr "Аналитика"
+
+#: .\templates\base\base.html:124 .\templates\base\base.html:187
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "Управление переводами"
+msgstr "Управление подпиской"
+
+#: .\templates\base\base.html:131
+msgid "Выйти"
+msgstr "Выйти"
+
+#: .\templates\base\base.html:236
+msgid ""
+"Создайте профессиональное портфолио и продемонстрируйте свои достижения. "
+"Платформа для студентов и профессионалов."
+msgstr ""
+
+#: .\templates\base\base.html:258
+msgid "Быстрые ссылки"
+msgstr ""
+
+#: .\templates\base\base.html:262 .\templates\users\profile.html:5
+#, fuzzy
+#| msgid "Мой профиль"
+msgid "Профиль"
+msgstr "Мой профиль"
+
+#: .\templates\base\base.html:276 .\templates\support\knowledge\faq.html:55
+#: .\templates\support\knowledge\premium_benefits.html:56
+#: .\templates\users\resume_settings.html:325
+msgid "Premium"
+msgstr ""
+
+#: .\templates\base\base.html:278
+msgid "Получить Premium"
+msgstr ""
+
+#: .\templates\base\base.html:279
+msgid "Преимущества"
+msgstr ""
+
+#: .\templates\base\base.html:280 .\templates\premium_guide.html:366
+#: .\templates\support\home.html:35 .\templates\support\knowledge\faq.html:5
+#: .\templates\support\knowledge\faq.html:12
+#: .\templates\support\knowledge\premium_benefits.html:343
+#: .\templates\support\knowledge\terms_of_service.html:173
+#: .\templates\users\subscription.html:215
+msgid "Часто задаваемые вопросы"
+msgstr ""
+
+#: .\templates\base\base.html:281 .\templates\base\base.html:315
+msgid "Конфиденциальность"
+msgstr ""
+
+#: .\templates\base\base.html:287
+#: .\templates\support\knowledge\privacy_policy.html:31
+#: .\templates\support\knowledge\terms_of_service.html:32
+msgid "Контакты"
+msgstr ""
+
+#: .\templates\base\base.html:299 .\templates\support\contact_us.html:58
+#: .\templates\support\knowledge\privacy_policy.html:158
+#: .\templates\support\knowledge\terms_of_service.html:163
+msgid "Алматы, Казахстан"
+msgstr ""
+
+#: .\templates\base\base.html:303 .\templates\support\contact_us.html:5
+#: .\templates\support\contact_us.html:12 .\templates\support\home.html:38
+#: .\templates\support\knowledge\faq.html:149
+#: .\templates\support\knowledge\faq.html:412
+#: .\templates\support\knowledge\faq.html:433
+#: .\templates\support\knowledge\privacy_policy.html:173
+msgid "Связаться с нами"
+msgstr ""
+
+#: .\templates\base\base.html:312
+msgid "Все права защищены."
+msgstr "Все права защищены."
+
+#: .\templates\base\base.html:314 .\templates\support\home.html:50
+#: .\templates\support\knowledge\privacy_policy.html:170
+#: .\templates\support\knowledge\terms_of_service.html:5
+#: .\templates\support\knowledge\terms_of_service.html:12
+msgid "Условия использования"
+msgstr ""
+
+#: .\templates\base\home.html:5
+msgid "Электронное портфолио для студентов"
+msgstr "Электронное портфолио для студентов"
+
+#: .\templates\base\home.html:12
+msgid "Создайте ваше электронное портфолио"
+msgstr "Создайте ваше электронное портфолио"
+
+#: .\templates\base\home.html:14
+msgid ""
+"Studfolio - платформа для студентов, где вы можете презентовать свои учебные "
+"и профессиональные достижения, проекты и получать отзывы от преподавателей."
+msgstr ""
+"Studfolio - платформа для студентов, где вы можете презентовать свои учебные "
+"и профессиональные достижения, проекты и получать отзывы от преподавателей."
+
+#: .\templates\base\home.html:22
+#, fuzzy
+#| msgid "Настройки портфолио"
+msgid "Иллюстрация портфолио"
+msgstr "Настройки портфолио"
+
+#: .\templates\base\home.html:30
+msgid "Почему Studfolio?"
+msgstr ""
+
+#: .\templates\base\home.html:38
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "Управление проектами"
+msgstr "Управление подпиской"
+
+#: .\templates\base\home.html:39
+msgid ""
+"Создавайте и управляйте вашими учебными и профессиональными проектами в "
+"одном месте."
+msgstr ""
+
+#: .\templates\base\home.html:49 .\templates\home.html:97
+#, fuzzy
+#| msgid "Сертификаты"
+msgid "Сертификаты и достижения"
+msgstr "Сертификаты"
+
+#: .\templates\base\home.html:50
+msgid "Сохраняйте и демонстрируйте ваши сертификаты, награды и достижения."
+msgstr ""
+
+#: .\templates\base\home.html:60
+msgid "Отзывы преподавателей"
+msgstr ""
+
+#: .\templates\base\home.html:61
+msgid ""
+"Получайте конструктивную обратную связь от преподавателей по вашим работам и "
+"проектам."
+msgstr ""
+
+#: .\templates\base\home.html:71
+msgid "Как это работает"
+msgstr ""
+
+#: .\templates\base\home.html:79
+#, fuzzy
+#| msgid "Мой профиль"
+msgid "Создайте профиль"
+msgstr "Мой профиль"
+
+#: .\templates\base\home.html:80
+msgid ""
+"Зарегистрируйтесь и заполните ваш профиль с информацией об образовании и "
+"навыках."
+msgstr ""
+
+#: .\templates\base\home.html:90
+#, fuzzy
+#| msgid "Мои проекты"
+msgid "Добавьте проекты"
+msgstr "Мои проекты"
+
+#: .\templates\base\home.html:91
+msgid ""
+"Загрузите ваши проекты, сертификаты и достижения в соответствующие разделы."
+msgstr ""
+
+#: .\templates\base\home.html:101
+msgid "Делитесь и получайте отзывы"
+msgstr ""
+
+#: .\templates\base\home.html:102
+msgid ""
+"Делитесь своим портфолио и получайте ценные отзывы от преподавателей и "
+"коллег."
+msgstr ""
+
+#: .\templates\base\home.html:116
+#, fuzzy
+#| msgid "Создайте ваше электронное портфолио"
+msgid "Готовы начать создавать своё профессиональное портфолио?"
+msgstr "Создайте ваше электронное портфолио"
+
+#: .\templates\base\home.html:117
+msgid ""
+"Присоединяйтесь к тысячам студентов, которые уже используют Studfolio для "
+"презентации своих достижений."
+msgstr ""
+
+#: .\templates\home.html:5
+#, fuzzy
+#| msgid "Создайте ваше электронное портфолио"
+msgid "Создайте своё учебное портфолио"
+msgstr "Создайте ваше электронное портфолио"
+
+#: .\templates\home.html:13
+msgid "Создавайте профессиональное"
+msgstr ""
+
+#: .\templates\home.html:13
+#, fuzzy
+#| msgid "Поиск портфолио"
+msgid "учебное портфолио"
+msgstr "Поиск портфолио"
+
+#: .\templates\home.html:14
+#, fuzzy
+#| msgid ""
+#| "Studfolio - платформа для студентов, где вы можете презентовать свои "
+#| "учебные и профессиональные достижения, проекты и получать отзывы от "
+#| "преподавателей."
+msgid ""
+"Studfolio - современная платформа для студентов и учащихся, позволяющая "
+"демонстрировать свои проекты, достижения и навыки в едином цифровом "
+"пространстве."
+msgstr ""
+"Studfolio - платформа для студентов, где вы можете презентовать свои учебные "
+"и профессиональные достижения, проекты и получать отзывы от преподавателей."
+
+#: .\templates\home.html:41
+msgid "Уже более 2,000 пользователей!"
+msgstr ""
+
+#: .\templates\home.html:51
+msgid "Рейтинг платформы"
+msgstr ""
+
+#: .\templates\home.html:52
+msgid "отзывов"
+msgstr ""
+
+#: .\templates\home.html:60
+msgid "Востребованность"
+msgstr ""
+
+#: .\templates\home.html:61
+#, python-format
+msgid "Увеличивает шансы приема на 73%%"
+msgstr ""
+
+#: .\templates\home.html:75
+#, fuzzy
+#| msgid "Регистрация в Studfolio"
+msgid "Преимущества Studfolio"
+msgstr "Регистрация в Studfolio"
+
+#: .\templates\home.html:76
+msgid ""
+"Создайте профессиональное портфолио, которое поможет вам выделиться среди "
+"других студентов и повысить ваши шансы на успех."
+msgstr ""
+
+#: .\templates\home.html:83
+msgid "Современный дизайн"
+msgstr ""
+
+#: .\templates\home.html:84
+msgid ""
+"Красивые и настраиваемые шаблоны, которые подчеркнут ваши проекты и "
+"достижения."
+msgstr ""
+
+#: .\templates\home.html:90
+msgid "Структурированные проекты"
+msgstr ""
+
+#: .\templates\home.html:91
+msgid ""
+"Организуйте ваши проекты с помощью категорий, тегов и подробного описания."
+msgstr ""
+
+#: .\templates\home.html:98
+msgid ""
+"Демонстрируйте ваши сертификаты, награды и другие достижения в "
+"привлекательном виде."
+msgstr ""
+
+#: .\templates\home.html:104
+#, fuzzy
+#| msgid "Настройки портфолио"
+msgid "Единая ссылка на портфолио"
+msgstr "Настройки портфолио"
+
+#: .\templates\home.html:105
+msgid ""
+"Получите персональную ссылку, которой можно поделиться с работодателями и "
+"преподавателями."
+msgstr ""
+
+#: .\templates\home.html:117
+msgid "Разблокируйте премиум-возможности"
+msgstr ""
+
+#: .\templates\home.html:118
+msgid ""
+"Получите доступ к расширенным функциям, позволяющим создать ещё более "
+"впечатляющее портфолио."
+msgstr ""
+
+#: .\templates\home.html:121
+msgid "Узнать о премиум"
+msgstr ""
+
+#: .\templates\home.html:124 .\templates\users\profile.html:199
+#: .\templates\users\profile.html:260 .\templates\users\profile.html:312
+msgid "Подробнее"
+msgstr ""
+
+#: .\templates\home.html:136
+#, fuzzy
+#| msgid "Создайте ваше электронное портфолио"
+msgid "Вдохновляющие примеры портфолио"
+msgstr "Создайте ваше электронное портфолио"
+
+#: .\templates\home.html:137
+msgid ""
+"Посмотрите, как другие студенты представляют свои работы и достижения с "
+"помощью Studfolio."
+msgstr ""
+
+#: .\templates\home.html:147
+#, fuzzy
+#| msgid "Поиск портфолио"
+msgid "Портфолио Анны К."
+msgstr "Поиск портфолио"
+
+#: .\templates\home.html:148
+msgid ""
+"Студентка факультета дизайна, представила проекты графического и UX/UI "
+"дизайна."
+msgstr ""
+
+#: .\templates\home.html:163
+msgid "Портфолио Михаила Д."
+msgstr ""
+
+#: .\templates\home.html:164
+msgid ""
+"Студент технического вуза, представил мобильные приложения и веб-разработку."
+msgstr ""
+
+#: .\templates\home.html:179
+msgid "Портфолио Елены П."
+msgstr ""
+
+#: .\templates\home.html:180
+msgid ""
+"Студентка экономического факультета, представила исследовательские проекты и "
+"аналитику."
+msgstr ""
+
+#: .\templates\home.html:197
+msgid "Что говорят наши пользователи"
+msgstr ""
+
+#: .\templates\home.html:198
+msgid ""
+"Отзывы студентов, которые уже используют Studfolio для представления своих "
+"работ и достижений."
+msgstr ""
+
+#: .\templates\home.html:207
+msgid "Алексей М."
+msgstr ""
+
+#: .\templates\home.html:208
+msgid "Студент, МГТУ им. Баумана"
+msgstr ""
+
+#: .\templates\home.html:218
+msgid ""
+"Благодаря Studfolio я смог структурировать все свои проекты и наглядно "
+"продемонстрировать их потенциальным работодателям. Это значительно упростило "
+"процесс поиска стажировки!"
+msgstr ""
+
+#: .\templates\home.html:226
+msgid "Марина С."
+msgstr ""
+
+#: .\templates\home.html:227
+msgid "Студентка, ВШЭ"
+msgstr ""
+
+#: .\templates\home.html:237
+msgid ""
+"Современный дизайн и удобный интерфейс делают работу с портфолио приятной. "
+"Получила много положительных отзывов на свое портфолио от преподавателей!"
+msgstr ""
+
+#: .\templates\home.html:245
+msgid "Дмитрий К."
+msgstr ""
+
+#: .\templates\home.html:246
+msgid "Выпускник, ИТМО"
+msgstr ""
+
+#: .\templates\home.html:256
+msgid ""
+"Использую Studfolio уже более года. Очень порадовали обновления платформы. "
+"Сейчас она выглядит по-настоящему современно и подходит для презентации "
+"любых типов проектов."
+msgstr ""
+
+#: .\templates\home.html:267
+#, fuzzy
+#| msgid "Электронное портфолио для студентов"
+msgid "Начните создавать ваше портфолио уже сегодня"
+msgstr "Электронное портфолио для студентов"
+
+#: .\templates\home.html:268
+msgid ""
+"Присоединяйтесь к тысячам студентов, которые уже используют Studfolio для "
+"демонстрации своих навыков и достижений."
+msgstr ""
+
+#: .\templates\home.html:272
+msgid "Начать сейчас"
+msgstr ""
+
+#: .\templates\home.html:275
+#: .\templates\support\knowledge\premium_benefits.html:32
+msgid "Узнать больше"
+msgstr ""
+
+#: .\templates\home.html:280 .\templates\portfolio\project_form.html:170
+#: .\templates\users\profile.html:163 .\templates\users\profile.html:212
+#, fuzzy
+#| msgid "Мои проекты"
+msgid "Добавить проект"
+msgstr "Мои проекты"
+
+#: .\templates\portfolio\achievement_form.html:5
+#: .\templates\portfolio\achievement_list.html:12
+#: .\templates\users\profile.html:292 .\templates\users\profile.html:325
+#, fuzzy
+#| msgid "Достижения"
+msgid "Добавить достижение"
+msgstr "Достижения"
+
+#: .\templates\portfolio\achievement_form.html:5
+#: .\templates\portfolio\achievement_form.html:17
+#, fuzzy
+#| msgid "Редактировать профиль"
+msgid "Редактировать достижение"
+msgstr "Редактировать профиль"
+
+#: .\templates\portfolio\achievement_form.html:15
+msgid "Добавить новое достижение"
+msgstr ""
+
+#: .\templates\portfolio\achievement_form.html:31
+msgid "Например: Победа в олимпиаде по программированию"
+msgstr ""
+
+#: .\templates\portfolio\achievement_form.html:40
+msgid "Укажите организацию, выдавшую награду или подтвердившую достижение"
+msgstr ""
+
+#: .\templates\portfolio\achievement_form.html:57
+msgid "Например: 1 место, Финалист, Лауреат и т.д."
+msgstr ""
+
+#: .\templates\portfolio\achievement_form.html:66
+msgid ""
+"Расскажите подробнее о вашем достижении, что оно означает и почему важно"
+msgstr ""
+
+#: .\templates\portfolio\achievement_form.html:74
+#: .\templates\portfolio\certificate_form.html:93
+msgid "Просмотреть текущий файл"
+msgstr ""
+
+#: .\templates\portfolio\achievement_form.html:82
+msgid ""
+"Загрузите файл, подтверждающий ваше достижение (диплом, сертификат и т.д.)"
+msgstr ""
+
+#: .\templates\portfolio\achievement_form.html:91
+msgid "URL страницы, где можно проверить ваше достижение (если есть)"
+msgstr ""
+
+#: .\templates\portfolio\achievement_form.html:96
+#: .\templates\portfolio\certificate_form.html:106
+#: .\templates\portfolio\project_form.html:167
+msgid "Назад к списку"
+msgstr ""
+
+#: .\templates\portfolio\achievement_form.html:99
+msgid "Сохранить достижение"
+msgstr ""
+
+#: .\templates\portfolio\achievement_list.html:5
+#: .\templates\portfolio\achievement_list.html:10
+#, fuzzy
+#| msgid "Достижения"
+msgid "Мои достижения"
+msgstr "Достижения"
+
+#: .\templates\portfolio\achievement_list.html:54
+msgid "Документ"
+msgstr ""
+
+#: .\templates\portfolio\achievement_list.html:59
+#: .\templates\portfolio\certificate_list.html:62
+msgid "Ссылка"
+msgstr ""
+
+#: .\templates\portfolio\achievement_list.html:70
+#: .\templates\portfolio\certificate_list.html:73
+#: .\templates\users\analytics.html:190
+#, fuzzy
+#| msgid "Редактировать профиль"
+msgid "Редактировать"
+msgstr "Редактировать профиль"
+
+#: .\templates\portfolio\achievement_list.html:75
+#: .\templates\portfolio\certificate_list.html:78
+#: .\templates\portfolio\delete_post_confirm.html:36
+#: .\templates\portfolio\project_feed.html:55
+#, fuzzy
+#| msgid "Аналитика"
+msgid "Удалить"
+msgstr "Аналитика"
+
+#: .\templates\portfolio\achievement_list.html:89
+msgid ""
+"У вас пока нет добавленных достижений. Нажмите кнопку 'Добавить достижение', "
+"чтобы создать свое первое достижение."
+msgstr ""
+
+#: .\templates\portfolio\certificate_form.html:5
+#: .\templates\portfolio\certificate_list.html:12
+#: .\templates\users\profile.html:225 .\templates\users\profile.html:279
+#, fuzzy
+#| msgid "Сертификаты"
+msgid "Добавить сертификат"
+msgstr "Сертификаты"
+
+#: .\templates\portfolio\certificate_form.html:5
+#: .\templates\portfolio\certificate_form.html:17
+#, fuzzy
+#| msgid "Редактировать профиль"
+msgid "Редактировать сертификат"
+msgstr "Редактировать профиль"
+
+#: .\templates\portfolio\certificate_form.html:15
+msgid "Добавить новый сертификат"
+msgstr ""
+
+#: .\templates\portfolio\certificate_form.html:31
+msgid "Например: Сертификат по Python программированию"
+msgstr ""
+
+#: .\templates\portfolio\certificate_form.html:40
+msgid "Название учебного заведения или компании"
+msgstr ""
+
+#: .\templates\portfolio\certificate_form.html:57
+msgid "Оставьте пустым, если бессрочный"
+msgstr ""
+
+#: .\templates\portfolio\certificate_form.html:67
+msgid "Уникальный идентификатор сертификата (если есть)"
+msgstr ""
+
+#: .\templates\portfolio\certificate_form.html:76
+msgid "Ссылка для проверки подлинности сертификата"
+msgstr ""
+
+#: .\templates\portfolio\certificate_form.html:85
+msgid "Краткое описание полученных навыков или знаний"
+msgstr ""
+
+#: .\templates\portfolio\certificate_form.html:101
+msgid "Загрузите скан или снимок сертификата (JPG, PNG или PDF)"
+msgstr ""
+
+#: .\templates\portfolio\certificate_form.html:109
+#, fuzzy
+#| msgid "Сертификаты"
+msgid "Сохранить сертификат"
+msgstr "Сертификаты"
+
+#: .\templates\portfolio\certificate_list.html:5
+#: .\templates\portfolio\certificate_list.html:10
+#, fuzzy
+#| msgid "Сертификаты"
+msgid "Мои сертификаты"
+msgstr "Сертификаты"
+
+#: .\templates\portfolio\certificate_list.html:48
+#: .\templates\users\profile.html:252
+msgid "Действителен до"
+msgstr ""
+
+#: .\templates\portfolio\certificate_list.html:92
+msgid ""
+"У вас пока нет добавленных сертификатов. Нажмите кнопку 'Добавить "
+"сертификат', чтобы создать свой первый сертификат."
+msgstr ""
+
+#: .\templates\portfolio\create_project_post.html:5
+#: .\templates\portfolio\create_project_post.html:14
+#, fuzzy
+#| msgid "Лента проектов"
+msgid "Рассказать о проекте"
+msgstr "Лента проектов"
+
+#: .\templates\portfolio\create_project_post.html:47
+#, fuzzy
+#| msgid "Лента проектов"
+msgid "Расскажите о проекте"
+msgstr "Лента проектов"
+
+#: .\templates\portfolio\create_project_post.html:50
+msgid ""
+"Опишите, чем интересен ваш проект, какие проблемы он решает, что вы узнали в "
+"процессе разработки."
+msgstr ""
+
+#: .\templates\portfolio\create_project_post.html:56
+#: .\templates\portfolio\project_form.html:174
+#, fuzzy
+#| msgid "Мои проекты"
+msgid "Назад к проекту"
+msgstr "Мои проекты"
+
+#: .\templates\portfolio\create_project_post.html:59
+msgid "Опубликовать"
+msgstr ""
+
+#: .\templates\portfolio\create_project_post.html:68
+msgid "Советы для хорошей публикации"
+msgstr ""
+
+#: .\templates\portfolio\create_project_post.html:75
+msgid "Будьте конкретны"
+msgstr ""
+
+#: .\templates\portfolio\create_project_post.html:76
+msgid "Расскажите о конкретных особенностях вашего проекта и его пользе."
+msgstr ""
+
+#: .\templates\portfolio\create_project_post.html:82
+msgid "Думайте о читателе"
+msgstr ""
+
+#: .\templates\portfolio\create_project_post.html:83
+msgid "Что было бы интересно узнать другим о вашем проекте?"
+msgstr ""
+
+#: .\templates\portfolio\create_project_post.html:89
+msgid "Технические детали"
+msgstr ""
+
+#: .\templates\portfolio\create_project_post.html:90
+msgid "Расскажите о технических решениях, которые вы использовали."
+msgstr ""
+
+#: .\templates\portfolio\create_project_post.html:96
+msgid "Поделитесь опытом"
+msgstr ""
+
+#: .\templates\portfolio\create_project_post.html:97
+msgid "Расскажите, чему вы научились, работая над этим проектом."
+msgstr ""
+
+#: .\templates\portfolio\delete_post_confirm.html:5
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "Удаление публикации"
+msgstr "Управление подпиской"
+
+#: .\templates\portfolio\delete_post_confirm.html:14
+#, fuzzy
+#| msgid "Подтверждение пароля"
+msgid "Подтверждение удаления"
+msgstr "Подтверждение пароля"
+
+#: .\templates\portfolio\delete_post_confirm.html:18
+msgid "Вы действительно хотите удалить публикацию о проекте"
+msgstr ""
+
+#: .\templates\portfolio\delete_post_confirm.html:21
+msgid "Это действие нельзя будет отменить."
+msgstr ""
+
+#: .\templates\portfolio\delete_post_confirm.html:25
+#, fuzzy
+#| msgid "Подтверждение пароля"
+msgid "Содержание публикации"
+msgstr "Подтверждение пароля"
+
+#: .\templates\portfolio\project_feed.html:19
+#, fuzzy
+#| msgid "Мои проекты"
+msgid "Новый проект"
+msgstr "Мои проекты"
+
+#: .\templates\portfolio\project_feed.html:54
+#, fuzzy
+#| msgid "Вы уверены, что хотите выйти?"
+msgid "Вы уверены, что хотите удалить эту публикацию?"
+msgstr "Вы уверены, что хотите выйти?"
+
+#: .\templates\portfolio\project_feed.html:116
+#, fuzzy
+#| msgid "Лента проектов"
+msgid "Открыть проект"
+msgstr "Лента проектов"
+
+#: .\templates\portfolio\project_feed.html:124
+#: .\templates\portfolio\project_feed.html:219
+msgid "Поделиться"
+msgstr ""
+
+#: .\templates\portfolio\project_feed.html:141
+#, fuzzy
+#| msgid "Редактировать профиль"
+msgid "Копировать ссылку"
+msgstr "Редактировать профиль"
+
+#: .\templates\portfolio\project_feed.html:151
+msgid "Комментарии"
+msgstr ""
+
+#: .\templates\portfolio\project_feed.html:174
+msgid "Комментариев пока нет. Будьте первым!"
+msgstr ""
+
+#: .\templates\portfolio\project_feed.html:183
+msgid "Написать комментарий..."
+msgstr ""
+
+#: .\templates\portfolio\project_feed.html:196
+msgid "В ленте пока нет проектов. Создайте свой проект и расскажите о нем!"
+msgstr ""
+
+#: .\templates\portfolio\project_feed.html:228
+msgid "Показать все"
+msgstr ""
+
+#: .\templates\portfolio\project_feed.html:235
+#: .\templates\users\profile.html:209
+#, fuzzy
+#| msgid "Лента проектов"
+msgid "У вас пока нет проектов"
+msgstr "Лента проектов"
+
+#: .\templates\portfolio\project_feed.html:237
+#, fuzzy
+#| msgid "Мои проекты"
+msgid "Создать проект"
+msgstr "Мои проекты"
+
+#: .\templates\portfolio\project_feed.html:247
+msgid "Советы"
+msgstr ""
+
+#: .\templates\portfolio\project_feed.html:251
+#, fuzzy
+#| msgid "Редактировать профиль"
+msgid "Как создать пост"
+msgstr "Редактировать профиль"
+
+#: .\templates\portfolio\project_feed.html:252
+msgid ""
+"Создайте проект и нажмите 'Поделиться' в списке проектов, чтобы рассказать о "
+"нем другим пользователям."
+msgstr ""
+
+#: .\templates\portfolio\project_feed.html:255
+#, fuzzy
+#| msgid "Лента проектов"
+msgid "Изображения проектов"
+msgstr "Лента проектов"
+
+#: .\templates\portfolio\project_feed.html:256
+msgid ""
+"Добавьте качественное изображение к вашему проекту, чтобы привлечь больше "
+"внимания в ленте."
+msgstr ""
+
+#: .\templates\portfolio\project_feed.html:259
+msgid "Взаимодействие"
+msgstr ""
+
+#: .\templates\portfolio\project_feed.html:260
+msgid ""
+"Оставляйте комментарии к проектам других пользователей, чтобы получать "
+"обратную связь на свои."
+msgstr ""
+
+#: .\templates\portfolio\project_feed.html:385
+msgid "Скопировано!"
+msgstr ""
+
+#: .\templates\portfolio\project_form.html:7
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "Добавление проекта"
+msgstr "Управление подпиской"
+
+#: .\templates\portfolio\project_form.html:9
+#: .\templates\portfolio\project_form.html:23
+#, fuzzy
+#| msgid "Редактировать профиль"
+msgid "Редактирование проекта"
+msgstr "Редактировать профиль"
+
+#: .\templates\portfolio\project_form.html:21
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "Добавление нового проекта"
+msgstr "Управление подпиской"
+
+#: .\templates\portfolio\project_form.html:49
+msgid ""
+"Название проекта, например: Веб-сайт для компании, Мобильное приложение и "
+"т.д."
+msgstr ""
+
+#: .\templates\portfolio\project_form.html:62
+msgid "Подробное описание проекта: проблема, решение, ваша роль, результаты"
+msgstr ""
+
+#: .\templates\portfolio\project_form.html:88
+msgid "Оставьте пустым, если проект ещё в разработке"
+msgstr ""
+
+#: .\templates\portfolio\project_form.html:102
+msgid ""
+"Перечислите технологии через пробел, например: Python Django JavaScript "
+"Bootstrap"
+msgstr ""
+
+#: .\templates\portfolio\project_form.html:116
+msgid "URL действующего проекта, если он доступен онлайн"
+msgstr ""
+
+#: .\templates\portfolio\project_form.html:129
+msgid "URL репозитория с исходным кодом"
+msgstr ""
+
+#: .\templates\portfolio\project_form.html:134
+#, fuzzy
+#| msgid "Подтверждение пароля"
+msgid "Изображение проекта"
+msgstr "Подтверждение пароля"
+
+#: .\templates\portfolio\project_form.html:148
+msgid ""
+"Загрузите скриншот, макет или логотип проекта для наглядного представления"
+msgstr ""
+
+#: .\templates\portfolio\project_form.html:153
+msgid "Выделить как избранный проект"
+msgstr ""
+
+#: .\templates\portfolio\project_form.html:161
+msgid "Избранные проекты будут показаны первыми в вашем портфолио"
+msgstr ""
+
+#: .\templates\portfolio\project_form.html:177
+#: .\templates\users\profile_edit.html:248
+#, fuzzy
+#| msgid "Запомнить меня"
+msgid "Сохранить изменения"
+msgstr "Запомнить меня"
+
+#: .\templates\portfolio\project_form.html:188
+msgid "Советы для создания эффектного проекта"
+msgstr ""
+
+#: .\templates\portfolio\project_form.html:195
+msgid "Качественные изображения"
+msgstr ""
+
+#: .\templates\portfolio\project_form.html:196
+msgid ""
+"Добавьте четкий скриншот или изображение проекта - это первое, что "
+"привлекает внимание"
+msgstr ""
+
+#: .\templates\portfolio\project_form.html:202
+msgid "Структурированное описание"
+msgstr ""
+
+#: .\templates\portfolio\project_form.html:203
+msgid ""
+"Опишите задачу, решение, использованные технологии и достигнутые результаты"
+msgstr ""
+
+#: .\templates\portfolio\project_form.html:209
+msgid "Технический стек"
+msgstr ""
+
+#: .\templates\portfolio\project_form.html:210
+msgid ""
+"Перечислите все ключевые технологии, языки и инструменты, использованные в "
+"проекте"
+msgstr ""
+
+#: .\templates\portfolio\project_form.html:216
+msgid "Добавьте ссылки"
+msgstr ""
+
+#: .\templates\portfolio\project_form.html:217
+msgid ""
+"Ссылки на живую демонстрацию и исходный код значительно повышают ценность "
+"проекта"
+msgstr ""
+
+#: .\templates\premium_guide.html:5 .\templates\premium_guide.html:24
+msgid "Руководство по премиум-возможностям"
+msgstr ""
+
+#: .\templates\premium_guide.html:16
+msgid "Руководство"
+msgstr ""
+
+#: .\templates\premium_guide.html:26
+msgid ""
+"Подробная инструкция по использованию всех возможностей премиум-подписки "
+"Studfolio"
+msgstr ""
+
+#: .\templates\premium_guide.html:34
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "Статус вашей подписки"
+msgstr "Управление подпиской"
+
+#: .\templates\premium_guide.html:45 .\templates\users\analytics.html:68
+#: .\templates\users\portfolio_settings.html:44
+#: .\templates\users\subscription.html:50
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "У вас активна премиум-подписка"
+msgstr "Управление подпиской"
+
+#: .\templates\premium_guide.html:46
+#: .\templates\users\portfolio_settings.html:46
+#: .\templates\users\subscription.html:52
+msgid "Действует до:"
+msgstr ""
+
+#: .\templates\premium_guide.html:57
+msgid "У вас нет активной премиум-подписки"
+msgstr ""
+
+#: .\templates\premium_guide.html:58
+msgid "Для доступа к премиум-возможностям активируйте подписку"
+msgstr ""
+
+#: .\templates\premium_guide.html:63 .\templates\users\subscription.html:190
+#, fuzzy
+#| msgid "Редактировать профиль"
+msgid "Активировать подписку"
+msgstr "Редактировать профиль"
+
+#: .\templates\premium_guide.html:75
+msgid "1. Премиум-темы оформления"
+msgstr ""
+
+#: .\templates\premium_guide.html:81
+msgid "Как использовать премиум-темы"
+msgstr ""
+
+#: .\templates\premium_guide.html:85
+#, fuzzy
+#| msgid "Настройки портфолио"
+msgid "Перейдите в настройки портфолио"
+msgstr "Настройки портфолио"
+
+#: .\templates\premium_guide.html:86
+msgid "Откройте страницу настроек портфолио через главное меню или профиль"
+msgstr ""
+
+#: .\templates\premium_guide.html:91
+#, fuzzy
+#| msgid "Вход в систему"
+msgid "Выберите тему"
+msgstr "Вход в систему"
+
+#: .\templates\premium_guide.html:92
+msgid "Выберите понравившуюся премиум-тему из доступных вариантов"
+msgstr ""
+
+#: .\templates\premium_guide.html:97
+msgid "Просмотрите и примените"
+msgstr ""
+
+#: .\templates\premium_guide.html:98
+msgid "Используйте предпросмотр для оценки темы, затем нажмите 'Выбрать'"
+msgstr ""
+
+#: .\templates\premium_guide.html:103
+msgid "Сохраните настройки"
+msgstr ""
+
+#: .\templates\premium_guide.html:104
+msgid "Нажмите 'Сохранить настройки' для применения выбранной темы"
+msgstr ""
+
+#: .\templates\premium_guide.html:109
+msgid "Настроить тему"
+msgstr ""
+
+#: .\templates\premium_guide.html:115
+msgid "Доступные премиум-темы"
+msgstr ""
+
+#: .\templates\premium_guide.html:116
+msgid "С премиум-подпиской вам доступны эксклюзивные темы:"
+msgstr ""
+
+#: .\templates\premium_guide.html:118 .\users\models.py:88
+msgid "Профессиональная"
+msgstr ""
+
+#: .\templates\premium_guide.html:118
+#, fuzzy
+#| msgid "Создайте ваше электронное портфолио"
+msgid "Строгий дизайн для рабочего портфолио"
+msgstr "Создайте ваше электронное портфолио"
+
+#: .\templates\premium_guide.html:119 .\users\models.py:89
+#, fuzzy
+#| msgid "Главная"
+msgid "Креативная"
+msgstr "Главная"
+
+#: .\templates\premium_guide.html:119
+msgid "Яркие акценты для творческих проектов"
+msgstr ""
+
+#: .\templates\premium_guide.html:120 .\users\models.py:87
+msgid "Минималистичная"
+msgstr ""
+
+#: .\templates\premium_guide.html:120
+msgid "Элегантный минимализм для фокуса на контенте"
+msgstr ""
+
+#: .\templates\premium_guide.html:121
+msgid "Темная"
+msgstr ""
+
+#: .\templates\premium_guide.html:121
+msgid "Стильная темная тема с контрастными элементами"
+msgstr ""
+
+#: .\templates\premium_guide.html:122
+msgid "И другие..."
+msgstr ""
+
+#: .\templates\premium_guide.html:137
+msgid "2. Настройка CSS"
+msgstr ""
+
+#: .\templates\premium_guide.html:143
+msgid "Как настроить свой CSS"
+msgstr ""
+
+#: .\templates\premium_guide.html:147
+#, fuzzy
+#| msgid "Создайте ваше электронное портфолио"
+msgid "Перейдите в расширенные настройки"
+msgstr "Создайте ваше электронное портфолио"
+
+#: .\templates\premium_guide.html:148
+msgid ""
+"В настройках портфолио прокрутите вниз до раздела 'Расширенные настройки'"
+msgstr ""
+
+#: .\templates\premium_guide.html:153
+msgid "Найдите поле 'Пользовательский CSS'"
+msgstr ""
+
+#: .\templates\premium_guide.html:154
+msgid "Это текстовое поле для ввода ваших CSS-правил"
+msgstr ""
+
+#: .\templates\premium_guide.html:159
+msgid "Добавьте свои CSS-правила"
+msgstr ""
+
+#: .\templates\premium_guide.html:160
+#, fuzzy
+#| msgid "Создайте ваше электронное портфолио"
+msgid "Введите CSS-код для кастомизации вашего портфолио"
+msgstr "Создайте ваше электронное портфолио"
+
+#: .\templates\premium_guide.html:165
+msgid "Сохраните изменения"
+msgstr ""
+
+#: .\templates\premium_guide.html:166
+msgid "Нажмите 'Сохранить настройки' для применения вашего CSS"
+msgstr ""
+
+#: .\templates\premium_guide.html:171
+msgid "Настроить CSS"
+msgstr ""
+
+#: .\templates\premium_guide.html:177
+msgid "Примеры CSS-кода"
+msgstr ""
+
+#: .\templates\premium_guide.html:178
+msgid "Вы можете использовать эти примеры для начала:"
+msgstr ""
+
+#: .\templates\premium_guide.html:207
+msgid "3. Персональный домен"
+msgstr ""
+
+#: .\templates\premium_guide.html:213
+msgid "Как настроить свой домен"
+msgstr ""
+
+#: .\templates\premium_guide.html:217
+msgid "Приобретите домен"
+msgstr ""
+
+#: .\templates\premium_guide.html:218
+msgid "Купите домен у любого регистратора (например, Namecheap, GoDaddy)"
+msgstr ""
+
+#: .\templates\premium_guide.html:223
+msgid "Настройте DNS"
+msgstr ""
+
+#: .\templates\premium_guide.html:224
+msgid "Добавьте CNAME-запись, указывающую на studfolio.com"
+msgstr ""
+
+#: .\templates\premium_guide.html:229
+msgid "Введите домен в настройках"
+msgstr ""
+
+#: .\templates\premium_guide.html:230
+msgid "В расширенных настройках портфолио укажите ваш домен без https://"
+msgstr ""
+
+#: .\templates\premium_guide.html:235
+msgid "Подождите активации"
+msgstr ""
+
+#: .\templates\premium_guide.html:236
+msgid "Активация домена может занять до 24 часов"
+msgstr ""
+
+#: .\templates\premium_guide.html:241
+#, fuzzy
+#| msgid "Настройки портфолио"
+msgid "Настроить домен"
+msgstr "Настройки портфолио"
+
+#: .\templates\premium_guide.html:247
+msgid "Пример настройки DNS"
+msgstr ""
+
+#: .\templates\premium_guide.html:248
+msgid "Добавьте следующие записи в настройках вашего домена:"
+msgstr ""
+
+#: .\templates\premium_guide.html:254
+msgid "Тип"
+msgstr ""
+
+#: .\templates\premium_guide.html:255
+msgid "Имя"
+msgstr ""
+
+#: .\templates\premium_guide.html:256
+msgid "Значение"
+msgstr ""
+
+#: .\templates\premium_guide.html:289
+msgid "4. Расширенная аналитика"
+msgstr ""
+
+#: .\templates\premium_guide.html:295
+msgid "Как использовать аналитику"
+msgstr ""
+
+#: .\templates\premium_guide.html:299
+msgid "Перейдите в раздел Аналитика"
+msgstr ""
+
+#: .\templates\premium_guide.html:300
+msgid "Найдите пункт 'Аналитика' в меню пользователя"
+msgstr ""
+
+#: .\templates\premium_guide.html:305
+msgid "Изучите общую статистику"
+msgstr ""
+
+#: .\templates\premium_guide.html:306
+msgid "Просмотрите количество посещений профиля и проектов"
+msgstr ""
+
+#: .\templates\premium_guide.html:311
+msgid "Проанализируйте графики"
+msgstr ""
+
+#: .\templates\premium_guide.html:312
+msgid "Изучите графики посещаемости за разные периоды"
+msgstr ""
+
+#: .\templates\premium_guide.html:317
+msgid "Отслеживайте популярные проекты"
+msgstr ""
+
+#: .\templates\premium_guide.html:318
+msgid "Определите, какие ваши проекты привлекают больше внимания"
+msgstr ""
+
+#: .\templates\premium_guide.html:323
+msgid "Открыть аналитику"
+msgstr ""
+
+#: .\templates\premium_guide.html:329
+msgid "Доступная статистика"
+msgstr ""
+
+#: .\templates\premium_guide.html:330
+msgid "С премиум-подпиской вам доступны:"
+msgstr ""
+
+#: .\templates\premium_guide.html:334
+msgid "Графики посещаемости по дням"
+msgstr ""
+
+#: .\templates\premium_guide.html:338
+msgid "Данные о посетителях вашего профиля"
+msgstr ""
+
+#: .\templates\premium_guide.html:342
+#, fuzzy
+#| msgid "Редактировать профиль"
+msgid "Источники переходов на ваш профиль"
+msgstr "Редактировать профиль"
+
+#: .\templates\premium_guide.html:346
+msgid "Статистика по отдельным проектам"
+msgstr ""
+
+#: .\templates\premium_guide.html:350
+msgid "Фильтрация и сортировка данных"
+msgstr ""
+
+#: .\templates\premium_guide.html:374
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "Как продлить премиум-подписку?"
+msgstr "Управление подпиской"
+
+#: .\templates\premium_guide.html:379
+msgid ""
+"Для продления подписки просто введите новый код активации в разделе "
+"'Управление подпиской'. Срок действия подписки будет продлен на указанный в "
+"коде период."
+msgstr ""
+
+#: .\templates\premium_guide.html:386
+msgid "Что произойдет после окончания срока подписки?"
+msgstr ""
+
+#: .\templates\premium_guide.html:391
+msgid ""
+"После окончания срока подписки ваш аккаунт автоматически вернется к базовому "
+"уровню. Премиум-темы будут заменены на стандартные, CSS-настройки отключены, "
+"а доступ к расширенной аналитике будет ограничен. Все ваши проекты и данные "
+"сохранятся."
+msgstr ""
+
+#: .\templates\premium_guide.html:398
+msgid "Могу ли я изменить тему после её выбора?"
+msgstr ""
+
+#: .\templates\premium_guide.html:403
+msgid ""
+"Да, вы можете изменить тему в любое время. Просто перейдите в настройки "
+"портфолио и выберите другую тему из доступных вариантов. Изменения вступят в "
+"силу сразу после сохранения настроек."
+msgstr ""
+
+#: .\templates\premium_guide.html:410
+msgid "Как получить приоритетную поддержку?"
+msgstr ""
+
+#: .\templates\premium_guide.html:415
+msgid ""
+"Как премиум-пользователь, вы автоматически получаете доступ к приоритетной "
+"поддержке. Для обращения в поддержку используйте форму обратной связи или "
+"напишите на email premium@studfolio.com, указав свой логин."
+msgstr ""
+
+#: .\templates\support\contact_us.html:13
+msgid "У вас есть вопросы или предложения? Мы всегда рады помочь!"
+msgstr ""
+
+#: .\templates\support\contact_us.html:22
+msgid "Наши контакты"
+msgstr ""
+
+#: .\templates\support\contact_us.html:31
+#: .\templates\support\contact_us.html:110
+msgid "Электронная почта"
+msgstr ""
+
+#: .\templates\support\contact_us.html:33
+msgid "Мы отвечаем в течение 24 часов"
+msgstr ""
+
+#: .\templates\support\contact_us.html:44
+msgid "Телефон"
+msgstr ""
+
+#: .\templates\support\contact_us.html:46
+msgid "Пн-Пт, с 9:00 до 18:00"
+msgstr ""
+
+#: .\templates\support\contact_us.html:57
+msgid "Адрес"
+msgstr ""
+
+#: .\templates\support\contact_us.html:59
+msgid "По предварительной записи"
+msgstr ""
+
+#: .\templates\support\contact_us.html:63
+msgid "Социальные сети"
+msgstr ""
+
+#: .\templates\support\contact_us.html:89
+#: .\templates\support\contact_us.html:159
+msgid "Отправить сообщение"
+msgstr ""
+
+#: .\templates\support\contact_us.html:106
+msgid "Ваше имя"
+msgstr ""
+
+#: .\templates\support\contact_us.html:124
+msgid "Общий вопрос"
+msgstr ""
+
+#: .\templates\support\contact_us.html:125
+msgid "Техническая поддержка"
+msgstr ""
+
+#: .\templates\support\contact_us.html:126
+msgid "Вопросы оплаты"
+msgstr ""
+
+#: .\templates\support\contact_us.html:127
+msgid "Сотрудничество"
+msgstr ""
+
+#: .\templates\support\contact_us.html:128
+msgid "Отзыв о сервисе"
+msgstr ""
+
+#: .\templates\support\contact_us.html:135
+msgid "Ваше сообщение"
+msgstr ""
+
+#: .\templates\support\contact_us.html:143
+msgid "Я согласен на обработку моих персональных данных в соответствии с "
+msgstr ""
+
+#: .\templates\support\contact_us.html:144
+msgid "Политикой конфиденциальности"
+msgstr ""
+
+#: .\templates\support\contact_us.html:151
+msgid "Сколько будет 2 + 3?"
+msgstr ""
+
+#: .\templates\support\contact_us.html:168
+msgid "Часто ищут"
+msgstr ""
+
+#: .\templates\support\contact_us.html:170
+#: .\templates\support\knowledge\faq.html:120
+msgid "Studfolio — платная платформа?"
+msgstr ""
+
+#: .\templates\support\contact_us.html:171
+#, fuzzy
+#| msgid "Редактировать профиль"
+msgid "Как создать проект?"
+msgstr "Редактировать профиль"
+
+#: .\templates\support\contact_us.html:172 .\templates\support\home.html:47
+#: .\templates\support\knowledge\faq.html:130
+#: .\templates\support\knowledge\faq.html:363
+#: .\templates\support\knowledge\premium_benefits.html:5
+#: .\templates\support\knowledge\terms_of_service.html:100
+msgid "Преимущества Premium"
+msgstr ""
+
+#: .\templates\support\contact_us.html:173
+#: .\templates\support\knowledge\terms_of_service.html:24
+msgid "Учетные записи"
+msgstr ""
+
+#: .\templates\support\contact_us.html:184
+msgid "Ищете ответы на популярные вопросы?"
+msgstr ""
+
+#: .\templates\support\contact_us.html:185
+msgid ""
+"Посетите нашу страницу часто задаваемых вопросов, чтобы найти ответы на "
+"популярные вопросы о Studfolio"
+msgstr ""
+
+#: .\templates\support\contact_us.html:187
+msgid "Перейти к FAQ"
+msgstr ""
+
+#: .\templates\support\contact_us.html:207
+msgid "Пожалуйста, правильно решите пример для защиты от спама."
+msgstr ""
+
+#: .\templates\support\home.html:12
+msgid "Центр поддержки Studfolio"
+msgstr ""
+
+#: .\templates\support\home.html:13
+msgid "Получите помощь, изучите базу знаний или создайте тикет поддержки"
+msgstr ""
+
+#: .\templates\support\home.html:22
+#, fuzzy
+#| msgid "Поддержка"
+msgid "Главная поддержки"
+msgstr "Поддержка"
+
+#: .\templates\support\home.html:25 .\templates\support\home.html:101
+#, fuzzy
+#| msgid "Мои проекты"
+msgid "Мои тикеты"
+msgstr "Мои проекты"
+
+#: .\templates\support\home.html:29 .\templates\support\home.html:85
+#: .\templates\support\knowledge\faq.html:430
+#: .\templates\support\ticket_create.html:5
+#: .\templates\support\ticket_create.html:15
+msgid "Создать тикет"
+msgstr ""
+
+#: .\templates\support\home.html:32 .\templates\support\home.html:69
+msgid "База знаний"
+msgstr ""
+
+#: .\templates\support\home.html:44
+msgid "Полезная информация"
+msgstr ""
+
+#: .\templates\support\home.html:53
+#: .\templates\support\knowledge\privacy_policy.html:5
+#: .\templates\support\knowledge\privacy_policy.html:12
+#: .\templates\support\knowledge\terms_of_service.html:176
+msgid "Политика конфиденциальности"
+msgstr ""
+
+#: .\templates\support\home.html:70
+msgid "Изучите наши руководства, часто задаваемые вопросы и учебные материалы"
+msgstr ""
+
+#: .\templates\support\home.html:72
+msgid "Перейти к базе знаний"
+msgstr ""
+
+#: .\templates\support\home.html:86
+msgid "Обратитесь в службу поддержки, если у вас возникли проблемы или вопросы"
+msgstr ""
+
+#: .\templates\support\home.html:88
+msgid "Создать запрос в поддержку"
+msgstr ""
+
+#: .\templates\support\home.html:102
+msgid "Просмотрите статус ваших существующих обращений в службу поддержки"
+msgstr ""
+
+#: .\templates\support\home.html:104
+msgid "Просмотреть мои тикеты"
+msgstr ""
+
+#: .\templates\support\home.html:117
+msgid "Ваши последние обращения"
+msgstr ""
+
+#: .\templates\support\home.html:128
+msgid "Дата создания"
+msgstr ""
+
+#: .\templates\support\home.html:161
+msgid "Все мои тикеты"
+msgstr ""
+
+#: .\templates\support\home.html:173
+msgid "Популярные статьи"
+msgstr ""
+
+#: .\templates\support\home.html:208
+msgid "Категории базы знаний"
+msgstr ""
+
+#: .\templates\support\home.html:231 .\templates\support\knowledge\faq.html:426
+msgid "Не нашли ответ на ваш вопрос?"
+msgstr ""
+
+#: .\templates\support\home.html:232
+msgid "Свяжитесь с нашей командой поддержки, и мы поможем решить ваш вопрос"
+msgstr ""
+
+#: .\templates\support\home.html:234
+msgid "Обратиться в поддержку"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:13
+msgid "Ответы на распространенные вопросы о платформе Studfolio"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:25
+msgid "Поиск по часто задаваемым вопросам..."
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:37
+msgid "Общие вопросы"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:43
+msgid "Учетная запись"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:74
+msgid "Что такое Studfolio?"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:79
+#, fuzzy
+#| msgid ""
+#| "Studfolio - платформа для студентов, где вы можете презентовать свои "
+#| "учебные и профессиональные достижения, проекты и получать отзывы от "
+#| "преподавателей."
+msgid ""
+"Studfolio — это платформа для создания профессиональных портфолио, "
+"ориентированная на студентов и молодых специалистов. Наш сервис позволяет "
+"вам демонстрировать свои учебные и профессиональные достижения, проекты и "
+"получать отзывы от преподавателей и потенциальных работодателей."
+msgstr ""
+"Studfolio - платформа для студентов, где вы можете презентовать свои учебные "
+"и профессиональные достижения, проекты и получать отзывы от преподавателей."
+
+#: .\templates\support\knowledge\faq.html:80
+msgid "С помощью Studfolio вы можете:"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:82
+#, fuzzy
+#| msgid "Создайте ваше электронное портфолио"
+msgid "Создать персональное онлайн-портфолио"
+msgstr "Создайте ваше электронное портфолио"
+
+#: .\templates\support\knowledge\faq.html:83
+msgid "Загружать и структурировать ваши проекты"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:84
+msgid "Добавлять сертификаты и достижения"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:85
+msgid "Получать отзывы от преподавателей"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:86
+msgid "Повысить свою привлекательность для работодателей"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:97
+msgid "Как начать пользоваться Studfolio?"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:102
+msgid "Начать пользоваться Studfolio очень просто! Выполните следующие шаги:"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:104
+msgid ""
+"Зарегистрируйтесь на платформе, используя электронную почту или социальные "
+"сети"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:105
+msgid "Заполните свой профиль, добавив фотографию, образование, навыки и опыт"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:106
+msgid ""
+"Создайте ваш первый проект, загрузив соответствующие материалы и описание"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:107
+msgid "Добавьте сертификаты и достижения, чтобы подтвердить ваши компетенции"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:108
+msgid ""
+"Поделитесь своим портфолио с преподавателями или потенциальными "
+"работодателями"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:110
+msgid ""
+"После регистрации вы получите доступ к подробной инструкции по использованию "
+"всех функций платформы."
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:125
+msgid "Studfolio предлагает как бесплатный, так и премиум доступ:"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:127
+msgid "Бесплатный аккаунт:"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:127
+msgid ""
+"Позволяет создать базовое портфолио с ограниченным количеством проектов, "
+"получать отзывы и просматривать публичные проекты других пользователей."
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:128
+msgid "Premium-аккаунт:"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:128
+msgid ""
+"Предоставляет расширенные возможности, включая неограниченное количество "
+"проектов, продвинутую аналитику, дополнительные шаблоны оформления и "
+"приоритетную поддержку."
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:130
+msgid ""
+"Для студентов и образовательных учреждений действуют специальные тарифы и "
+"групповые скидки. Более подробную информацию о ценах и возможностях Premium-"
+"аккаунта вы можете найти на странице"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:140
+msgid "Как связаться с поддержкой?"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:145
+msgid "Вы можете связаться с нашей службой поддержки несколькими способами:"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:147
+msgid "Создать тикет в разделе"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:148
+msgid "Отправить письмо на электронную почту"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:149
+msgid "Заполнить форму обратной связи на странице"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:151
+msgid ""
+"Наша команда поддержки доступна в рабочие дни с 9:00 до 18:00 и отвечает на "
+"большинство запросов в течение 24 часов."
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:166
+msgid "Как изменить данные моего профиля?"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:171
+msgid "Для изменения данных вашего профиля:"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:173
+#: .\templates\support\knowledge\faq.html:196
+#: .\templates\support\knowledge\faq.html:227
+#: .\templates\support\knowledge\faq.html:259
+#: .\templates\support\knowledge\faq.html:402
+#: .\templates\support\knowledge\premium_benefits.html:358
+#: .\templates\support\knowledge\premium_benefits.html:380
+msgid "Войдите в свою учетную запись"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:174
+#: .\templates\support\knowledge\faq.html:197
+#: .\templates\support\knowledge\faq.html:228
+#: .\templates\support\knowledge\faq.html:403
+msgid "Нажмите на ваше имя пользователя в верхнем правом углу"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:175
+#, fuzzy
+#| msgid "Редактировать профиль"
+msgid "Выберите 'Редактировать профиль' в выпадающем меню"
+msgstr "Редактировать профиль"
+
+#: .\templates\support\knowledge\faq.html:176
+msgid "Внесите необходимые изменения в ваш профиль"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:177
+msgid "Нажмите 'Сохранить изменения'"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:179
+msgid ""
+"Вы можете изменить свои личные данные, фотографию профиля, информацию об "
+"образовании, навыках и контактные данные."
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:189
+#, fuzzy
+#| msgid "Сменить пароль"
+msgid "Как изменить пароль или email?"
+msgstr "Сменить пароль"
+
+#: .\templates\support\knowledge\faq.html:194
+#, fuzzy
+#| msgid "Подтверждение пароля"
+msgid "Для изменения пароля:"
+msgstr "Подтверждение пароля"
+
+#: .\templates\support\knowledge\faq.html:198
+#: .\templates\support\knowledge\faq.html:229
+msgid "Выберите 'Настройки аккаунта'"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:199
+msgid "Перейдите во вкладку 'Безопасность'"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:200
+msgid "Введите текущий пароль и дважды новый пароль"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:201
+#, fuzzy
+#| msgid "Сменить пароль"
+msgid "Нажмите 'Сохранить новый пароль'"
+msgstr "Сменить пароль"
+
+#: .\templates\support\knowledge\faq.html:204
+msgid "Для изменения email:"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:206
+msgid ""
+"В разделе 'Настройки аккаунта' перейдите во вкладку 'Основная информация'"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:207
+msgid "Введите новый email и ваш текущий пароль"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:208
+msgid "Нажмите 'Изменить email'"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:209
+msgid ""
+"На новый email будет отправлено письмо для подтверждения. Перейдите по "
+"ссылке в этом письме, чтобы подтвердить новый email"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:220
+msgid "Как удалить мою учетную запись?"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:225
+msgid "Для удаления учетной записи выполните следующие шаги:"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:230
+msgid "Прокрутите вниз до раздела 'Удаление аккаунта'"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:231
+msgid "Нажмите кнопку 'Удалить мой аккаунт'"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:232
+#, fuzzy
+#| msgid "Подтверждение пароля"
+msgid "Подтвердите действие, введя ваш пароль"
+msgstr "Подтверждение пароля"
+
+#: .\templates\support\knowledge\faq.html:236
+msgid ""
+"Важно: Удаление аккаунта - необратимое действие. Все ваши проекты, "
+"сертификаты и достижения будут удалены. Перед удалением рекомендуем "
+"сохранить копии важных материалов."
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:252
+msgid "Как создать новый проект?"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:257
+#, fuzzy
+#| msgid "Создайте ваше электронное портфолио"
+msgid "Для создания нового проекта в вашем портфолио:"
+msgstr "Создайте ваше электронное портфолио"
+
+#: .\templates\support\knowledge\faq.html:260
+msgid "Перейдите в раздел 'Мои проекты'"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:261
+msgid "Нажмите кнопку 'Создать новый проект'"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:262
+msgid "Заполните форму с информацией о проекте:"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:264
+#, fuzzy
+#| msgid "Лента проектов"
+msgid "Название проекта"
+msgstr "Лента проектов"
+
+#: .\templates\support\knowledge\faq.html:267
+msgid "Теги"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:268
+#, fuzzy
+#| msgid "Лента проектов"
+msgid "Статус проекта"
+msgstr "Лента проектов"
+
+#: .\templates\support\knowledge\faq.html:271
+msgid "Загрузите файлы, изображения или добавьте ссылки на внешние ресурсы"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:272
+#, fuzzy
+#| msgid "Настройки портфолио"
+msgid "Настройте приватность проекта"
+msgstr "Настройки портфолио"
+
+#: .\templates\support\knowledge\faq.html:273
+#, fuzzy
+#| msgid "Редактировать профиль"
+msgid "Нажмите 'Сохранить проект'"
+msgstr "Редактировать профиль"
+
+#: .\templates\support\knowledge\faq.html:275
+msgid ""
+"После создания вы сможете редактировать проект, добавлять новые материалы и "
+"приглашать преподавателей для оценки и отзывов."
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:285
+msgid "Какие форматы файлов поддерживаются?"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:290
+msgid ""
+"Studfolio поддерживает широкий спектр форматов файлов для ваших проектов:"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:292
+#, fuzzy
+#| msgid "Достижения"
+msgid "Изображения:"
+msgstr "Достижения"
+
+#: .\templates\support\knowledge\faq.html:293
+msgid "Документы:"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:294
+msgid "Архивы:"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:295
+msgid "Аудио:"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:296
+msgid "Видео:"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:297
+msgid "Дизайн:"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:299
+msgid ""
+"Для файлов большего размера или других форматов рекомендуем использовать "
+"внешние сервисы (Google Drive, Dropbox, GitHub и т.д.) и добавлять ссылки на "
+"них в описании проекта."
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:300
+msgid ""
+"Максимальный размер файла для загрузки: для базовых аккаунтов — 100 МБ, для "
+"Premium — 500 МБ."
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:310
+msgid "Как получить отзывы на мои проекты?"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:315
+msgid "Для получения отзывов на ваши проекты:"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:317
+msgid ""
+"Убедитесь, что ваш проект полностью заполнен и содержит достаточно информации"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:318
+msgid "Откройте страницу проекта"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:319
+msgid "Нажмите кнопку 'Запросить отзыв'"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:320
+msgid "Выберите один из способов приглашения:"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:322
+msgid "По электронной почте — введите email преподавателя или ментора"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:323
+msgid ""
+"По имени пользователя — если преподаватель уже зарегистрирован на платформе"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:324
+msgid ""
+"Сгенерировать ссылку — создает уникальную ссылку для доступа к проекту и "
+"форме отзыва"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:327
+msgid "Добавьте персональное сообщение (опционально)"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:328
+msgid "Нажмите 'Отправить приглашение'"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:330
+msgid ""
+"После отправки приглашения преподаватель получит уведомление и сможет "
+"оставить развернутый отзыв и оценку по различным критериям. Вы получите "
+"уведомление, когда отзыв будет оставлен."
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:331
+msgid ""
+"Если у вас Premium-аккаунт, вы можете запрашивать отзывы неограниченное "
+"количество раз и получать расширенную аналитику по отзывам."
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:346
+msgid "Какие преимущества дает Premium-аккаунт?"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:351
+msgid ""
+"Premium-аккаунт предоставляет расширенные возможности для вашего портфолио:"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:353
+msgid "Неограниченное количество проектов и сертификатов"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:354
+#, fuzzy
+#| msgid "Создайте ваше электронное портфолио"
+msgid "Расширенные шаблоны оформления портфолио"
+msgstr "Создайте ваше электронное портфолио"
+
+#: .\templates\support\knowledge\faq.html:355
+msgid "Увеличенный лимит хранения файлов (до 500 МБ на проект)"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:356
+#, fuzzy
+#| msgid "Создайте ваше электронное портфолио"
+msgid "Подробная аналитика просмотров вашего портфолио"
+msgstr "Создайте ваше электронное портфолио"
+
+#: .\templates\support\knowledge\faq.html:357
+msgid "Персональный домен для вашего портфолио (username.studfolio.com)"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:358
+msgid "Возможность экспорта портфолио в PDF и другие форматы"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:359
+msgid "Расширенные настройки приватности"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:360
+#: .\templates\support\knowledge\premium_benefits.html:108
+msgid "Приоритетная техническая поддержка"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:361
+msgid "Специальные бейджи Premium на вашем профиле"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:363
+msgid "Полный список преимуществ можно найти на странице"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:373
+msgid "Сколько стоит Premium-подписка?"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:378
+msgid "Studfolio предлагает гибкие планы подписки Premium:"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:380
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "Месячная подписка:"
+msgstr "Управление подпиской"
+
+#: .\templates\support\knowledge\faq.html:381
+#, fuzzy
+#| msgid "Подписка"
+msgid "Годовая подписка:"
+msgstr "Подписка"
+
+#: .\templates\support\knowledge\faq.html:382
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "Студенческая подписка:"
+msgstr "Управление подпиской"
+
+#: .\templates\support\knowledge\faq.html:384
+msgid ""
+"Для образовательных учреждений доступны специальные корпоративные тарифы с "
+"дополнительными скидками в зависимости от количества пользователей. Для "
+"получения информации о корпоративных тарифах, пожалуйста, свяжитесь с нашим "
+"отделом продаж."
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:385
+msgid ""
+"Все тарифы включают в себя полный набор Premium-функций. Более подробную "
+"информацию и возможность оформить подписку вы найдете на странице"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:395
+msgid "Как отменить Premium-подписку?"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:400
+msgid "Для отмены Premium-подписки:"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:404
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "Выберите 'Управление подпиской'"
+msgstr "Управление подпиской"
+
+#: .\templates\support\knowledge\faq.html:405
+msgid "Нажмите кнопку 'Отменить подписку'"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:406
+msgid "Подтвердите действие, выбрав причину отмены (опционально)"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:410
+msgid ""
+"Важно: После отмены подписки вы сохраните доступ к Premium-функциям до конца "
+"оплаченного периода. По истечении этого срока ваш аккаунт автоматически "
+"перейдет на базовый тарифный план."
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:412
+msgid ""
+"Если у вас возникли проблемы с отменой подписки или вопросы о возврате "
+"средств, пожалуйста, обратитесь в нашу службу поддержки через страницу"
+msgstr ""
+
+#: .\templates\support\knowledge\faq.html:427
+msgid "Наша команда поддержки готова помочь вам с любыми вопросами о платформе"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:13
+msgid "Преимущества Studfolio Premium"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:15
+msgid ""
+"Раскройте полный потенциал вашего портфолио с расширенными возможностями "
+"Premium-подписки"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:25
+#, fuzzy
+#| msgid "Создайте ваше электронное портфолио"
+msgid "Поднимите ваше портфолио на новый уровень"
+msgstr "Создайте ваше электронное портфолио"
+
+#: .\templates\support\knowledge\premium_benefits.html:26
+msgid ""
+"Получите доступ к эксклюзивным возможностям и привилегиям для максимально "
+"эффективной демонстрации ваших достижений"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:29
+#: .\templates\support\knowledge\premium_benefits.html:445
+msgid "Подключить Premium"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:47
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "Сравнение тарифных планов"
+msgstr "Управление подпиской"
+
+#: .\templates\support\knowledge\premium_benefits.html:52
+msgid "Возможности"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:53
+msgid "Базовый план"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:63
+#, fuzzy
+#| msgid "Лента проектов"
+msgid "Количество проектов"
+msgstr "Лента проектов"
+
+#: .\templates\support\knowledge\premium_benefits.html:65
+#: .\templates\support\knowledge\premium_benefits.html:70
+msgid "Без ограничений"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:68
+msgid "Количество сертификатов и достижений"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:73
+msgid "Максимальный размер файла"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:78
+msgid "Общее место для хранения"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:83
+#, fuzzy
+#| msgid "Настройки портфолио"
+msgid "Шаблоны оформления портфолио"
+msgstr "Настройки портфолио"
+
+#: .\templates\support\knowledge\premium_benefits.html:88
+#: .\templates\support\knowledge\premium_benefits.html:163
+#: .\templates\users\subscription.html:75
+msgid "Персональный домен"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:93
+#, fuzzy
+#| msgid "Лента проектов"
+msgid "Аналитика просмотров"
+msgstr "Лента проектов"
+
+#: .\templates\support\knowledge\premium_benefits.html:94
+msgid "Базовая"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:95
+msgid "Расширенная"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:98
+#, fuzzy
+#| msgid "Поиск портфолио"
+msgid "Экспорт портфолио в PDF"
+msgstr "Поиск портфолио"
+
+#: .\templates\support\knowledge\premium_benefits.html:103
+msgid "Скрытие рекламы"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:121
+msgid "Ключевые преимущества Premium"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:130
+#, fuzzy
+#| msgid "Мои проекты"
+msgid "Неограниченные проекты"
+msgstr "Мои проекты"
+
+#: .\templates\support\knowledge\premium_benefits.html:131
+msgid ""
+"Добавляйте столько проектов, сколько необходимо, для полной демонстрации "
+"ваших навыков и достижений без ограничений."
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:141
+#: .\templates\users\resume_settings.html:285
+msgid "Премиум шаблоны"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:142
+msgid ""
+"Доступ к эксклюзивным шаблонам портфолио с расширенными возможностями "
+"настройки и визуализации."
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:152
+#: .\templates\users\analytics.html:252 .\templates\users\analytics.html:336
+#: .\templates\users\subscription.html:83
+msgid "Расширенная аналитика"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:153
+msgid ""
+"Подробная статистика просмотров и взаимодействий с вашим портфолио — "
+"узнайте, кто и когда интересуется вашими работами."
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:164
+msgid ""
+"Получите красивый и запоминающийся адрес для вашего портфолио в формате "
+"username.studfolio.com."
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:174
+#, fuzzy
+#| msgid "Поиск портфолио"
+msgid "Экспорт портфолио"
+msgstr "Поиск портфолио"
+
+#: .\templates\support\knowledge\premium_benefits.html:175
+msgid ""
+"Экспортируйте ваше портфолио в различные форматы (PDF, ZIP) для презентации "
+"в режиме оффлайн или отправки по email."
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:185
+#: .\templates\support\knowledge\premium_benefits.html:238
+#: .\templates\users\subscription.html:87
+msgid "Приоритетная поддержка"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:186
+msgid ""
+"Получите ответы на ваши вопросы в течение 24 часов от выделенной команды "
+"поддержки Premium-клиентов."
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:196
+msgid "Выберите оптимальный план"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:203
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "Ежемесячная подписка"
+msgstr "Управление подпиской"
+
+#: .\templates\support\knowledge\premium_benefits.html:208
+#: .\templates\support\knowledge\premium_benefits.html:254
+msgid "месяц"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:210
+msgid ""
+"Идеально для краткосрочных проектов или тестирования Premium возможностей"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:212
+#: .\templates\support\knowledge\premium_benefits.html:236
+#: .\templates\support\knowledge\premium_benefits.html:258
+msgid "Все Premium функции"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:213
+msgid "Без долгосрочных обязательств"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:214
+msgid "Можно отменить в любой момент"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:216
+#: .\templates\support\knowledge\premium_benefits.html:240
+#: .\templates\support\knowledge\premium_benefits.html:262
+msgid "Выбрать план"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:225
+#, fuzzy
+#| msgid "Подписка"
+msgid "Годовая подписка"
+msgstr "Подписка"
+
+#: .\templates\support\knowledge\premium_benefits.html:226
+#, python-format
+msgid "Экономия 20%%"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:231
+#, fuzzy
+#| msgid "Вход"
+msgid "год"
+msgstr "Вход"
+
+#: .\templates\support\knowledge\premium_benefits.html:234
+msgid "Лучшее соотношение цены и качества для долгосрочного использования"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:237
+msgid "Экономия 3900 ₸ в год"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:249
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "Студенческая подписка"
+msgstr "Управление подпиской"
+
+#: .\templates\support\knowledge\premium_benefits.html:256
+msgid "Специальное предложение для студентов образовательных учреждений"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:259
+#, fuzzy
+#| msgid "Электронное портфолио для студентов"
+msgid "Скидка для студентов"
+msgstr "Электронное портфолио для студентов"
+
+#: .\templates\support\knowledge\premium_benefits.html:260
+msgid "Требуется подтверждение статуса студента"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:277
+msgid "Корпоративные тарифы для организаций"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:278
+msgid ""
+"Для образовательных учреждений, компаний и организаций мы предлагаем "
+"специальные условия и скидки при групповом подключении. Свяжитесь с нашим "
+"отделом продаж для получения индивидуального предложения."
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:281
+msgid "Узнать условия"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:292
+#, fuzzy
+#| msgid "Имя пользователя или Email"
+msgid "Отзывы Premium-пользователей"
+msgstr "Имя пользователя или Email"
+
+#: .\templates\support\knowledge\premium_benefits.html:302
+msgid "Студентка, дизайнер"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:305
+msgid ""
+"Premium подписка стоит каждой копейки! Мои работы теперь выглядят намного "
+"профессиональнее, а возможность создавать больше проектов позволила мне "
+"разделить портфолио по категориям и упорядочить все мои достижения."
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:316
+msgid "Веб-разработчик"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:319
+msgid ""
+"Аналитика просмотров в Premium версии — это просто находка! Теперь я точно "
+"знаю, какие проекты привлекают больше внимания, и могу фокусироваться на их "
+"развитии. Также очень удобно экспортировать портфолио в PDF для "
+"собеседований."
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:333
+msgid ""
+"Мы подключили Premium для всего нашего курса дизайна. Студенты в восторге от "
+"возможностей, а я как преподаватель могу более эффективно оценивать и "
+"комментировать их работы. Техподдержка всегда оперативно отвечает на вопросы."
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:351
+msgid "Как оформить подписку Premium?"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:356
+msgid "Для оформления Premium-подписки выполните следующие шаги:"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:359
+msgid "Перейдите в раздел 'Управление подпиской' через меню пользователя"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:360
+msgid "Выберите подходящий тарифный план (месячный, годовой или студенческий)"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:361
+msgid "Выберите способ оплаты и следуйте инструкциям для завершения платежа"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:363
+msgid ""
+"После успешной оплаты ваш аккаунт будет мгновенно обновлен до Premium, и вы "
+"получите доступ ко всем расширенным функциям."
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:373
+msgid "Можно ли отменить подписку в любое время?"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:378
+msgid "Да, вы можете отменить подписку в любое время. Для этого:"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:381
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "Перейдите в раздел 'Управление подпиской'"
+msgstr "Управление подпиской"
+
+#: .\templates\support\knowledge\premium_benefits.html:382
+msgid "Нажмите на кнопку 'Отменить подписку'"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:383
+#, fuzzy
+#| msgid "Подтверждение пароля"
+msgid "Подтвердите действие"
+msgstr "Подтверждение пароля"
+
+#: .\templates\support\knowledge\premium_benefits.html:385
+msgid ""
+"Важно: после отмены подписки вы сохраните доступ ко всем Premium-функциям до "
+"конца текущего оплаченного периода. По его истечении ваш аккаунт "
+"автоматически вернется к базовому тарифному плану, но все ваши данные и "
+"проекты сохранятся."
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:395
+msgid "Как подтвердить статус студента для получения скидки?"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:400
+msgid ""
+"Для подтверждения статуса студента и получения скидки на Premium-подписку "
+"вам необходимо:"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:402
+msgid ""
+"При выборе студенческого тарифа нажмите кнопку 'Подтвердить статус студента'"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:403
+msgid ""
+"Загрузите скан или фото вашего студенческого билета или справки из учебного "
+"заведения"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:404
+msgid "Укажите название учебного заведения и срок обучения"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:405
+msgid "Дождитесь проверки документов (обычно занимает не более 24 часов)"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:407
+msgid ""
+"После успешной верификации вы получите доступ к студенческому тарифу. "
+"Обратите внимание, что статус студента нужно будет подтверждать ежегодно."
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:417
+msgid "Что происходит с моими проектами, если я отменю Premium?"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:422
+msgid "При переходе с Premium на базовый план:"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:424
+msgid "Все ваши проекты и данные сохраняются"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:425
+msgid ""
+"Если у вас больше проектов, чем позволяет базовый план (более 5), лишние "
+"проекты не будут удалены, но вы не сможете добавлять новые, пока не "
+"освободите место"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:426
+msgid ""
+"Вы потеряете доступ к Premium-шаблонам, но оформление уже созданных проектов "
+"с использованием этих шаблонов сохранится"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:427
+msgid "Расширенная аналитика станет недоступной"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:428
+msgid "Ваш персональный домен будет деактивирован"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:430
+msgid ""
+"Мы рекомендуем перед отменой Premium-подписки организовать ваши проекты "
+"таким образом, чтобы наиболее важные из них оставались в пределах лимита "
+"базового плана."
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:442
+msgid "Готовы раскрыть полный потенциал вашего портфолио?"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:443
+msgid ""
+"Присоединяйтесь к тысячам пользователей, которые уже оценили преимущества "
+"Premium-подписки"
+msgstr ""
+
+#: .\templates\support\knowledge\premium_benefits.html:447
+msgid "Нет обязательств. Отменить можно в любое время."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:13
+#: .\templates\support\knowledge\terms_of_service.html:13
+msgid "Последнее обновление:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:23
+#: .\templates\support\knowledge\terms_of_service.html:23
+msgid "Введение"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:24
+msgid "Сбор информации"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:25
+msgid "Использование информации"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:26
+msgid "Передача информации"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:27
+msgid "Файлы cookie"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:28
+msgid "Безопасность"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:29
+#, fuzzy
+#| msgid "Мои проекты"
+msgid "Ваши права"
+msgstr "Мои проекты"
+
+#: .\templates\support\knowledge\privacy_policy.html:30
+#: .\templates\support\knowledge\terms_of_service.html:31
+#, fuzzy
+#| msgid "Достижения"
+msgid "Изменения"
+msgstr "Достижения"
+
+#: .\templates\support\knowledge\privacy_policy.html:41
+#: .\templates\support\knowledge\terms_of_service.html:42
+msgid "1. Введение"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:42
+msgid ""
+"Studfolio («мы», «нас», «наш») серьезно относится к конфиденциальности ваших "
+"персональных данных. Настоящая Политика конфиденциальности объясняет, как мы "
+"собираем, используем, храним и передаем ваши персональные данные при "
+"использовании нашей платформы Studfolio («Сервис»)."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:43
+msgid ""
+"Используя наш Сервис, вы соглашаетесь с условиями, изложенными в настоящей "
+"Политике конфиденциальности. Если вы не согласны с этими условиями, "
+"пожалуйста, не используйте наш Сервис."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:47
+msgid "2. Сбор информации"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:48
+msgid "Мы собираем различные типы информации, включая:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:50
+msgid "2.1 Информация, которую вы предоставляете нам добровольно"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:52
+msgid ""
+"Персональные данные: имя, фамилия, адрес электронной почты, номер телефона, "
+"фотография профиля, информация об образовании и профессиональном опыте."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:53
+msgid ""
+"Контент: проекты, портфолио, достижения, сертификаты и другие материалы, "
+"которые вы загружаете или создаете с помощью нашего Сервиса."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:54
+msgid ""
+"Учетные данные: информация для входа в систему, включая имя пользователя и "
+"пароль (в зашифрованном виде)."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:55
+msgid ""
+"Информация о платежах: данные платежных карт, история транзакций (при "
+"оформлении Premium-подписки)."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:58
+msgid "2.2 Информация, которую мы собираем автоматически"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:60
+msgid ""
+"Информация об устройстве: тип устройства, операционная система, уникальные "
+"идентификаторы устройства, IP-адрес, язык браузера, информация о сети."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:61
+msgid ""
+"Данные об использовании: как вы взаимодействуете с нашим Сервисом, какие "
+"функции используете, время пребывания на платформе, переходы между "
+"страницами."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:62
+msgid ""
+"Информация о местоположении: примерное географическое местоположение на "
+"основе IP-адреса."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:63
+msgid ""
+"Журналы и аналитика: журналы ошибок, аналитические данные, используемые для "
+"улучшения нашего Сервиса."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:68
+msgid "3. Использование информации"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:69
+msgid "Мы используем собранную информацию для следующих целей:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:72
+msgid ""
+"Предоставление и поддержка нашего Сервиса, включая создание и управление "
+"вашей учетной записью."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:73
+msgid ""
+"Персонализация вашего опыта использования Сервиса и предоставление "
+"рекомендаций."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:74
+msgid "Обработка платежей и управление подписками (для Premium-пользователей)."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:75
+msgid "Обеспечение безопасности нашего Сервиса и предотвращение мошенничества."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:76
+msgid ""
+"Связь с вами, включая отправку уведомлений, обновлений и маркетинговых "
+"материалов (если вы не отказались от их получения)."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:77
+msgid ""
+"Анализ и улучшение нашего Сервиса, в том числе отслеживание тенденций "
+"использования и оценка эффективности наших функций."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:78
+msgid "Соблюдение юридических обязательств и разрешение споров."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:83
+msgid "4. Передача информации"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:84
+msgid "Мы можем передавать вашу информацию следующим категориям третьих лиц:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:87
+msgid ""
+"Поставщики услуг: компании, которые предоставляют услуги от нашего имени, "
+"такие как хостинг, обработка платежей, аналитика и служба поддержки "
+"клиентов. Эти компании имеют доступ только к информации, необходимой для "
+"выполнения своих функций, и не могут использовать ее для других целей."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:88
+msgid ""
+"Партнеры: образовательные учреждения и компании, с которыми мы сотрудничаем "
+"для предоставления специальных предложений и услуг (только с вашего "
+"согласия)."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:89
+msgid ""
+"Правоохранительные органы: когда это требуется по закону или в ответ на "
+"действительный судебный запрос."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:90
+msgid ""
+"Новая организация в случае слияния, продажи или передачи активов: ваша "
+"информация может быть передана новому владельцу при любой реорганизации "
+"бизнеса. Вы будете уведомлены о такой передаче, и у вас будет возможность "
+"удалить свою учетную запись."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:93
+msgid ""
+"Мы не продаем и не сдаем в аренду ваши персональные данные третьим лицам для "
+"маркетинговых целей без вашего явного согласия."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:97
+msgid "5. Файлы cookie"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:98
+msgid ""
+"Мы используем файлы cookie и аналогичные технологии отслеживания для сбора "
+"информации о вашей активности на нашем Сервисе. Файлы cookie — это небольшие "
+"файлы данных, которые сохраняются на вашем устройстве."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:100
+msgid "Типы используемых нами файлов cookie:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:102
+msgid "Необходимые файлы cookie:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:102
+msgid ""
+"требуются для функционирования нашего Сервиса, например, для аутентификации "
+"и безопасности."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:103
+msgid "Аналитические файлы cookie:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:103
+msgid ""
+"помогают нам понять, как пользователи взаимодействуют с нашим Сервисом, что "
+"позволяет нам улучшать его работу."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:104
+msgid "Функциональные файлы cookie:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:104
+msgid "позволяют запоминать ваши предпочтения и настройки."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:105
+msgid "Маркетинговые файлы cookie:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:105
+msgid ""
+"используются для показа релевантной рекламы на нашем Сервисе и на других "
+"сайтах."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:108
+msgid ""
+"Вы можете настроить свой браузер так, чтобы отклонять все или некоторые "
+"файлы cookie, или уведомлять вас, когда сайты устанавливают или получают "
+"доступ к файлам cookie. Однако, если вы отключите или откажетесь от файлов "
+"cookie, некоторые части нашего Сервиса могут стать недоступными или работать "
+"некорректно."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:112
+msgid "6. Безопасность"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:113
+msgid ""
+"Мы принимаем разумные меры для защиты вашей информации от "
+"несанкционированного доступа, использования или раскрытия. Эти меры включают:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:116
+msgid ""
+"Шифрование чувствительных данных, таких как пароли и информация о платежах."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:117
+msgid ""
+"Использование защищенных соединений (SSL/TLS) для передачи данных между "
+"вашим устройством и нашими серверами."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:118
+msgid "Регулярное тестирование на уязвимости и аудит безопасности."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:119
+msgid ""
+"Ограниченный доступ к персональным данным только для уполномоченных "
+"сотрудников и поставщиков услуг."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:120
+msgid "Физические меры безопасности для защиты наших серверов и офисов."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:123
+msgid ""
+"Однако, несмотря на наши усилия, ни один метод передачи через Интернет или "
+"метод электронного хранения не является абсолютно безопасным. Поэтому мы не "
+"можем гарантировать абсолютную безопасность вашей информации."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:127
+msgid "7. Ваши права"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:128
+msgid ""
+"В зависимости от вашего местоположения, вы можете иметь определенные права в "
+"отношении ваших персональных данных, включая:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:131
+msgid "Право на доступ:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:131
+msgid "запрашивать копию собранных нами персональных данных о вас."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:132
+msgid "Право на исправление:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:132
+msgid "исправлять неточную или неполную информацию о вас."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:133
+msgid "Право на удаление:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:133
+msgid ""
+"запрашивать удаление ваших персональных данных при определенных "
+"обстоятельствах."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:134
+msgid "Право на ограничение обработки:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:134
+msgid "запрашивать ограничение обработки ваших персональных данных."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:135
+msgid "Право на переносимость данных:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:135
+msgid ""
+"получать ваши персональные данные в структурированном, машиночитаемом "
+"формате."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:136
+msgid "Право на возражение:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:136
+msgid ""
+"возражать против обработки ваших персональных данных в определенных случаях."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:137
+msgid "Право отозвать согласие:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:137
+msgid "отозвать свое согласие на обработку данных в любое время."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:140
+msgid ""
+"Для реализации любого из этих прав, пожалуйста, свяжитесь с нами по адресу"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:144
+msgid "8. Изменения в политике конфиденциальности"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:145
+msgid ""
+"Мы можем обновлять нашу Политику конфиденциальности время от времени. Мы "
+"уведомим вас о любых существенных изменениях, разместив новую версию на "
+"нашем веб-сайте и, в зависимости от существенности изменений, мы можем также "
+"уведомить вас по электронной почте или через уведомление в нашем Сервисе."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:147
+msgid ""
+"Мы рекомендуем периодически проверять эту страницу для получения актуальной "
+"информации о наших практиках конфиденциальности. Дата последнего обновления "
+"Политики конфиденциальности указана в начале документа."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:149
+msgid ""
+"Продолжая использовать наш Сервис после внесения изменений в Политику "
+"конфиденциальности, вы принимаете эти изменения."
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:153
+msgid "9. Контактная информация"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:154
+msgid ""
+"Если у вас есть какие-либо вопросы, комментарии или запросы, связанные с "
+"настоящей Политикой конфиденциальности или нашими практиками обработки "
+"данных, пожалуйста, свяжитесь с нами:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:157
+#: .\templates\support\knowledge\terms_of_service.html:162
+msgid "Электронная почта:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:158
+#: .\templates\support\knowledge\terms_of_service.html:163
+msgid "Почтовый адрес:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:159
+#: .\templates\support\knowledge\terms_of_service.html:164
+msgid "Телефон:"
+msgstr ""
+
+#: .\templates\support\knowledge\privacy_policy.html:162
+msgid ""
+"Мы обязуемся своевременно отвечать на все обращения и запросы, связанные с "
+"конфиденциальностью ваших данных."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:25
+#, fuzzy
+#| msgid "Имя пользователя или Email"
+msgid "Контент пользователей"
+msgstr "Имя пользователя или Email"
+
+#: .\templates\support\knowledge\terms_of_service.html:26
+msgid "Лицензии"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:27
+msgid "Платежи"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:28
+msgid "Ответственность"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:29
+#, fuzzy
+#| msgid "Достижения"
+msgid "Ограничения"
+msgstr "Достижения"
+
+#: .\templates\support\knowledge\terms_of_service.html:30
+msgid "Прекращение доступа"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:43
+msgid ""
+"Добро пожаловать на Studfolio. Настоящие Условия использования («Условия») "
+"регулируют использование вами платформы Studfolio, включая веб-сайт, "
+"мобильные приложения и связанные с ними сервисы (совместно именуемые "
+"«Сервисы»)."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:44
+msgid ""
+"Пожалуйста, внимательно прочитайте эти Условия перед использованием наших "
+"Сервисов. Используя наши Сервисы, вы соглашаетесь с настоящими Условиями. "
+"Если вы не согласны с каким-либо положением настоящих Условий, пожалуйста, "
+"не используйте наши Сервисы."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:45
+msgid ""
+"Настоящие Условия составляют юридически обязывающее соглашение между вами и "
+"Studfolio («мы», «нас», «наш»)."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:49
+msgid "2. Учетные записи"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:50
+#, fuzzy
+#| msgid "Регистрация"
+msgid "2.1 Регистрация"
+msgstr "Регистрация"
+
+#: .\templates\support\knowledge\terms_of_service.html:51
+msgid ""
+"Для использования некоторых функций наших Сервисов вам необходимо создать "
+"учетную запись. Вы должны предоставить точную, актуальную и полную "
+"информацию при регистрации и поддерживать эту информацию в актуальном "
+"состоянии."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:53
+msgid "2.2 Безопасность учетной записи"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:54
+msgid ""
+"Вы несете ответственность за сохранение конфиденциальности вашего пароля и "
+"за все действия, происходящие в вашей учетной записи. Вы соглашаетесь "
+"немедленно уведомить нас о любом несанкционированном использовании вашей "
+"учетной записи или любом другом нарушении безопасности."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:56
+msgid "2.3 Право на прекращение доступа"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:57
+msgid ""
+"Мы оставляем за собой право отключить любое имя пользователя, пароль или "
+"другой идентификатор, выбранный вами или предоставленный нами, в любое время "
+"и по любой причине, если, по нашему мнению, вы нарушили какое-либо положение "
+"настоящих Условий."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:61
+#, fuzzy
+#| msgid "Имя пользователя или Email"
+msgid "3. Контент пользователей"
+msgstr "Имя пользователя или Email"
+
+#: .\templates\support\knowledge\terms_of_service.html:62
+msgid "3.1 Определение"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:63
+msgid ""
+"«Контент пользователей» означает любые материалы, информацию, данные, "
+"тексты, изображения, графику, фотографии, видео, звуки, музыку, проекты, "
+"работы, портфолио, комментарии и любой другой контент, который вы "
+"публикуете, загружаете, делитесь, отправляете или отображаете на или через "
+"наши Сервисы."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:65
+msgid "3.2 Ответственность за контент"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:66
+msgid ""
+"Вы несете полную ответственность за Контент пользователей, который вы "
+"публикуете через наши Сервисы, включая его законность, надежность, точность "
+"и уместность. Вы заявляете и гарантируете, что:"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:68
+msgid ""
+"Вы владеете или имеете необходимые лицензии, права, согласия, разрешения и "
+"полномочия для публикации Контента пользователей;"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:69
+msgid ""
+"Контент пользователей не нарушает и не будет нарушать права интеллектуальной "
+"собственности, права на публичность, конфиденциальность или любые другие "
+"права третьих лиц;"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:70
+msgid ""
+"Контент пользователей не содержит материалы, которые являются ложными, "
+"мошенническими, клеветническими, непристойными, порнографическими, "
+"оскорбительными, угрожающими или иным образом неприемлемыми."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:73
+msgid "3.3 Мониторинг и удаление"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:74
+msgid ""
+"Мы оставляем за собой право просматривать, контролировать или удалять любой "
+"Контент пользователей по любой причине, включая нарушение настоящих Условий, "
+"без предварительного уведомления. Однако мы не обязаны просматривать, "
+"контролировать или удалять какой-либо Контент пользователей."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:78
+msgid "4. Лицензии"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:79
+msgid "4.1 Лицензия на Контент пользователей"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:80
+msgid ""
+"Размещая Контент пользователей в наших Сервисах, вы предоставляете нам "
+"неисключительную, бесплатную, подлежащую сублицензированию, передаваемую, "
+"всемирную лицензию на использование, воспроизведение, модификацию, "
+"адаптацию, публикацию, перевод, создание производных работ, распространение "
+"и отображение такого Контента пользователей в любых формах, средствах или "
+"технологиях, известных сейчас или разработанных в будущем, исключительно в "
+"целях:"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:82
+msgid "Предоставления, поддержания и улучшения наших Сервисов;"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:83
+msgid ""
+"Отображения вашего Контента пользователей в соответствии с вашими "
+"настройками конфиденциальности;"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:84
+msgid ""
+"Защиты наших юридических прав и обеспечения соблюдения настоящих Условий."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:86
+msgid ""
+"Вы можете отозвать эту лицензию в любое время, удалив Контент пользователей "
+"из наших Сервисов или закрыв свою учетную запись."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:88
+msgid "4.2 Лицензия на использование наших Сервисов"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:89
+msgid ""
+"При условии соблюдения настоящих Условий, мы предоставляем вам ограниченную, "
+"неисключительную, непередаваемую, отзывную лицензию на доступ и "
+"использование наших Сервисов. Эта лицензия не включает право:"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:91
+msgid ""
+"Перепродавать, сдавать в аренду, сублицензировать, уступать или иным образом "
+"передавать ваши права на использование наших Сервисов;"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:92
+msgid ""
+"Копировать, модифицировать, адаптировать, взламывать или иным образом "
+"пытаться извлечь исходный код наших Сервисов;"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:93
+msgid ""
+"Использовать наши Сервисы для создания конкурирующего продукта или услуги."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:98
+msgid "5. Платежи"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:99
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "5.1 Премиум-подписка"
+msgstr "Управление подпиской"
+
+#: .\templates\support\knowledge\terms_of_service.html:100
+msgid ""
+"Некоторые функции наших Сервисов доступны по подписке Premium. Подробная "
+"информация о функциях, доступных для разных типов подписок, представлена на "
+"странице"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:102
+msgid "5.2 Оплата"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:103
+msgid ""
+"При оформлении Premium-подписки вы соглашаетесь оплачивать все сборы, "
+"связанные с вашей подпиской, по действующим на тот момент тарифам. Все "
+"платежи обрабатываются через сторонние платежные системы, и их условия могут "
+"применяться к вашим платежам."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:105
+msgid "5.3 Автоматическое продление"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:106
+msgid ""
+"Подписки продлеваются автоматически, если они не отменены до окончания "
+"текущего периода подписки. Вы можете отменить автоматическое продление в "
+"любое время в настройках вашей учетной записи, но платежи, уже "
+"осуществленные за текущий период подписки, не подлежат возврату."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:108
+msgid "5.4 Изменения цен"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:109
+msgid ""
+"Мы можем изменять наши тарифы на подписку время от времени. Если мы изменим "
+"тарифы на подписку, мы уведомим вас о таких изменениях заранее. Продолжение "
+"использования наших Сервисов после вступления в силу изменений цен означает "
+"ваше согласие с новыми ценами."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:113
+msgid "6. Ответственность"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:114
+msgid "6.1 Отказ от гарантий"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:115
+msgid ""
+"Наши Сервисы предоставляются «как есть» и «как доступно», без каких-либо "
+"гарантий любого рода, явных или подразумеваемых. Мы не гарантируем, что наши "
+"Сервисы будут соответствовать вашим требованиям, доступны непрерывно, "
+"своевременно, безопасно или без ошибок, или что результаты, которые могут "
+"быть получены от использования наших Сервисов, будут точными или надежными."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:117
+msgid "6.2 Ограничение ответственности"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:118
+msgid ""
+"В максимальной степени, разрешенной законом, мы не несем ответственности за "
+"любые непрямые, случайные, специальные, последующие или штрафные убытки, "
+"включая потерю прибыли, данных, использования, репутации или другие "
+"нематериальные потери, возникающие в результате:"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:120
+msgid ""
+"Вашего доступа к или использования, или невозможности доступа или "
+"использования наших Сервисов;"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:121
+msgid "Любого поведения или контента третьих лиц на наших Сервисах;"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:122
+msgid ""
+"Несанкционированного доступа, использования или изменения ваших передач или "
+"контента."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:127
+msgid "7. Ограничения"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:128
+msgid "При использовании наших Сервисов вы соглашаетесь не:"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:130
+msgid "Нарушать какие-либо применимые законы или правила;"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:131
+msgid ""
+"Отправлять любой контент, который является незаконным, оскорбительным, "
+"угрожающим, дискриминационным, harassment-подобным, клеветническим, "
+"вредоносным, мошенническим, вводящим в заблуждение, порнографическим или что "
+"нарушает права других лиц;"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:132
+msgid ""
+"Выдавать себя за другое лицо или организацию, или ложно представлять вашу "
+"связь с каким-либо лицом или организацией;"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:133
+msgid ""
+"Пытаться обойти любые технические меры, используемые для защиты наших "
+"Сервисов или контента;"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:134
+msgid ""
+"Собирать или хранить личную информацию о других пользователях без их явного "
+"согласия;"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:135
+msgid ""
+"Использовать наши Сервисы для распространения вредоносного программного "
+"обеспечения или для целей фишинга;"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:136
+msgid ""
+"Использовать наши Сервисы способом, который может привести к отключению, "
+"повреждению или ухудшению работы наших Сервисов или препятствовать "
+"пользованию наших Сервисов другими пользователями."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:141
+msgid "8. Прекращение доступа"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:142
+msgid ""
+"Мы можем приостановить или прекратить ваш доступ к нашим Сервисам по любой "
+"причине, включая, но не ограничиваясь, нарушение настоящих Условий. При "
+"прекращении доступа:"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:144
+msgid "Ваше право на использование наших Сервисов немедленно прекращается;"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:145
+msgid ""
+"Мы можем удалить или деактивировать вашу учетную запись и весь связанный с "
+"ней Контент пользователей;"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:146
+msgid ""
+"Вы по-прежнему несете ответственность за все обязательства, возникшие до "
+"прекращения доступа, включая обязательства по оплате."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:148
+msgid ""
+"Вы можете прекратить действие настоящих Условий в любое время, прекратив "
+"использование наших Сервисов и закрыв свою учетную запись."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:152
+msgid "9. Изменения в Условиях"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:153
+msgid ""
+"Мы можем обновлять настоящие Условия время от времени. Мы уведомим вас о "
+"любых существенных изменениях, разместив новую версию на нашем веб-сайте и, "
+"в зависимости от существенности изменений, мы можем также уведомить вас по "
+"электронной почте или через уведомление в наших Сервисах."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:154
+msgid ""
+"Мы рекомендуем периодически проверять эту страницу для получения актуальной "
+"информации о наших Условиях. Дата последнего обновления Условий указана в "
+"начале документа."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:155
+msgid ""
+"Продолжая использовать наши Сервисы после внесения изменений в Условия, вы "
+"принимаете эти изменения."
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:159
+msgid "10. Контактная информация"
+msgstr ""
+
+#: .\templates\support\knowledge\terms_of_service.html:160
+msgid ""
+"Если у вас есть какие-либо вопросы, комментарии или запросы, связанные с "
+"настоящими Условиями или нашими Сервисами, пожалуйста, свяжитесь с нами:"
+msgstr ""
+
+#: .\templates\support\ticket_create.html:25
+msgid "Создать новый запрос в поддержку"
+msgstr ""
+
+#: .\templates\support\ticket_create.html:29
+msgid ""
+"Заполните форму ниже, чтобы отправить запрос в службу поддержки. Чем "
+"подробнее вы опишете свою проблему, тем быстрее мы сможем вам помочь."
+msgstr ""
+
+#: .\templates\support\ticket_create.html:70
+msgid ""
+"Выберите категорию, которая наиболее точно соответствует вашему вопросу."
+msgstr ""
+
+#: .\templates\support\ticket_create.html:87
+msgid ""
+"Пожалуйста, подробно опишите вашу проблему или вопрос. Включите все детали, "
+"которые могут помочь решить вашу проблему."
+msgstr ""
+
+#: .\templates\support\ticket_create.html:113
+#, fuzzy
+#| msgid "Сменить пароль"
+msgid "Отправить запрос"
+msgstr "Сменить пароль"
+
+#: .\templates\support\ticket_create.html:121
+msgid "Прежде чем создать тикет:"
+msgstr ""
+
+#: .\templates\support\ticket_create.html:123
+msgid "Проверьте нашу"
+msgstr ""
+
+#: .\templates\support\ticket_create.html:123
+msgid "базу знаний"
+msgstr ""
+
+#: .\templates\support\ticket_create.html:123
+msgid "на наличие ответов на часто задаваемые вопросы."
+msgstr ""
+
+#: .\templates\support\ticket_create.html:124
+msgid "Убедитесь, что вы предоставили достаточно информации о вашей проблеме."
+msgstr ""
+
+#: .\templates\support\ticket_create.html:125
+msgid ""
+"Если у вас есть скриншоты или другие файлы, которые помогут нам понять вашу "
+"проблему, пожалуйста, прикрепите их."
+msgstr ""
+
+#: .\templates\translator\dashboard.html:5
+msgid "Панель управления переводами"
+msgstr ""
+
+#: .\templates\translator\dashboard.html:11
+msgid "Система автоматического перевода"
+msgstr ""
+
+#: .\templates\translator\dashboard.html:12
+msgid "Управление кэшем переводов и автоматическим переводом контента"
+msgstr ""
+
+#: .\templates\translator\dashboard.html:20
+msgid "Статистика кэша переводов"
+msgstr ""
+
+#: .\templates\translator\dashboard.html:23
+#: .\templates\translator\dashboard.html:61
+msgid "Всего записей"
+msgstr ""
+
+#: .\templates\translator\dashboard.html:25
+msgid "По языкам"
+msgstr ""
+
+#: .\templates\translator\dashboard.html:30
+msgid "Язык"
+msgstr ""
+
+#: .\templates\translator\dashboard.html:31
+#: .\templates\translator\dashboard.html:70
+msgid "Исходный язык"
+msgstr ""
+
+#: .\templates\translator\dashboard.html:32
+#: .\templates\translator\dashboard.html:79
+msgid "Целевой язык"
+msgstr ""
+
+#: .\templates\translator\dashboard.html:49
+msgid "Управление кэшем в административной панели"
+msgstr ""
+
+#: .\templates\translator\dashboard.html:58
+msgid "Автоматический перевод контента"
+msgstr ""
+
+#: .\templates\translator\dashboard.html:63
+msgid "Тестовый перевод"
+msgstr ""
+
+#: .\templates\translator\dashboard.html:65
+msgid "Введите текст для перевода"
+msgstr ""
+
+#: .\templates\translator\dashboard.html:72
+msgid "Автоопределение"
+msgstr ""
+
+#: .\templates\translator\dashboard.html:91
+#: .\templates\translator\dashboard.html:218
+msgid "Перевести"
+msgstr ""
+
+#: .\templates\translator\dashboard.html:96
+msgid "Результат"
+msgstr ""
+
+#: .\templates\translator\dashboard.html:102
+msgid "Управление автопереводом в административной панели"
+msgstr ""
+
+#: .\templates\translator\dashboard.html:113
+msgid "Инструкции по интеграции"
+msgstr ""
+
+#: .\templates\translator\dashboard.html:116
+#, fuzzy
+#| msgid "Имя пользователя или Email"
+msgid "Использование в JavaScript"
+msgstr "Имя пользователя или Email"
+
+#: .\templates\translator\dashboard.html:152
+#, fuzzy
+#| msgid "Имя пользователя или Email"
+msgid "Использование в Python"
+msgstr "Имя пользователя или Email"
+
+#: .\templates\translator\dashboard.html:190
+msgid "Переводим..."
+msgstr ""
+
+#: .\templates\translator\dashboard.html:206
+msgid "Ошибка перевода"
+msgstr ""
+
+#: .\templates\translator\dashboard.html:214
+msgid "Ошибка при переводе"
+msgstr ""
+
+#: .\templates\translator\dashboard.html:215
+msgid "Произошла ошибка при переводе"
+msgstr ""
+
+#: .\templates\users\analytics.html:5 .\templates\users\analytics.html:92
+#, fuzzy
+#| msgid "Поиск портфолио"
+msgid "Аналитика портфолио"
+msgstr "Поиск портфолио"
+
+#: .\templates\users\analytics.html:39
+#: .\templates\users\portfolio_settings.html:15
+#: .\templates\users\profile_edit.html:15
+#: .\templates\users\resume_settings.html:14
+#: .\templates\users\subscription.html:15
+#, fuzzy
+#| msgid "Настройки портфолио"
+msgid "Настройки"
+msgstr "Настройки портфолио"
+
+#: .\templates\users\analytics.html:62
+#: .\templates\users\portfolio_settings.html:38
+#: .\templates\users\subscription.html:41
+#, fuzzy
+#| msgid "Подписка"
+msgid "Статус подписки"
+msgstr "Подписка"
+
+#: .\templates\users\analytics.html:71
+msgid "Вам доступна расширенная аналитика"
+msgstr ""
+
+#: .\templates\users\analytics.html:75
+#: .\templates\users\portfolio_settings.html:54
+#: .\templates\users\subscription.html:106
+msgid "У вас базовый аккаунт"
+msgstr ""
+
+#: .\templates\users\analytics.html:78
+msgid "Для доступа к расширенной аналитике активируйте премиум-подписку"
+msgstr ""
+
+#: .\templates\users\analytics.html:81
+#: .\templates\users\portfolio_settings.html:60
+#, fuzzy
+#| msgid "Редактировать профиль"
+msgid "Активировать премиум"
+msgstr "Редактировать профиль"
+
+#: .\templates\users\analytics.html:96
+msgid "Обновить"
+msgstr ""
+
+#: .\templates\users\analytics.html:108 .\templates\users\analytics.html:260
+#: .\templates\users\analytics.html:375 .\users\models.py:284
+#, fuzzy
+#| msgid "Мой профиль"
+msgid "Просмотры профиля"
+msgstr "Мой профиль"
+
+#: .\templates\users\analytics.html:123 .\templates\users\analytics.html:265
+#: .\templates\users\analytics.html:415
+#, fuzzy
+#| msgid "Лента проектов"
+msgid "Просмотры проектов"
+msgstr "Лента проектов"
+
+#: .\templates\users\analytics.html:138
+msgid "Конверсия"
+msgstr ""
+
+#: .\templates\users\analytics.html:160
+#, fuzzy
+#| msgid "Мои проекты"
+msgid "Популярные проекты"
+msgstr "Мои проекты"
+
+#: .\templates\users\analytics.html:170
+msgid "Просмотры"
+msgstr ""
+
+#: .\templates\users\analytics.html:171
+#: .\templates\users\resume_settings.html:35
+msgid "Действия"
+msgstr ""
+
+#: .\templates\users\analytics.html:187
+msgid "Просмотр"
+msgstr ""
+
+#: .\templates\users\analytics.html:200
+msgid "У вас пока нет просмотров проектов"
+msgstr ""
+
+#: .\templates\users\analytics.html:210
+msgid "Источники трафика"
+msgstr ""
+
+#: .\templates\users\analytics.html:219
+msgid "Источник"
+msgstr ""
+
+#: .\templates\users\analytics.html:220
+msgid "Переходы"
+msgstr ""
+
+#: .\templates\users\analytics.html:241
+msgid "Информация об источниках трафика пока недоступна"
+msgstr ""
+
+#: .\templates\users\analytics.html:270
+msgid "Посетители"
+msgstr ""
+
+#: .\templates\users\analytics.html:277
+msgid "Динамика просмотров профиля за последний месяц"
+msgstr ""
+
+#: .\templates\users\analytics.html:285
+msgid "Динамика просмотров проектов за последний месяц"
+msgstr ""
+
+#: .\templates\users\analytics.html:293
+msgid "Пользователи, просматривавшие ваш профиль"
+msgstr ""
+
+#: .\templates\users\analytics.html:313
+msgid "Просмотров:"
+msgstr ""
+
+#: .\templates\users\analytics.html:324
+msgid "Ваш профиль пока не просматривали другие пользователи"
+msgstr ""
+
+#: .\templates\users\analytics.html:342
+msgid "Расширенная аналитика доступна только для премиум-пользователей"
+msgstr ""
+
+#: .\templates\users\analytics.html:344
+msgid ""
+"Получите доступ к детальной статистике посещений, графикам и данным о "
+"посетителях"
+msgstr ""
+
+#: .\templates\users\analytics.html:348
+#, fuzzy
+#| msgid "Редактировать профиль"
+msgid "Активировать премиум-подписку"
+msgstr "Редактировать профиль"
+
+#: .\templates\users\portfolio_settings.html:50
+msgid "С премиум-подпиской вам доступны все функции и темы оформления"
+msgstr ""
+
+#: .\templates\users\portfolio_settings.html:57
+msgid ""
+"Премиум-подписка открывает доступ к дополнительным функциям и темам "
+"оформления"
+msgstr ""
+
+#: .\templates\users\portfolio_settings.html:73
+#: .\templates\users\resume_settings.html:87
+#, fuzzy
+#| msgid "Настройки портфолио"
+msgid "Настройки отображения"
+msgstr "Настройки портфолио"
+
+#: .\templates\users\portfolio_settings.html:91
+#, fuzzy
+#| msgid "Достижения"
+msgid "Тема оформления"
+msgstr "Достижения"
+
+#: .\templates\users\portfolio_settings.html:106
+#, fuzzy
+#| msgid "Регистрация"
+msgid "Макет страницы"
+msgstr "Регистрация"
+
+#: .\templates\users\portfolio_settings.html:117
+msgid "Отображаемые секции"
+msgstr ""
+
+#: .\templates\users\portfolio_settings.html:124
+#: .\templates\users\resume_settings.html:118 .\users\models.py:122
+#: .\users\models.py:213
+msgid "Показывать навыки"
+msgstr ""
+
+#: .\templates\users\portfolio_settings.html:133
+#: .\templates\users\resume_settings.html:109 .\users\models.py:123
+#: .\users\models.py:214
+msgid "Показывать образование"
+msgstr ""
+
+#: .\templates\users\portfolio_settings.html:142
+#: .\templates\users\resume_settings.html:132 .\users\models.py:124
+#: .\users\models.py:216
+#, fuzzy
+#| msgid "Сертификаты"
+msgid "Показывать сертификаты"
+msgstr "Сертификаты"
+
+#: .\templates\users\portfolio_settings.html:151
+#: .\templates\users\resume_settings.html:139 .\users\models.py:125
+#: .\users\models.py:217
+#, fuzzy
+#| msgid "Достижения"
+msgid "Показывать достижения"
+msgstr "Достижения"
+
+#: .\templates\users\portfolio_settings.html:160
+#: .\templates\users\resume_settings.html:102 .\users\models.py:126
+#: .\users\models.py:218
+msgid "Показывать контактную информацию"
+msgstr ""
+
+#: .\templates\users\portfolio_settings.html:168
+#, fuzzy
+#| msgid "Настройки портфолио"
+msgid "Расширенные настройки"
+msgstr "Настройки портфолио"
+
+#: .\templates\users\portfolio_settings.html:173
+msgid "Персональный субдомен"
+msgstr ""
+
+#: .\templates\users\portfolio_settings.html:175
+msgid "С субдоменом ваше портфолио будет доступно по адресу:"
+msgstr ""
+
+#: .\templates\users\portfolio_settings.html:210
+msgid "Собственный домен"
+msgstr ""
+
+#: .\templates\users\portfolio_settings.html:212
+msgid ""
+"Вы также можете настроить свой собственный домен для доступа к портфолио"
+msgstr ""
+
+#: .\templates\users\portfolio_settings.html:247
+#: .\templates\users\resume_settings.html:228
+#, fuzzy
+#| msgid "Сменить пароль"
+msgid "Сохранить настройки"
+msgstr "Сменить пароль"
+
+#: .\templates\users\portfolio_settings.html:258
+msgid "Доступные темы оформления"
+msgstr ""
+
+#: .\templates\users\portfolio_settings.html:263
+msgid "Стандартные темы"
+msgstr ""
+
+#: .\templates\users\portfolio_settings.html:275
+#: .\templates\users\portfolio_settings.html:338
+#: .\templates\users\resume_settings.html:255
+#: .\templates\users\resume_settings.html:304
+msgid "Без предпросмотра"
+msgstr ""
+
+#: .\templates\users\portfolio_settings.html:283
+#: .\templates\users\portfolio_settings.html:346
+msgid "Активна"
+msgstr ""
+
+#: .\templates\users\portfolio_settings.html:303
+#: .\templates\users\portfolio_settings.html:374
+msgid "Предпросмотр"
+msgstr ""
+
+#: .\templates\users\portfolio_settings.html:308
+#: .\templates\users\portfolio_settings.html:380
+msgid "Выбрать"
+msgstr ""
+
+#: .\templates\users\portfolio_settings.html:312
+#: .\templates\users\portfolio_settings.html:384
+msgid "Выбрана"
+msgstr ""
+
+#: .\templates\users\portfolio_settings.html:324
+#, fuzzy
+#| msgid "Выход из системы"
+msgid "Премиум темы"
+msgstr "Выход из системы"
+
+#: .\templates\users\private_profile.html:5
+#, fuzzy
+#| msgid "Мой профиль"
+msgid "Приватный профиль"
+msgstr "Мой профиль"
+
+#: .\templates\users\private_profile.html:15
+msgid "Профиль пользователя является приватным"
+msgstr ""
+
+#: .\templates\users\private_profile.html:18
+#, python-format
+msgid ""
+"Пользователь %(username)s установил свой профиль как приватный. Портфолио и "
+"проекты недоступны для просмотра."
+msgstr ""
+
+#: .\templates\users\private_profile.html:23
+#, fuzzy
+#| msgid "Главная"
+msgid "На главную"
+msgstr "Главная"
+
+#: .\templates\users\private_profile.html:26
+msgid "Найти других пользователей"
+msgstr ""
+
+#: .\templates\users\profile.html:34
+msgid "Скачать резюме"
+msgstr ""
+
+#: .\templates\users\profile.html:37 .\templates\users\resume_settings.html:5
+#: .\templates\users\resume_settings.html:24
+#: .\templates\users\resume_settings.html:54 .\users\models.py:227
+#: .\users\models.py:228
+#, fuzzy
+#| msgid "Настройки портфолио"
+msgid "Настройки резюме"
+msgstr "Настройки портфолио"
+
+#: .\templates\users\profile.html:46
+msgid "Образование"
+msgstr ""
+
+#: .\templates\users\profile.html:51 .\users\models.py:25
+msgid "Учебное заведение"
+msgstr ""
+
+#: .\templates\users\profile.html:58 .\users\models.py:26
+msgid "Факультет"
+msgstr ""
+
+#: .\templates\users\profile.html:65 .\users\models.py:27
+msgid "Специализация"
+msgstr ""
+
+#: .\templates\users\profile.html:72 .\users\models.py:28
+msgid "Курс/Год обучения"
+msgstr ""
+
+#: .\templates\users\profile.html:78
+msgid "Информация об образовании не указана"
+msgstr ""
+
+#: .\templates\users\profile.html:86 .\users\models.py:77
+msgid "Навыки"
+msgstr ""
+
+#: .\templates\users\profile.html:118
+msgid "Навыки не указаны"
+msgstr ""
+
+#: .\templates\users\profile.html:126 .\users\models.py:31
+#, fuzzy
+#| msgid "Мой профиль"
+msgid "Публичный профиль"
+msgstr "Мой профиль"
+
+#: .\templates\users\profile.html:133
+msgid "Включен"
+msgstr ""
+
+#: .\templates\users\profile.html:135
+msgid "Выключен"
+msgstr ""
+
+#: .\templates\users\profile.html:142
+msgid "Публичная ссылка"
+msgstr ""
+
+#: .\templates\users\profile.html:166
+#, fuzzy
+#| msgid "Мои проекты"
+msgid "Все проекты"
+msgstr "Мои проекты"
+
+#: .\templates\users\profile.html:210
+#, fuzzy
+#| msgid "Создайте ваше электронное портфолио"
+msgid "Добавьте ваши первые проекты, чтобы показать их в портфолио"
+msgstr "Создайте ваше электронное портфолио"
+
+#: .\templates\users\profile.html:228
+#, fuzzy
+#| msgid "Сертификаты"
+msgid "Все сертификаты"
+msgstr "Сертификаты"
+
+#: .\templates\users\profile.html:264
+msgid "Проверить"
+msgstr ""
+
+#: .\templates\users\profile.html:276
+msgid "У вас пока нет сертификатов"
+msgstr ""
+
+#: .\templates\users\profile.html:277
+msgid "Добавьте ваши сертификаты и дипломы, чтобы показать их в портфолио"
+msgstr ""
+
+#: .\templates\users\profile.html:295
+#, fuzzy
+#| msgid "Достижения"
+msgid "Все достижения"
+msgstr "Достижения"
+
+#: .\templates\users\profile.html:322
+msgid "У вас пока нет достижений"
+msgstr ""
+
+#: .\templates\users\profile.html:323
+msgid "Добавьте ваши достижения и награды, чтобы показать их в портфолио"
+msgstr ""
+
+#: .\templates\users\profile.html:400
+msgid "Ссылка на профиль скопирована в буфер обмена"
+msgstr ""
+
+#: .\templates\users\profile_edit.html:5 .\templates\users\profile_edit.html:40
+#, fuzzy
+#| msgid "Редактировать профиль"
+msgid "Редактирование профиля"
+msgstr "Редактировать профиль"
+
+#: .\templates\users\profile_edit.html:69 .\users\models.py:20
+#, fuzzy
+#| msgid "Мой профиль"
+msgid "Фото профиля"
+msgstr "Мой профиль"
+
+#: .\templates\users\profile_edit.html:83
+msgid "Основная информация"
+msgstr ""
+
+#: .\templates\users\profile_edit.html:146
+msgid "Информация об образовании"
+msgstr ""
+
+#: .\templates\users\profile_edit.html:198
+#, fuzzy
+#| msgid "Настройки портфолио"
+msgid "Настройки публичного профиля"
+msgstr "Настройки портфолио"
+
+#: .\templates\users\profile_edit.html:208
+msgid ""
+"Если включено, ваш профиль будет доступен другим пользователям по прямой "
+"ссылке"
+msgstr ""
+
+#: .\templates\users\profile_edit.html:226
+msgid ""
+"Уникальный URL для вашего публичного профиля (только латинские буквы, цифры "
+"и дефисы)"
+msgstr ""
+
+#: .\templates\users\profile_edit.html:238
+msgid "Получать уведомления о новых отзывах, лайках и т.д."
+msgstr ""
+
+#: .\templates\users\resume_settings.html:27
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "Премиум подписка"
+msgstr "Управление подпиской"
+
+#: .\templates\users\resume_settings.html:40
+msgid "Предпросмотр резюме"
+msgstr ""
+
+#: .\templates\users\resume_settings.html:43
+msgid "Скачать резюме (PDF)"
+msgstr ""
+
+#: .\templates\users\resume_settings.html:63
+msgid "Выбор шаблона и основные настройки"
+msgstr ""
+
+#: .\templates\users\resume_settings.html:69 .\users\models.py:197
+msgid "Шаблон резюме"
+msgstr ""
+
+#: .\templates\users\resume_settings.html:95 .\users\models.py:212
+#, fuzzy
+#| msgid "Редактировать профиль"
+msgid "Показывать фото профиля"
+msgstr "Редактировать профиль"
+
+#: .\templates\users\resume_settings.html:125 .\users\models.py:215
+#, fuzzy
+#| msgid "Мои проекты"
+msgid "Показывать проекты"
+msgstr "Мои проекты"
+
+#: .\templates\users\resume_settings.html:148
+#, fuzzy
+#| msgid "Лента проектов"
+msgid "Макс. проектов:"
+msgstr "Лента проектов"
+
+#: .\templates\users\resume_settings.html:155
+#, fuzzy
+#| msgid "Сертификаты"
+msgid "Макс. сертификатов:"
+msgstr "Сертификаты"
+
+#: .\templates\users\resume_settings.html:162
+#, fuzzy
+#| msgid "Достижения"
+msgid "Макс. достижений:"
+msgstr "Достижения"
+
+#: .\templates\users\resume_settings.html:173
+msgid "Расширенные настройки (Премиум)"
+msgstr ""
+
+#: .\templates\users\resume_settings.html:178 .\users\models.py:177
+msgid "Цветовая схема"
+msgstr ""
+
+#: .\templates\users\resume_settings.html:181
+msgid "Основной"
+msgstr ""
+
+#: .\templates\users\resume_settings.html:185
+msgid "Вторичный"
+msgstr ""
+
+#: .\templates\users\resume_settings.html:189
+msgid "Акцент"
+msgstr ""
+
+#: .\templates\users\resume_settings.html:196
+msgid "Фон"
+msgstr ""
+
+#: .\templates\users\resume_settings.html:200
+msgid "Текст"
+msgstr ""
+
+#: .\templates\users\resume_settings.html:208 .\users\models.py:183
+#: .\users\models.py:210
+msgid "Шрифт"
+msgstr ""
+
+#: .\templates\users\resume_settings.html:216 .\users\models.py:127
+#: .\users\models.py:211
+#, fuzzy
+#| msgid "Имя пользователя или Email"
+msgid "Пользовательский CSS"
+msgstr "Имя пользователя или Email"
+
+#: .\templates\users\resume_settings.html:220
+msgid ""
+"Используйте этот блок для тонкой настройки стилей вашего резюме. Эти стили "
+"будут применены поверх стандартных стилей шаблона."
+msgstr ""
+
+#: .\templates\users\resume_settings.html:238
+msgid "Доступные шаблоны резюме"
+msgstr ""
+
+#: .\templates\users\resume_settings.html:243
+msgid "Бесплатные шаблоны"
+msgstr ""
+
+#: .\templates\users\resume_settings.html:263
+#: .\templates\users\resume_settings.html:318
+msgid "Активен"
+msgstr ""
+
+#: .\templates\users\resume_settings.html:288
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "Требуется подписка"
+msgstr "Управление подпиской"
+
+#: .\templates\users\resume_settings.html:347
+msgid "Для доступа к премиум шаблонам необходима"
+msgstr ""
+
+#: .\templates\users\resume_settings.html:348
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "платная подписка"
+msgstr "Управление подпиской"
+
+#: .\templates\users\search_results.html:5
+#: .\templates\users\search_results.html:14
+#, fuzzy
+#| msgid "Поиск портфолио"
+msgid "Поиск пользователей"
+msgstr "Поиск портфолио"
+
+#: .\templates\users\search_results.html:19
+#, fuzzy
+#| msgid "Имя пользователя или Email"
+msgid "Имя пользователя, ФИО или учебное заведение"
+msgstr "Имя пользователя или Email"
+
+#: .\templates\users\search_results.html:21
+msgid "Найти"
+msgstr ""
+
+#: .\templates\users\search_results.html:34
+#, python-format
+msgid "Найдено пользователей: %(count)s"
+msgstr ""
+
+#: .\templates\users\search_results.html:36
+msgid "По вашему запросу ничего не найдено"
+msgstr ""
+
+#: .\templates\users\search_results.html:81
+#, fuzzy
+#| msgid "Поиск портфолио"
+msgid "Просмотреть портфолио"
+msgstr "Поиск портфолио"
+
+#: .\templates\users\search_results.html:92
+msgid "Введите запрос для поиска пользователей"
+msgstr ""
+
+#: .\templates\users\search_results.html:93
+msgid ""
+"Вы можете искать по имени пользователя, имени, фамилии и учебному заведению"
+msgstr ""
+
+#: .\templates\users\subscription.html:55
+msgid "Руководство по возможностям Premium"
+msgstr ""
+
+#: .\templates\users\subscription.html:61
+msgid "Ваши премиум-возможности:"
+msgstr ""
+
+#: .\templates\users\subscription.html:67
+#: .\templates\users\subscription.html:137
+msgid "Премиум темы оформления"
+msgstr ""
+
+#: .\templates\users\subscription.html:71
+#, fuzzy
+#| msgid "Настройки портфолио"
+msgid "Настройка CSS"
+msgstr "Настройки портфолио"
+
+#: .\templates\users\subscription.html:91
+#: .\templates\users\subscription.html:145
+msgid "Неограниченное количество проектов"
+msgstr ""
+
+#: .\templates\users\subscription.html:99
+msgid "Хотите продлить подписку? Просто введите новый код активации ниже."
+msgstr ""
+
+#: .\templates\users\subscription.html:108
+msgid ""
+"Активируйте премиум-подписку, чтобы получить доступ к дополнительным "
+"возможностям"
+msgstr ""
+
+#: .\templates\users\subscription.html:116
+msgid "Базовые возможности:"
+msgstr ""
+
+#: .\templates\users\subscription.html:120
+msgid "Стандартные темы оформления"
+msgstr ""
+
+#: .\templates\users\subscription.html:124
+#, fuzzy
+#| msgid "Настройки портфолио"
+msgid "Базовые настройки портфолио"
+msgstr "Настройки портфолио"
+
+#: .\templates\users\subscription.html:128
+#, fuzzy
+#| msgid "Лента проектов"
+msgid "До 5 проектов"
+msgstr "Лента проектов"
+
+#: .\templates\users\subscription.html:133
+msgid "Премиум возможности:"
+msgstr ""
+
+#: .\templates\users\subscription.html:141
+#, fuzzy
+#| msgid "Настройки портфолио"
+msgid "Настройка CSS и персональный домен"
+msgstr "Настройки портфолио"
+
+#: .\templates\users\subscription.html:158
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "Активация кода подписки"
+msgstr "Управление подпиской"
+
+#: .\templates\users\subscription.html:184
+msgid "Введите код активации, чтобы активировать или продлить премиум-подписку"
+msgstr ""
+
+#: .\templates\users\subscription.html:194
+msgid "Возможности Premium"
+msgstr ""
+
+#: .\templates\users\subscription.html:202
+#, fuzzy
+#| msgid "Регистрация"
+msgid "Администратор:"
+msgstr "Регистрация"
+
+#: .\templates\users\subscription.html:202
+msgid "Генерация тестового кода"
+msgstr ""
+
+#: .\templates\users\subscription.html:204
+#, fuzzy
+#| msgid "Редактировать профиль"
+msgid "Сгенерировать код"
+msgstr "Редактировать профиль"
+
+#: .\templates\users\subscription.html:223
+msgid "Как получить код подписки?"
+msgstr ""
+
+#: .\templates\users\subscription.html:228
+msgid ""
+"Коды подписки можно получить у администратора платформы. Напишите запрос на "
+"почту support@studfolio.com или обратитесь к администратору вашего учебного "
+"заведения."
+msgstr ""
+
+#: .\templates\users\subscription.html:235
+msgid "На какой срок действует подписка?"
+msgstr ""
+
+#: .\templates\users\subscription.html:240
+msgid ""
+"Стандартный период подписки составляет 30 дней. При использовании нового "
+"кода активации ваша подписка продлевается на указанный в нем срок."
+msgstr ""
+
+#: .\templates\users\subscription.html:247
+msgid "Что произойдет после окончания подписки?"
+msgstr ""
+
+#: .\templates\users\subscription.html:252
+msgid ""
+"После окончания срока действия подписки ваш аккаунт будет переведен в "
+"базовый режим. Вы сохраните доступ к своим проектам, но премиум-функции "
+"станут недоступны. Если вы использовали премиум-тему, она будет заменена на "
+"стандартную."
+msgstr ""
+
+#: .\templates\users\subscription.html:259
+msgid "Можно ли передать код активации другому пользователю?"
+msgstr ""
+
+#: .\templates\users\subscription.html:264
+msgid ""
+"Код активации можно использовать только один раз. После активации он "
+"привязывается к вашему аккаунту и не может быть передан другому пользователю."
+msgstr ""
+
+#: .\users\admin.py:29
+msgid "Персональная информация"
+msgstr ""
+
+#: .\users\admin.py:33
+msgid "Информация об обучении"
+msgstr ""
+
+#: .\users\admin.py:42
+msgid "Права доступа"
+msgstr ""
+
+#: .\users\admin.py:46
+msgid "Важные даты"
+msgstr ""
+
+#: .\users\admin.py:62
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "Активная подписка"
+msgstr "Управление подпиской"
+
+#: .\users\decorators.py:37
+msgid ""
+"Эта функция доступна только для пользователей с премиум-подпиской. Перейдите "
+"на премиум, чтобы получить доступ."
+msgstr ""
+
+#: .\users\decorators.py:68
+msgid ""
+"Вы достигли лимита для этого ресурса. Перейдите на премиум-подписку, чтобы "
+"добавить больше."
+msgstr ""
+
+#: .\users\forms.py:105
+msgid "Для доступа к премиум темам необходима платная подписка"
+msgstr ""
+
+#: .\users\forms.py:120
+msgid "Введите свой CSS код для кастомизации внешнего вида портфолио"
+msgstr ""
+
+#: .\users\forms.py:121
+msgid "Укажите свой домен (требуется настройка DNS)"
+msgstr ""
+
+#: .\users\forms.py:122
+msgid "Укажите желаемый субдомен (только латинские буквы, цифры и дефисы)"
+msgstr ""
+
+#: .\users\forms.py:123
+msgid "Включите, чтобы использовать субдомен для вашего портфолио"
+msgstr ""
+
+#: .\users\forms.py:144
+msgid "Для доступа к премиум шаблонам необходима платная подписка"
+msgstr ""
+
+#: .\users\forms.py:167 .\users\models.py:233
+#, fuzzy
+#| msgid "Редактировать профиль"
+msgid "Код активации"
+msgstr "Редактировать профиль"
+
+#: .\users\models.py:13
+#, fuzzy
+#| msgid "Регистрация"
+msgid "Администратор"
+msgstr "Регистрация"
+
+#: .\users\models.py:14
+msgid "Специалист поддержки"
+msgstr ""
+
+#: .\users\models.py:17
+msgid "Email адрес"
+msgstr ""
+
+#: .\users\models.py:18
+#, fuzzy
+#| msgid "Имя пользователя или Email"
+msgid "Тип пользователя"
+msgstr "Имя пользователя или Email"
+
+#: .\users\models.py:19
+msgid "Биография"
+msgstr ""
+
+#: .\users\models.py:21
+#, fuzzy
+#| msgid "Достижения"
+msgid "Дата рождения"
+msgstr "Достижения"
+
+#: .\users\models.py:22
+msgid "Номер телефона"
+msgstr ""
+
+#: .\users\models.py:32
+msgid "Уникальный URL"
+msgstr ""
+
+#: .\users\models.py:35
+msgid "Уведомления включены"
+msgstr ""
+
+#: .\users\models.py:38
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "Дата окончания подписки"
+msgstr "Управление подпиской"
+
+#: .\users\models.py:62
+#, fuzzy
+#| msgid "Имя пользователя или Email"
+msgid "Пользователь"
+msgstr "Имя пользователя или Email"
+
+#: .\users\models.py:63
+#, fuzzy
+#| msgid "Имя пользователя или Email"
+msgid "Пользователи"
+msgstr "Имя пользователя или Email"
+
+#: .\users\models.py:69
+msgid "Название навыка"
+msgstr ""
+
+#: .\users\models.py:70
+msgid "Уровень"
+msgstr ""
+
+#: .\users\models.py:76
+msgid "Навык"
+msgstr ""
+
+#: .\users\models.py:84
+msgid "Светлая"
+msgstr ""
+
+#: .\users\models.py:85
+msgid "Тёмная"
+msgstr ""
+
+#: .\users\models.py:86
+msgid "Цветная"
+msgstr ""
+
+#: .\users\models.py:92
+msgid "Название темы"
+msgstr ""
+
+#: .\users\models.py:93
+msgid "Тип темы"
+msgstr ""
+
+#: .\users\models.py:94 .\users\models.py:178 .\users\models.py:205
+msgid "Основной цвет"
+msgstr ""
+
+#: .\users\models.py:95 .\users\models.py:179 .\users\models.py:206
+msgid "Вторичный цвет"
+msgstr ""
+
+#: .\users\models.py:96 .\users\models.py:181 .\users\models.py:208
+msgid "Цвет фона"
+msgstr ""
+
+#: .\users\models.py:97 .\users\models.py:182 .\users\models.py:209
+msgid "Цвет текста"
+msgstr ""
+
+#: .\users\models.py:98
+msgid "CSS файл"
+msgstr ""
+
+#: .\users\models.py:99
+msgid "Премиум тема"
+msgstr ""
+
+#: .\users\models.py:100 .\users\models.py:187
+#, fuzzy
+#| msgid "Управление подпиской"
+msgid "Изображение для предпросмотра"
+msgstr "Управление подпиской"
+
+#: .\users\models.py:106
+#, fuzzy
+#| msgid "Поиск портфолио"
+msgid "Тема портфолио"
+msgstr "Поиск портфолио"
+
+#: .\users\models.py:107
+#, fuzzy
+#| msgid "Поиск портфолио"
+msgid "Темы портфолио"
+msgstr "Поиск портфолио"
+
+#: .\users\models.py:113
+msgid "Стандартный"
+msgstr ""
+
+#: .\users\models.py:114
+msgid "Современный"
+msgstr ""
+
+#: .\users\models.py:115
+msgid "Классический"
+msgstr ""
+
+#: .\users\models.py:116 .\users\models.py:159
+msgid "Креативный"
+msgstr ""
+
+#: .\users\models.py:121
+msgid "Макет"
+msgstr ""
+
+#: .\users\models.py:128
+msgid "Пользовательский домен"
+msgstr ""
+
+#: .\users\models.py:129
+msgid "Субдомен"
+msgstr ""
+
+#: .\users\models.py:130
+#, fuzzy
+#| msgid "Имя пользователя или Email"
+msgid "Использовать субдомен"
+msgstr "Имя пользователя или Email"
+
+#: .\users\models.py:157
+msgid "Базовый"
+msgstr ""
+
+#: .\users\models.py:158
+msgid "Профессиональный"
+msgstr ""
+
+#: .\users\models.py:160
+msgid "Академический"
+msgstr ""
+
+#: .\users\models.py:161
+msgid "Технический"
+msgstr ""
+
+#: .\users\models.py:165
+msgid "Синяя"
+msgstr ""
+
+#: .\users\models.py:166
+msgid "Зеленая"
+msgstr ""
+
+#: .\users\models.py:167
+msgid "Красная"
+msgstr ""
+
+#: .\users\models.py:168
+msgid "Фиолетовая"
+msgstr ""
+
+#: .\users\models.py:169
+msgid "Оранжевая"
+msgstr ""
+
+#: .\users\models.py:170
+msgid "Черно-белая"
+msgstr ""
+
+#: .\users\models.py:171
+#, fuzzy
+#| msgid "Имя пользователя или Email"
+msgid "Пользовательская"
+msgstr "Имя пользователя или Email"
+
+#: .\users\models.py:174
+msgid "Название шаблона"
+msgstr ""
+
+#: .\users\models.py:176
+msgid "Тип шаблона"
+msgstr ""
+
+#: .\users\models.py:180 .\users\models.py:207
+msgid "Акцентный цвет"
+msgstr ""
+
+#: .\users\models.py:184
+msgid "Шрифт заголовков"
+msgstr ""
+
+#: .\users\models.py:185
+msgid "Шаблон CSS"
+msgstr ""
+
+#: .\users\models.py:186
+msgid "Шаблон HTML"
+msgstr ""
+
+#: .\users\models.py:188
+msgid "Премиум шаблон"
+msgstr ""
+
+#: .\users\models.py:189
+#, fuzzy
+#| msgid "Редактировать профиль"
+msgid "Редактируемый шаблон"
+msgstr "Редактировать профиль"
+
+#: .\users\models.py:198
+msgid "Шаблоны резюме"
+msgstr ""
+
+#: .\users\models.py:219
+msgid "Максимальное количество проектов"
+msgstr ""
+
+#: .\users\models.py:220
+msgid "Максимальное количество сертификатов"
+msgstr ""
+
+#: .\users\models.py:221
+msgid "Максимальное количество достижений"
+msgstr ""
+
+#: .\users\models.py:234
+msgid "Длительность подписки (дней)"
+msgstr ""
+
+#: .\users\models.py:235 .\users\models.py:238
+#, fuzzy
+#| msgid "Имя пользователя или Email"
+msgid "Использован"
+msgstr "Имя пользователя или Email"
+
+#: .\users\models.py:269
+#, fuzzy
+#| msgid "Подписка"
+msgid "Код подписки"
+msgstr "Подписка"
+
+#: .\users\models.py:270
+#, fuzzy
+#| msgid "Подписка"
+msgid "Коды подписки"
+msgstr "Подписка"
+
+#: .\users\models.py:283
+#, fuzzy
+#| msgid "Мой профиль"
+msgid "Просмотр профиля"
+msgstr "Мой профиль"
+
+#: .\users\views.py:91
+msgid "Профиль успешно обновлен!"
+msgstr ""
+
+#: .\users\views.py:110
+msgid "Такой навык уже существует!"
+msgstr ""
+
+#: .\users\views.py:114
+msgid "Навык успешно добавлен!"
+msgstr ""
+
+#: .\users\views.py:131
+msgid "Навык успешно обновлен!"
+msgstr ""
+
+#: .\users\views.py:146
+msgid "Навык успешно удален!"
+msgstr ""
+
+#: .\users\views.py:182
+msgid "Не найдены шаблоны резюме. Пожалуйста, обратитесь к администратору."
+msgstr ""
+
+#: .\users\views.py:187
+msgid "У вас нет доступа к премиум шаблону. Используется базовый шаблон."
+msgstr ""
+
+#: .\users\views.py:445 .\users\views.py:450
+#, fuzzy
+#| msgid "Настройки портфолио"
+msgid "Настройки портфолио успешно сохранены!"
+msgstr "Настройки портфолио"
+
+#: .\users\views.py:494 .\users\views.py:499
+msgid "Настройки резюме успешно сохранены!"
+msgstr ""
+
+#: .\users\views.py:541
+#, python-format
+msgid "Подписка успешно активирована! Срок действия: %(days)d дней."
+msgstr ""
+
+#: .\users\views.py:546
+msgid "Ошибка активации подписки. Пожалуйста, попробуйте еще раз."
+msgstr ""
+
+#: .\users\views.py:548
+msgid "Неверный код активации."
+msgstr ""
+
+#: .\users\views.py:565
+msgid "У вас нет прав для выполнения этой операции."
+msgstr ""
+
+#: .\users\views.py:579
+#, python-format
+msgid "Код подписки успешно создан: %(code)s"
+msgstr ""
+
+#: .\users\views.py:594
+msgid "Для использования этой темы необходима премиум-подписка."
+msgstr ""
+
+#: .\users\views.py:604
+msgid "Тема успешно применена!"
+msgstr ""
+
+#~ msgid "Аватар"
+#~ msgstr "Аватар"

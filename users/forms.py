@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.translation import gettext_lazy as _
-from .models import CustomUser, Skill, PortfolioSettings, PortfolioTheme, SubscriptionCode
+from .models import CustomUser, Skill, PortfolioSettings, PortfolioTheme, SubscriptionCode, UserResumeSettings, ResumeTemplate
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -35,27 +35,34 @@ class CustomUserChangeForm(UserChangeForm):
         self.fields['last_name'].required = True
 
 
-class ProfileForm(forms.ModelForm):
+class UserProfileForm(forms.ModelForm):
     """Форма для редактирования профиля пользователя"""
     
     class Meta:
         model = CustomUser
-        fields = ('first_name', 'last_name', 'bio', 'profile_image',
-                  'date_of_birth', 'phone_number', 'university', 
-                  'faculty', 'specialization', 'year_of_study',
-                  'is_public', 'custom_url', 'notifications_enabled')
+        fields = ['first_name', 'last_name', 'email', 'bio', 'profile_image', 
+                 'university', 'faculty', 'specialization', 'year_of_study', 
+                 'date_of_birth', 'phone_number', 'is_public', 'custom_url', 'notifications_enabled']
         widgets = {
-            'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
-            'bio': forms.Textarea(attrs={'rows': 4}),
+            'bio': forms.Textarea(attrs={'rows': 3, 'class': 'form-control'}),
+            'date_of_birth': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
 
 
+# Для обратной совместимости с существующим кодом
+ProfileForm = UserProfileForm
+
+
 class SkillForm(forms.ModelForm):
-    """Форма для добавления/редактирования навыка"""
+    """Форма для добавления и редактирования навыков"""
     
     class Meta:
         model = Skill
-        fields = ('name', 'level')
+        fields = ['name', 'level']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'level': forms.Select(attrs={'class': 'form-select'}),
+        }
 
 
 class CustomUserTeacherCreationForm(UserCreationForm):
@@ -117,28 +124,58 @@ class PortfolioAdvancedSettingsForm(forms.ModelForm):
         }
 
 
+class UserResumeSettingsForm(forms.ModelForm):
+    """Форма для настройки резюме пользователя"""
+    
+    class Meta:
+        model = UserResumeSettings
+        fields = ('template', 'show_profile_image', 'show_skills', 'show_education', 
+                  'show_projects', 'show_certificates', 'show_achievements', 
+                  'show_contact_info', 'max_projects', 'max_certificates', 'max_achievements')
+    
+    def __init__(self, *args, **kwargs):
+        # Проверяем наличие premium параметра
+        premium = kwargs.pop('premium', False)
+        super().__init__(*args, **kwargs)
+        
+        # Если пользователь не премиум, ограничиваем выбор шаблонов
+        if not premium:
+            self.fields['template'].queryset = ResumeTemplate.objects.filter(is_premium=False)
+            self.fields['template'].help_text = _('Для доступа к премиум шаблонам необходима платная подписка')
+
+
+class ResumeAdvancedSettingsForm(forms.ModelForm):
+    """Форма для расширенных настроек резюме (для премиум пользователей)"""
+    
+    class Meta:
+        model = UserResumeSettings
+        fields = ('primary_color', 'secondary_color', 'accent_color', 
+                  'background_color', 'text_color', 'font_family', 'custom_css')
+        widgets = {
+            'primary_color': forms.TextInput(attrs={'type': 'color', 'class': 'form-control form-control-color'}),
+            'secondary_color': forms.TextInput(attrs={'type': 'color', 'class': 'form-control form-control-color'}),
+            'accent_color': forms.TextInput(attrs={'type': 'color', 'class': 'form-control form-control-color'}),
+            'background_color': forms.TextInput(attrs={'type': 'color', 'class': 'form-control form-control-color'}),
+            'text_color': forms.TextInput(attrs={'type': 'color', 'class': 'form-control form-control-color'}),
+            'custom_css': forms.Textarea(attrs={'rows': 6, 'class': 'form-control code-editor'}),
+        }
+
+
 class SubscriptionActivationForm(forms.Form):
     """Форма для активации подписки по коду"""
     code = forms.CharField(
-        label=_('Код активации'),
-        max_length=16,
-        required=True,
-        widget=forms.TextInput(attrs={
-            'placeholder': _('Введите код активации'),
-            'class': 'form-control'
-        })
+        label=_('Код активации'), 
+        max_length=20, 
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'XXXX-XXXX-XXXX'})
     )
-    
-    def clean_code(self):
-        """Валидация кода активации"""
-        code = self.cleaned_data.get('code')
-        
-        try:
-            # Проверяем существование кода и его статус
-            subscription_code = SubscriptionCode.objects.get(code=code)
-            if subscription_code.is_used:
-                raise forms.ValidationError(_('Этот код уже был использован'))
-        except SubscriptionCode.DoesNotExist:
-            raise forms.ValidationError(_('Недействительный код активации'))
-        
-        return code 
+
+
+class SubscriptionCodeForm(forms.ModelForm):
+    """Форма для создания кода подписки (админка)"""
+    class Meta:
+        model = SubscriptionCode
+        fields = ['code', 'duration_days']
+        widgets = {
+            'code': forms.TextInput(attrs={'class': 'form-control'}),
+            'duration_days': forms.NumberInput(attrs={'class': 'form-control'}),
+        } 

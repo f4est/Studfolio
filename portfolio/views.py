@@ -11,6 +11,26 @@ from .forms import ProjectForm, CertificateForm, AchievementForm, ReviewForm
 from users.models import CustomUser
 from users.views import get_client_ip
 
+# Импортируем наши декораторы и функции для премиум-функций
+from users.decorators import require_premium, check_resource_limit, premium_feature_context
+from users.premium_features import can_use_feature, get_limit_value
+
+# Функции для подсчета ресурсов
+def count_user_projects(user):
+    """Возвращает количество проектов пользователя"""
+    return Project.objects.filter(user=user).count()
+
+def count_user_certificates(user):
+    """Возвращает количество сертификатов пользователя"""
+    return Certificate.objects.filter(user=user).count()
+
+def count_user_achievements(user):
+    """Возвращает количество достижений пользователя"""
+    return Achievement.objects.filter(user=user).count()
+
+def count_user_skills(user):
+    """Возвращает количество навыков пользователя"""
+    return user.skills.count()
 
 # Проекты
 @login_required
@@ -21,6 +41,8 @@ def project_list_view(request):
 
 
 @login_required
+@check_resource_limit('max_projects', count_user_projects)
+@premium_feature_context(['max_projects'])
 def project_add_view(request):
     """Добавление нового проекта"""
     if request.method == 'POST':
@@ -34,7 +56,17 @@ def project_add_view(request):
     else:
         form = ProjectForm()
     
-    return render(request, 'portfolio/project_form.html', {'form': form, 'action': 'add'})
+    # Добавляем информацию о лимите
+    max_projects = get_limit_value(request.user, 'max_projects')
+    current_projects = count_user_projects(request.user)
+    
+    return render(request, 'portfolio/project_form.html', {
+        'form': form, 
+        'action': 'add',
+        'max_projects': max_projects,
+        'current_projects': current_projects,
+        'is_unlimited': max_projects == float('inf')
+    })
 
 
 @login_required
@@ -121,6 +153,8 @@ def certificate_list_view(request):
 
 
 @login_required
+@check_resource_limit('max_certificates', count_user_certificates)
+@premium_feature_context(['max_certificates'])
 def certificate_add_view(request):
     """Добавление нового сертификата"""
     if request.method == 'POST':
@@ -151,7 +185,17 @@ def certificate_add_view(request):
     else:
         form = CertificateForm()
     
-    return render(request, 'portfolio/certificate_form.html', {'form': form, 'action': 'add'})
+    # Добавляем информацию о лимите
+    max_certificates = get_limit_value(request.user, 'max_certificates')
+    current_certificates = count_user_certificates(request.user)
+    
+    return render(request, 'portfolio/certificate_form.html', {
+        'form': form, 
+        'action': 'add',
+        'max_certificates': max_certificates,
+        'current_certificates': current_certificates,
+        'is_unlimited': max_certificates == float('inf')
+    })
 
 
 @login_required
@@ -227,6 +271,8 @@ def achievement_list_view(request):
 
 
 @login_required
+@check_resource_limit('max_achievements', count_user_achievements)
+@premium_feature_context(['max_achievements'])
 def achievement_add_view(request):
     """Добавление нового достижения"""
     if request.method == 'POST':
@@ -234,22 +280,23 @@ def achievement_add_view(request):
         if form.is_valid():
             achievement = form.save(commit=False)
             achievement.user = request.user
-            
-            # Если date_received заполнено, используем его вместо date
-            if achievement.date_received:
-                achievement.date = achievement.date_received
-                
-            # Если issuing_organization заполнено, используем его вместо organizer
-            if achievement.issuing_organization:
-                achievement.organizer = achievement.issuing_organization
-                
             achievement.save()
             messages.success(request, _('Достижение успешно добавлено!'))
             return redirect('portfolio:achievement_list')
     else:
         form = AchievementForm()
     
-    return render(request, 'portfolio/achievement_form.html', {'form': form, 'action': 'add'})
+    # Добавляем информацию о лимите
+    max_achievements = get_limit_value(request.user, 'max_achievements')
+    current_achievements = count_user_achievements(request.user)
+    
+    return render(request, 'portfolio/achievement_form.html', {
+        'form': form, 
+        'action': 'add',
+        'max_achievements': max_achievements,
+        'current_achievements': current_achievements,
+        'is_unlimited': max_achievements == float('inf')
+    })
 
 
 @login_required

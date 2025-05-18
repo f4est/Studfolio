@@ -6,72 +6,107 @@
     <title>Резюме - {{ user.get_full_name }}</title>
     <style>
         @page {
-            size: A4;
-            margin: 2cm;
+            size: 210mm 297mm; /* Явный размер A4 */
+            margin: 20mm; /* Стандартные поля */
+            @bottom-center {
+                content: "Страница " counter(page);
+            }
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html, body {
+            width: 210mm; /* Ширина A4 */
+            max-width: 210mm;
+            margin: 0 auto;
         }
         
         body {
             font-family: Arial, sans-serif;
             line-height: 1.5;
             color: #333;
+            margin: 0 auto;
+            padding: 0;
+            background-color: white;
         }
         
         h1, h2, h3, h4 {
             color: #3498db;
-            margin-top: 20px;
-            margin-bottom: 10px;
+            margin-top: 15px;
+            margin-bottom: 8px;
         }
         
         h1 {
-            font-size: 24px;
+            font-size: 22px;
             text-align: center;
             border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
+            padding-bottom: 8px;
         }
         
         h2 {
-            font-size: 18px;
+            font-size: 16px;
             border-bottom: 1px solid #ddd;
-            padding-bottom: 5px;
+            padding-bottom: 4px;
+        }
+        
+        p {
+            margin-bottom: 7px;
         }
         
         .container {
-            max-width: 900px;
+            width: 100%;
             margin: 0 auto;
+            padding: 0;
         }
         
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         
         .header img {
-            max-width: 150px;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
             border-radius: 50%;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+            display: inline-block;
         }
         
         .section {
-            margin-bottom: 25px;
+            margin-bottom: 15px;
+            width: 100%;
+            clear: both;
         }
         
         .contact-info {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: center;
         }
         
         .contact-info p {
-            margin: 5px 0;
+            margin: 3px 0;
         }
         
         .info-row {
-            display: flex;
-            margin-bottom: 10px;
+            width: 100%;
+            margin-bottom: 5px;
+            display: table;
+            page-break-inside: avoid;
         }
         
         .info-label {
             font-weight: bold;
-            width: 150px;
+            width: 140px;
+            display: table-cell;
+        }
+        
+        .info-value {
+            display: table-cell;
         }
         
         .skills-list {
@@ -81,32 +116,36 @@
         }
         
         .skills-list li {
-            padding: 5px 0;
+            padding: 3px 0;
             border-bottom: 1px dotted #ddd;
+            page-break-inside: avoid;
         }
         
         .project-item, .certificate-item, .achievement-item {
-            margin-bottom: 15px;
-            padding-bottom: 15px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
             border-bottom: 1px solid #eee;
+            page-break-inside: avoid;
         }
         
         .project-title, .certificate-title, .achievement-title {
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
         
         .technologies {
-            margin-top: 5px;
+            margin-top: 4px;
             font-style: italic;
             color: #555;
         }
         
         .footer {
             text-align: center;
-            margin-top: 30px;
-            font-size: 12px;
+            margin-top: 20px;
+            font-size: 10px;
             color: #777;
+            width: 100%;
+            page-break-before: avoid;
         }
     </style>
 </head>

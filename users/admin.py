@@ -2,11 +2,19 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 
-from .models import CustomUser, Skill, PortfolioTheme, PortfolioSettings, SubscriptionCode, ProfileView
+from .models import CustomUser, Skill, PortfolioTheme, PortfolioSettings, SubscriptionCode, ProfileView, ResumeTemplate, UserResumeSettings
 
 class SkillInline(admin.TabularInline):
     model = Skill
     extra = 1
+
+
+class SkillAdmin(admin.ModelAdmin):
+    """Админка для навыков"""
+    list_display = ('name', 'user', 'level')
+    list_filter = ('level',)
+    search_fields = ('name', 'user__username')
+
 
 class CustomUserAdmin(UserAdmin):
     """Кастомная админ-панель для расширенной модели пользователя"""
@@ -68,6 +76,21 @@ class PortfolioSettingsAdmin(admin.ModelAdmin):
     search_fields = ('user__username', 'user__email')
 
 
+class ResumeTemplateAdmin(admin.ModelAdmin):
+    """Админка для шаблонов резюме"""
+    list_display = ('name', 'template_type', 'color_scheme', 'is_premium', 'created_at')
+    list_filter = ('template_type', 'color_scheme', 'is_premium')
+    search_fields = ('name', 'description')
+    date_hierarchy = 'created_at'
+
+
+class UserResumeSettingsAdmin(admin.ModelAdmin):
+    """Админка для настроек резюме пользователя"""
+    list_display = ('user', 'template', 'show_skills', 'show_projects', 'show_certificates')
+    list_filter = ('show_skills', 'show_projects', 'show_certificates', 'show_achievements')
+    search_fields = ('user__username', 'user__email')
+
+
 class SubscriptionCodeAdmin(admin.ModelAdmin):
     """Админка для кодов подписки"""
     list_display = ('code', 'duration_days', 'is_used', 'used_by', 'created_at', 'used_at')
@@ -85,7 +108,10 @@ class ProfileViewAdmin(admin.ModelAdmin):
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Skill, SkillAdmin)
 admin.site.register(PortfolioTheme, PortfolioThemeAdmin)
 admin.site.register(PortfolioSettings, PortfolioSettingsAdmin)
 admin.site.register(SubscriptionCode, SubscriptionCodeAdmin)
 admin.site.register(ProfileView, ProfileViewAdmin)
+admin.site.register(ResumeTemplate, ResumeTemplateAdmin)
+admin.site.register(UserResumeSettings, UserResumeSettingsAdmin)

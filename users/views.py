@@ -4,8 +4,22 @@ from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 from django.http import HttpResponse, Http404
 from django.template.loader import get_template
-# Удаляем неработающий импорт WeasyPrint
-# from weasyprint import HTML, CSS
+# Импортируем WeasyPrint, но обрабатываем ошибку импорта
+WEASYPRINT_AVAILABLE = False
+try:
+    from weasyprint import HTML, CSS
+    # Проверяем правильность загрузки библиотек с надежным обходом ошибок
+    try:
+        # Пустой HTML для тестирования
+        test_html = HTML(string='<html><body>Test</body></html>')
+        # Если дошли до этой точки без исключений, все работает
+        WEASYPRINT_AVAILABLE = True
+    except Exception as e:
+        print(f"WeasyPrint доступен, но не может быть использован: {str(e)}")
+        WEASYPRINT_AVAILABLE = False
+except ImportError:
+    print("WeasyPrint не установлен или не может быть импортирован")
+    WEASYPRINT_AVAILABLE = False
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.db import models
@@ -26,16 +40,20 @@ from collections import defaultdict
 from django.http import JsonResponse
 import json
 from portfolio.models import Project, Certificate, Achievement, Review, ProjectView
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import base64
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from django.contrib.auth import login, authenticate
+from django.core.paginator import Paginator
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+from django.db.models import Q, Count, F, Sum, Avg
+from django.template import Template, Context
 
-# Удаляем попытку импорта WeasyPrint
-# try:
-#     from weasyprint import HTML, CSS
-#     WEASYPRINT_AVAILABLE = True
-# except (ImportError, OSError):
-#     WEASYPRINT_AVAILABLE = False
-#     import logging
-#     logger = logging.getLogger(__name__)
-#     logger.warning("WeasyPrint не удалось импортировать. Функция генерации PDF будет отключена.")
+# Импортируем наши декораторы и функции для премиум-фич
+from .decorators import require_premium, check_resource_limit, premium_feature_context
+from .premium_features import can_use_feature, get_limit_value
 
 # Добавляем импорт ReportLab
 from reportlab.pdfgen import canvas
@@ -48,8 +66,8 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
 # Остальные импорты оставляем без изменений
-from .models import CustomUser, Skill, PortfolioTheme, PortfolioSettings, SubscriptionCode, ProfileView
-from .forms import ProfileForm, SkillForm, PortfolioSettingsForm, PortfolioAdvancedSettingsForm, SubscriptionActivationForm
+from .models import CustomUser, Skill, PortfolioTheme, PortfolioSettings, SubscriptionCode, ProfileView, ResumeTemplate, UserResumeSettings
+from .forms import ProfileForm, SkillForm, PortfolioSettingsForm, PortfolioAdvancedSettingsForm, SubscriptionActivationForm, CustomUserCreationForm, CustomUserChangeForm, UserProfileForm, SubscriptionCodeForm, UserResumeSettingsForm, ResumeAdvancedSettingsForm
 
 
 @login_required
@@ -146,23 +164,160 @@ def skill_delete_view(request, skill_id):
 
 
 @login_required
+@premium_feature_context(['enhanced_pdf', 'resume_templates', 'watermark'])
 def generate_pdf_resume(request):
-    """Генерирует PDF-резюме пользователя с использованием ReportLab"""
+    """Генерирует PDF-резюме пользователя с использованием выбранного шаблона"""
     try:
         # Получаем данные пользователя
         user = request.user
-        skills = user.skills.all()
-        projects = user.projects.all().order_by('-created_at')[:5]
-        certificates = user.certificates.all().order_by('-issue_date')[:5]
-        achievements = user.achievements.all().order_by('-date')[:5]
         
+        # Получаем настройки резюме пользователя
+        resume_settings, created = UserResumeSettings.objects.get_or_create(user=user)
+        
+        # Получаем максимальные значения для количества элементов из настроек premium
+        max_projects = get_limit_value(user, 'max_projects')
+        max_certificates = get_limit_value(user, 'max_certificates')
+        max_achievements = get_limit_value(user, 'max_achievements')
+        
+        # Получаем все необходимые данные в соответствии с настройками и лимитами
+        skills = user.skills.all() if resume_settings.show_skills else []
+        projects = user.projects.all().order_by('-created_at')[:max_projects] if resume_settings.show_projects else []
+        certificates = user.certificates.all().order_by('-issue_date')[:max_certificates] if resume_settings.show_certificates else []
+        achievements = user.achievements.all().order_by('-date')[:max_achievements] if resume_settings.show_achievements else []
+        
+        # Проверяем наличие шаблона и прав на его использование
+        template = resume_settings.template
+        if not template:
+            # Если шаблон не выбран, используем первый базовый шаблон
+            template = ResumeTemplate.objects.filter(is_premium=False, template_type='basic').first()
+            
+            # Если базовых шаблонов нет, создаем сообщение об ошибке
+            if not template:
+                messages.error(request, _('Не найдены шаблоны резюме. Пожалуйста, обратитесь к администратору.'))
+                return redirect('users:profile')
+        
+        # Проверяем права на использование премиум шаблонов
+        if template.is_premium and not can_use_feature(user, 'resume_templates'):
+            messages.warning(request, _('У вас нет доступа к премиум шаблону. Используется базовый шаблон.'))
+            template = ResumeTemplate.objects.filter(is_premium=False, template_type='basic').first()
+        
+        # Данные для передачи в шаблон
+        context = {
+            'user': user,
+            'skills': skills,
+            'projects': projects,
+            'certificates': certificates,
+            'achievements': achievements,
+            'resume_settings': resume_settings,
+            'template': template,
+            'request': request,
+        }
+        
+        # Если у шаблона есть собственный HTML, используем его, иначе используем базовый шаблон
+        if template.html_template:
+            html_string = Template(template.html_template).render(Context(context))
+        else:
+            # Используем стандартный шаблон
+            html_template = get_template('users/pdf_resume.html')
+            html_string = html_template.render(context)
+        
+        # Создаем HTTP ответ с опцией для отображения в браузере или скачивания
+        if request.GET.get('view', False):
+            # Если запрошен просмотр, возвращаем HTML
+            return HttpResponse(html_string)
+        
+        # Настройка стилей для PDF
+        css_string = template.css_template if template.css_template else ""
+        
+        # Добавляем пользовательские стили, если они есть
+        if resume_settings.custom_css:
+            css_string += "\n" + resume_settings.custom_css
+        
+        # Подставляем пользовательские цвета, если они заданы
+        if resume_settings.primary_color:
+            css_string = css_string.replace('#3498db', resume_settings.primary_color)
+        if resume_settings.secondary_color:
+            css_string = css_string.replace('#2c3e50', resume_settings.secondary_color)
+        if resume_settings.accent_color:
+            css_string = css_string.replace('#e74c3c', resume_settings.accent_color)
+        if resume_settings.background_color:
+            css_string = css_string.replace('#ffffff', resume_settings.background_color)
+        if resume_settings.text_color:
+            css_string = css_string.replace('#333333', resume_settings.text_color)
+        if resume_settings.font_family:
+            css_string = css_string.replace('Arial, sans-serif', resume_settings.font_family)
+        
+        # Проверяем доступность WeasyPrint
+        if WEASYPRINT_AVAILABLE:
+            # Используем WeasyPrint для генерации PDF
+            pdf_buffer = io.BytesIO()
+            
+            # Добавляем базовые CSS-стили для предотвращения проблем с бесконечностью
+            css_string += """
+            @page {
+                size: 210mm 297mm;
+                margin: 20mm;
+            }
+            
+            html, body {
+                width: 210mm;
+                max-width: 210mm;
+                height: auto;
+                margin: 0;
+                padding: 0;
+            }
+            
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+            """
+            
+            try:
+                # Создаем временные файлы
+                with tempfile.NamedTemporaryFile(suffix='.html', delete=False) as temp_html:
+                    temp_html.write(html_string.encode('utf-8'))
+                    temp_html_path = temp_html.name
+                
+                with tempfile.NamedTemporaryFile(suffix='.css', delete=False) as temp_css:
+                    temp_css.write(css_string.encode('utf-8'))
+                    temp_css_path = temp_css.name
+                
+                try:
+                    # Генерируем PDF с WeasyPrint
+                    HTML(temp_html_path).write_pdf(pdf_buffer, stylesheets=[CSS(temp_css_path)])
+                    
+                    # Создаем HTTP ответ с PDF
+                    response = HttpResponse(content_type='application/pdf')
+                    response['Content-Disposition'] = f'attachment; filename="{user.username}_resume.pdf"'
+                    response.write(pdf_buffer.getvalue())
+                    
+                    # Удаляем временные файлы
+                    try:
+                        os.unlink(temp_html_path)
+                        os.unlink(temp_css_path)
+                    except:
+                        pass
+                    
+                    return response
+                
+                except Exception as e:
+                    # Если возникла ошибка с WeasyPrint, используем ReportLab как запасной вариант
+                    messages.warning(request, _('Не удалось создать PDF с помощью основного движка. Используется запасной вариант.'))
+                    # Продолжаем выполнение и используем ReportLab ниже
+            
+            except Exception as e:
+                messages.warning(request, _('Проблемы с созданием временных файлов. Используется запасной вариант.'))
+                # Продолжаем выполнение и используем ReportLab ниже
+        
+        # Если WeasyPrint недоступен или возникла ошибка, используем ReportLab
         # Создаем буфер для PDF
         buffer = io.BytesIO()
         
         # Создаем PDF документ
         doc = SimpleDocTemplate(buffer, pagesize=A4, 
-                               rightMargin=72, leftMargin=72,
-                               topMargin=72, bottomMargin=72)
+                              rightMargin=72, leftMargin=72,
+                              topMargin=72, bottomMargin=72)
         
         # Контейнер для элементов PDF
         elements = []
@@ -177,22 +332,23 @@ def generate_pdf_resume(request):
         elements.append(Spacer(1, 0.5*cm))
         
         # Контактная информация
-        contact_info = []
-        if user.email:
-            contact_info.append(f"Email: {user.email}")
-        if user.phone_number:
-            contact_info.append(f"Телефон: {user.phone_number}")
-        if user.university:
-            contact_info.append(f"Учебное заведение: {user.university}")
-        if user.faculty:
-            contact_info.append(f"Факультет: {user.faculty}")
-        if user.specialization:
-            contact_info.append(f"Специализация: {user.specialization}")
-        
-        for info in contact_info:
-            elements.append(Paragraph(info, styles['Normal']))
-        
-        elements.append(Spacer(1, 1*cm))
+        if resume_settings.show_contact_info:
+            contact_info = []
+            if user.email:
+                contact_info.append(f"Email: {user.email}")
+            if user.phone_number:
+                contact_info.append(f"Телефон: {user.phone_number}")
+            if user.university:
+                contact_info.append(f"Учебное заведение: {user.university}")
+            if user.faculty:
+                contact_info.append(f"Факультет: {user.faculty}")
+            if user.specialization:
+                contact_info.append(f"Специализация: {user.specialization}")
+            
+            for info in contact_info:
+                elements.append(Paragraph(info, styles['Normal']))
+            
+            elements.append(Spacer(1, 1*cm))
         
         # Биография
         if user.bio:
@@ -201,7 +357,7 @@ def generate_pdf_resume(request):
             elements.append(Spacer(1, 0.5*cm))
         
         # Навыки
-        if skills.exists():
+        if skills and resume_settings.show_skills:
             elements.append(Paragraph("Навыки", styles['Heading2']))
             skill_data = []
             for skill in skills:
@@ -222,7 +378,7 @@ def generate_pdf_resume(request):
                 elements.append(Spacer(1, 0.5*cm))
         
         # Проекты
-        if projects.exists():
+        if projects and resume_settings.show_projects:
             elements.append(Paragraph("Проекты", styles['Heading2']))
             for project in projects:
                 elements.append(Paragraph(project.title, styles['Heading3']))
@@ -233,7 +389,7 @@ def generate_pdf_resume(request):
             elements.append(Spacer(1, 0.5*cm))
         
         # Сертификаты
-        if certificates.exists():
+        if certificates and resume_settings.show_certificates:
             elements.append(Paragraph("Сертификаты", styles['Heading2']))
             for cert in certificates:
                 elements.append(Paragraph(f"{cert.title} - {cert.issuer}", styles['Heading3']))
@@ -244,7 +400,7 @@ def generate_pdf_resume(request):
             elements.append(Spacer(1, 0.5*cm))
         
         # Достижения
-        if achievements.exists():
+        if achievements and resume_settings.show_achievements:
             elements.append(Paragraph("Достижения", styles['Heading2']))
             for achievement in achievements:
                 elements.append(Paragraph(f"{achievement.title} - {achievement.organizer}", styles['Heading3']))
@@ -367,6 +523,55 @@ def portfolio_settings_view(request):
 
 
 @login_required
+def resume_settings_view(request):
+    """Настройки резюме пользователя"""
+    # Получаем или создаем объект настроек резюме для пользователя
+    resume_settings, created = UserResumeSettings.objects.get_or_create(user=request.user)
+    
+    # Проверяем, имеет ли пользователь активную подписку
+    is_premium = request.user.has_active_subscription()
+    
+    if request.method == 'POST':
+        settings_form = UserResumeSettingsForm(
+            request.POST, instance=resume_settings, premium=is_premium
+        )
+        
+        if is_premium:
+            advanced_form = ResumeAdvancedSettingsForm(request.POST, instance=resume_settings)
+            if settings_form.is_valid() and advanced_form.is_valid():
+                settings_form.save()
+                advanced_form.save()
+                messages.success(request, _('Настройки резюме успешно сохранены!'))
+                return redirect('users:resume_settings')
+        else:
+            if settings_form.is_valid():
+                settings_form.save()
+                messages.success(request, _('Настройки резюме успешно сохранены!'))
+                return redirect('users:resume_settings')
+    else:
+        settings_form = UserResumeSettingsForm(instance=resume_settings, premium=is_premium)
+        if is_premium:
+            advanced_form = ResumeAdvancedSettingsForm(instance=resume_settings)
+        else:
+            advanced_form = None
+    
+    # Получаем все шаблоны для отображения на странице
+    free_templates = ResumeTemplate.objects.filter(is_premium=False)
+    premium_templates = ResumeTemplate.objects.filter(is_premium=True)
+    
+    context = {
+        'settings_form': settings_form,
+        'advanced_form': advanced_form,
+        'free_templates': free_templates,
+        'premium_templates': premium_templates,
+        'resume_settings': resume_settings,
+        'is_premium': is_premium,
+    }
+    
+    return render(request, 'users/resume_settings.html', context)
+
+
+@login_required
 def subscription_view(request):
     """Страница управления подпиской"""
     # Проверяем, имеет ли пользователь активную подписку
@@ -428,13 +633,14 @@ def generate_subscription_code(request):
 
 
 @login_required
+@require_premium('theme_access')
 def apply_portfolio_theme(request, theme_id):
     """Применение выбранной темы к портфолио"""
     # Получаем тему
     theme = get_object_or_404(PortfolioTheme, id=theme_id)
     
     # Проверяем, имеет ли пользователь доступ к премиум-темам
-    if theme.is_premium and not request.user.has_active_subscription():
+    if theme.is_premium and not can_use_feature(request.user, 'theme_access'):
         messages.error(request, _('Для использования этой темы необходима премиум-подписка.'))
         return redirect('users:portfolio_settings')
     
@@ -493,73 +699,33 @@ def get_client_ip(request):
 
 @login_required
 def analytics_view(request):
-    """Страница аналитики просмотров портфолио и проектов"""
-    # Проверяем, имеет ли пользователь премиум-подписку
-    is_premium = request.user.has_active_subscription()
+    """Страница с аналитикой портфолио"""
+    # Получаем статистику для профиля пользователя
+    profile_views = ProfileView.objects.filter(profile_user=request.user)
+    profile_views_count = profile_views.count()
     
-    # Базовая аналитика доступна всем, расширенная - только с премиум-подпиской
-    profile = request.user
-    
-    # Получаем общую статистику
-    profile_views_count = ProfileView.objects.filter(profile=profile).count()
-    
-    # Получаем проекты пользователя
-    projects = Project.objects.filter(user=profile)
-    project_views = ProjectView.objects.filter(project__in=projects)
+    # Получаем статистику для проектов пользователя
+    project_views = ProjectView.objects.filter(project__user=request.user)
     project_views_count = project_views.count()
     
-    # Получаем популярные проекты
-    popular_projects = projects.annotate(views_count=Count('views')).order_by('-views_count')[:5]
+    # Получаем самые популярные проекты
+    popular_projects = Project.objects.filter(user=request.user).annotate(
+        views_count=Count('projectview')
+    ).order_by('-views_count')[:5]
     
-    # Получаем источники трафика
-    top_referrers = ProfileView.objects.filter(profile=profile, referrer__isnull=False, referrer__gt='').values('referrer').annotate(count=Count('id')).order_by('-count')[:5]
+    # Получаем топ источников трафика (реферреры)
+    top_referrers = ProfileView.objects.filter(profile_user=request.user).values(
+        'referrer'
+    ).annotate(count=Count('id')).order_by('-count')[:5]
     
-    # Если пользователь имеет премиум-подписку, предоставляем расширенную аналитику
-    if is_premium:
-        # Данные просмотров профиля по дням за последний месяц
-        profile_views_by_date = ProfileView.objects.filter(
-            profile=profile, 
-            timestamp__gte=timezone.now() - timedelta(days=30)
-        ).annotate(
-            date=TruncDate('timestamp')
-        ).values('date').annotate(
-            count=Count('id')
-        ).order_by('date')
-        
-        # Данные просмотров проектов по дням за последний месяц
-        project_views_by_date = ProjectView.objects.filter(
-            project__in=projects,
-            timestamp__gte=timezone.now() - timedelta(days=30)
-        ).annotate(
-            date=TruncDate('timestamp')
-        ).values('date').annotate(
-            count=Count('id')
-        ).order_by('date')
-        
-        # Преобразуем данные в формат для отображения на графике
-        profile_chart_data = {str(item['date']): item['count'] for item in profile_views_by_date}
-        project_chart_data = {str(item['date']): item['count'] for item in project_views_by_date}
-        
-        # Информация о пользователях, просматривающих профиль
-        viewer_stats = ProfileView.objects.filter(profile=profile, viewer__isnull=False).values('viewer').annotate(count=Count('id')).order_by('-count')[:10]
-        viewers = CustomUser.objects.filter(id__in=[item['viewer'] for item in viewer_stats])
-        viewers_dict = {viewer.id: {'username': viewer.username, 'profile_image': viewer.profile_image.url if viewer.profile_image else None} for viewer in viewers}
-        
-        viewers_data = []
-        for stat in viewer_stats:
-            viewer_id = stat['viewer']
-            if viewer_id in viewers_dict:
-                viewers_data.append({
-                    'viewer': viewers_dict[viewer_id],
-                    'count': stat['count']
-                })
-    else:
-        profile_chart_data = None
-        project_chart_data = None
-        viewers_data = None
+    # Подготавливаем данные для графиков
+    profile_chart_data = []
+    project_chart_data = []
+    
+    # Данные о зрителях
+    viewers_data = {}
     
     context = {
-        'is_premium': is_premium,
         'profile_views_count': profile_views_count,
         'project_views_count': project_views_count,
         'popular_projects': popular_projects,

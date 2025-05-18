@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 
 app_name = 'users'
@@ -24,6 +24,9 @@ urlpatterns = [
     path('portfolio/theme/<int:theme_id>/apply/', views.apply_portfolio_theme, name='apply_theme'),
     path('portfolio/theme/<int:theme_id>/preview/', views.preview_portfolio_theme, name='preview_theme'),
     
+    # Настройки резюме
+    path('resume/settings/', views.resume_settings_view, name='resume_settings'),
+    
     # Подписка
     path('subscription/', views.subscription_view, name='subscription'),
     path('subscription/generate_code/', views.generate_subscription_code, name='generate_code'),
@@ -35,6 +38,7 @@ urlpatterns = [
     # Поиск пользователей
     path('search/', views.search_users, name='search_users'),
     
-    # Публичный профиль
-    path('<str:username>/', views.public_profile, name='public_profile'),
+    # Публичный профиль - используем регулярное выражение, исключающее языковые коды 'en', 'ru', 'kk'
+    # имя пользователя должно содержать минимум 3 символа и не может быть 'en', 'ru' или 'kk'
+    re_path(r'^(?!en$|ru$|kk$)(?P<username>[\w.@+-]{3,150})/$', views.public_profile, name='public_profile'),
 ] 

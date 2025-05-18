@@ -40,6 +40,9 @@ ALLOWED_HOSTS += [host.strip() for host in os.getenv('ALLOWED_HOSTS', '').split(
 # Application definition
 
 INSTALLED_APPS = [
+    # Модели перевода должны быть загружены до django.contrib.admin
+    'modeltranslation',  # Для перевода моделей
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,12 +58,14 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'sslserver',  # Добавляем django-sslserver
+    'rosetta',    # Для интерфейса перевода
     
     # Custom apps
     'users',
     'portfolio',
     'translator',
     'support',
+    'language',  # Добавляем наше приложение для управления языками
 ]
 
 # Crispy Forms settings
@@ -70,7 +75,8 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',  # Добавляем для статических файлов на Render
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.locale.LocaleMiddleware',  # Перемещаем сюда
+    'language.middleware.LanguageMiddleware',  # Наш middleware должен быть после LocaleMiddleware
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -144,34 +150,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru'
 
-# Добавляем доступные языки (более 20 из списка)
+# Доступные языки (только три необходимых)
 LANGUAGES = [
     ('ru', 'Русский'),
     ('en', 'English'),
-    ('zh-hans', '简体中文'),  # Chinese Simplified
-    ('es', 'Español'),       # Spanish
-    ('ja', '日本語'),         # Japanese
-    ('de', 'Deutsch'),       # German
-    ('fr', 'Français'),      # French
-    ('pt', 'Português'),     # Portuguese
-    ('ar', 'العربية'),       # Arabic
-    ('ko', '한국어'),         # Korean
-    ('it', 'Italiano'),      # Italian
-    ('nl', 'Nederlands'),    # Dutch
-    ('zh-hant', '繁體中文'),  # Chinese Traditional
-    ('tr', 'Türkçe'),        # Turkish
-    ('hi', 'हिन्दी'),         # Hindi
-    ('pl', 'Polski'),        # Polish
-    ('fa', 'فارسی'),         # Farsi/Persian
-    ('ms', 'Bahasa Melayu'), # Malay
-    ('sv', 'Svenska'),       # Swedish
-    ('th', 'ไทย'),           # Thai
-    ('id', 'Bahasa Indonesia'), # Indonesian
-    ('el', 'Ελληνικά'),      # Greek
-    ('no', 'Norsk'),         # Norwegian
-    ('cs', 'Čeština'),       # Czech
-    ('he', 'עברית'),         # Hebrew
-    ('kk', 'Қазақша'),       # Kazakh
+    ('kk', 'Қазақша'),  # Казахский язык
 ]
 
 TIME_ZONE = 'UTC'
@@ -182,6 +165,15 @@ USE_I18N = True
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
 ]
+
+# Настройки для работы с языками через сессии
+LANGUAGE_COOKIE_NAME = 'selected_language'  # Имя cookie для хранения языка
+LANGUAGE_COOKIE_AGE = 60 * 60 * 24 * 365  # 1 год (в секундах)
+LANGUAGE_COOKIE_DOMAIN = None
+LANGUAGE_COOKIE_PATH = '/'
+LANGUAGE_COOKIE_SECURE = False
+LANGUAGE_COOKIE_HTTPONLY = False
+LANGUAGE_COOKIE_SAMESITE = None
 
 USE_TZ = True
 
@@ -242,3 +234,12 @@ ACCOUNT_SIGNUP_FORM_CLASS = None # Например, 'users.forms.CustomSignupFo
 
 # Email backend для разработки (вывод в консоль)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Настройки для django-modeltranslation
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'  # Язык по умолчанию для перевода моделей
+MODELTRANSLATION_LANGUAGES = ('ru', 'en', 'kk')  # Языки для перевода
+MODELTRANSLATION_FALLBACK_LANGUAGES = ('ru', 'en')  # Запасные языки, если перевод отсутствует
+
+# Настройки для django-rosetta
+ROSETTA_SHOW_AT_ADMIN_PANEL = True
+ROSETTA_ENABLE_TRANSLATION_SUGGESTIONS = True
