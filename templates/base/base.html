@@ -25,6 +25,12 @@
     <!-- Custom CSS -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
     
+    <!-- CSS для системы заглушек изображений -->
+    <link href="{% static 'css/image-placeholder.css' %}" rel="stylesheet">
+    
+    <!-- CSS для пустых состояний -->
+    <link href="{% static 'css/empty-states.css' %}" rel="stylesheet">
+    
     <!-- Дополнительные стили -->
     {% block extra_css %}{% endblock %}
 
@@ -84,15 +90,12 @@
                             </a>
                         </li>
                         <li class="nav-item dropdown" data-aos="fade-down" data-aos-delay="500">
-                            <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                {% if user.profile_image %}
-                                    <img src="{{ user.profile_image.url }}" alt="{{ user.username }}" class="avatar-small me-1 rounded-circle">
-                                {% else %}
-                                    <i class="fas fa-user-circle"></i>
-                                {% endif %}
-                                <span>{{ user.username }}</span>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {% load placeholder_tags %}
+                            <img src="{{ user.profile_image|placeholder_or_image:'avatar_small' }}" alt="{{ user.username }}" class="avatar-small me-1 rounded-circle" style="width: 30px; height: 30px; object-fit: cover;" data-placeholder="avatar_small">
+                            {{ user.username }}
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <li>
                                     <a class="dropdown-item" href="{% url 'users:profile' %}">
                                         <i class="fas fa-user me-2"></i>{% trans "Мой профиль" %}
@@ -321,6 +324,9 @@
     <!-- JavaScript для мультиязычности -->
     <script src="{% static 'js/language_switcher.js' %}"></script>
     
+    <!-- JavaScript для системы заглушек изображений -->
+    <script src="{% static 'js/image-placeholder.js' %}"></script>
+    
     <!-- Остальные JavaScript файлы -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -366,5 +372,14 @@
             });
         });
     </script>
+
+    <style>
+        .avatar-large {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    </style>
 </body>
 </html> 

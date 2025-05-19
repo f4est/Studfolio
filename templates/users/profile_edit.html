@@ -22,6 +22,9 @@
                     <a href="{% url 'users:portfolio_settings' %}" class="list-group-item list-group-item-action">
                         <i class="fas fa-palette me-2"></i>{% trans "Настройки портфолио" %}
                     </a>
+                    <a href="{% url 'users:security_settings' %}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-shield-alt me-2"></i>{% trans "Безопасность" %}
+                    </a>
                     <a href="{% url 'users:subscription' %}" class="list-group-item list-group-item-action">
                         <i class="fas fa-crown me-2"></i>{% trans "Управление подпиской" %}
                     </a>
@@ -55,11 +58,11 @@
                         <div class="row mb-4">
                             <div class="col-md-12 text-center mb-4">
                                 <div class="mb-3">
-                                    {% if user.profile_image %}
+                                    {% if user.profile_image.name %}
                                         <img src="{{ user.profile_image.url }}" alt="{{ user.get_full_name }}" class="rounded-circle img-thumbnail mb-3" style="width: 150px; height: 150px; object-fit: cover;">
                                     {% else %}
                                         <div class="avatar-placeholder rounded-circle mb-3 mx-auto d-flex align-items-center justify-content-center bg-light" style="width: 150px; height: 150px;">
-                                            <i class="fas fa-user-circle fa-5x text-secondary"></i>
+                                            <i class="fas fa-user-circle fa-2x text-secondary"></i>
                                         </div>
                                     {% endif %}
                                 </div>
@@ -227,6 +230,8 @@
                                 </div>
                             </div>
                             
+                            <!-- Поле notifications_enabled временно отключено -->
+                            <!--
                             <div class="col-md-6 mb-3">
                                 <div class="form-check form-switch">
                                     {{ form.notifications_enabled }}
@@ -238,6 +243,7 @@
                                     {% trans "Получать уведомления о новых отзывах, лайках и т.д." %}
                                 </div>
                             </div>
+                            -->
                         </div>
                         
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">

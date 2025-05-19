@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Настройки безопасности" %}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">{% trans "Меню профиля" %}</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="{% url 'users:profile' %}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-user me-2"></i>{% trans "Мой профиль" %}
+                    </a>
+                    <a href="{% url 'users:profile_edit' %}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-user-edit me-2"></i>{% trans "Редактировать профиль" %}
+                    </a>
+                    <a href="{% url 'users:portfolio_settings' %}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-cog me-2"></i>{% trans "Настройки портфолио" %}
+                    </a>
+                    <a href="{% url 'users:security_settings' %}" class="list-group-item list-group-item-action active">
+                        <i class="fas fa-shield-alt me-2"></i>{% trans "Безопасность" %}
+                    </a>
+                    <a href="{% url 'users:subscription' %}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-award me-2"></i>{% trans "Подписка" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-9">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="h4 mb-0">{% trans "Настройки безопасности" %}</h2>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            <h5>{% trans "Двухфакторная аутентификация" %}</h5>
+                            <div class="card border mb-3">
+                                <div class="card-body">
+                                    <div class="form-check form-switch">
+                                        {{ form.enable_2fa }}
+                                        <label class="form-check-label" for="{{ form.enable_2fa.id_for_label }}">
+                                            {{ form.enable_2fa.label }}
+                                        </label>
+                                    </div>
+                                    <small class="text-muted">{{ form.enable_2fa.help_text }}</small>
+                                    
+                                    <div class="mt-3">
+                                        <div class="alert alert-info">
+                                            <i class="fas fa-info-circle me-2"></i>
+                                            {% trans "При включении двухфакторной аутентификации код подтверждения будет отправляться на вашу электронную почту при каждом входе в систему." %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h5>{% trans "Изменение пароля" %}</h5>
+                            <p>{% trans "Для изменения пароля перейдите по ссылке ниже:" %}</p>
+                            <a href="{% url 'account_change_password' %}" class="btn btn-outline-primary">
+                                <i class="fas fa-key me-2"></i>{% trans "Изменить пароль" %}
+                            </a>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>{% trans "Сохранить настройки" %}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

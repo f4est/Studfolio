@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Ошибка сервера" %} | Studfolio{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+            <img src="{% static 'img/placeholder.png' %}" alt="500" class="img-fluid mb-4" style="max-width: 300px;">
+            <h1 class="display-4 fw-bold mb-4">{% trans "Ошибка сервера" %}</h1>
+            <p class="lead text-muted mb-4">{% trans "Упс! Что-то пошло не так на нашем сервере." %}</p>
+            <p class="mb-5">{% trans "Мы уже работаем над решением проблемы. Пожалуйста, попробуйте позже." %}</p>
+            
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{% url 'home' %}" class="btn btn-primary">
+                    <i class="fas fa-home me-2"></i>{% trans "На главную" %}
+                </a>
+                <a href="javascript:history.back()" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>{% trans "Вернуться назад" %}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

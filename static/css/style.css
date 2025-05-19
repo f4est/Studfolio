@@ -129,10 +129,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
     font-weight: var(--font-weight-bold);
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--dark);
 }
 
 h2 {
@@ -185,10 +182,7 @@ a:hover {
 
 /* Градиентный текст */
 .gradient-text {
-    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--dark);
     display: inline-block;
 }
 
@@ -350,6 +344,7 @@ a:hover {
 [data-bs-theme="dark"] .benefit-card {
     background-color: var(--card-bg);
     border-color: var(--border-color);
+    color: var(--text-muted);
 }
 
 .benefit-card:hover {
@@ -384,6 +379,18 @@ a:hover {
     color: var(--secondary-dark);
     font-size: 0.9rem;
     margin-bottom: 0;
+}
+
+[data-bs-theme="dark"] .benefit-card .display-4 {
+    color: var(--primary);
+}
+
+[data-bs-theme="dark"] .benefit-card h4 {
+    color: var(--light);
+}
+
+[data-bs-theme="dark"] .benefit-card p {
+    color: var(--text-muted);
 }
 
 /* CTA блок */
@@ -517,10 +524,7 @@ a:hover {
     font-weight: var(--font-weight-bold);
     line-height: 1.2;
     margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--dark);
     letter-spacing: -0.02em;
 }
 
@@ -759,6 +763,15 @@ a:hover {
     position: relative;
     padding: 5rem 0;
     overflow: hidden;
+    background-color: var(--primary);
+}
+
+.hero-section p, .hero-section .text-muted {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.hero-section h1, .hero-section .gradient-text {
+    color: var(--white) !important;
 }
 
 .hero-section::before {
@@ -817,6 +830,10 @@ a:hover {
 
 .bg-light-gray {
     background-color: var(--light-gray);
+}
+
+[data-bs-theme="dark"] .bg-light-gray {
+    background-color: var(--body-bg);
 }
 
 /* Стилизация бейджей */
@@ -1131,4 +1148,94 @@ body.goog-te-banner-frame-fixed {
 
 [data-bs-theme="dark"] .footer hr {
     border-color: rgba(var(--light-rgb, 248, 249, 250), 0.1);
-} 
+}
+
+.bg-dark {
+    background-color: var(--dark) !important;
+}
+
+[data-bs-theme="dark"] .bg-dark {
+    background-color: var(--body-bg) !important;
+}
+
+.bg-dark-subtle {
+    background-color: rgba(var(--dark-rgb), 0.2) !important;
+}
+
+[data-bs-theme="dark"] .bg-dark-subtle {
+    background-color: rgba(var(--light-rgb), 0.05) !important;
+}
+
+[data-bs-theme="dark"] .card {
+    background-color: var(--card-bg);
+}
+
+[data-bs-theme="dark"] .card-body {
+    color: var(--dark);
+}
+
+[data-bs-theme="dark"] .card .card-title,
+[data-bs-theme="dark"] .card h1,
+[data-bs-theme="dark"] .card h2,
+[data-bs-theme="dark"] .card h3,
+[data-bs-theme="dark"] .card h4,
+[data-bs-theme="dark"] .card h5,
+[data-bs-theme="dark"] .card h6 {
+    color: var(--dark) !important;
+}
+
+[data-bs-theme="dark"] .card-text {
+    color: var(--dark) !important;
+}
+
+/* Светлый фон для карточек в темной теме */
+[data-bs-theme="dark"] .card.bg-white,
+[data-bs-theme="dark"] .bg-white {
+    background-color: rgba(var(--light-rgb), 0.05) !important;
+    color: var(--light);
+}
+
+.step-number {
+    background-color: var(--primary);
+    color: var(--white);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+[data-bs-theme="dark"] .card.border-0.shadow-sm {
+    border: 1px solid rgba(var(--light-rgb), 0.1) !important;
+    box-shadow: 0 0.5rem 1rem rgba(var(--light-rgb), 0.15) !important;
+}
+
+[data-bs-theme="dark"] .py-5.bg-light {
+    background-color: var(--body-bg) !important;
+}
+
+[data-bs-theme="dark"] .py-5.bg-light h2,
+[data-bs-theme="dark"] .py-5.bg-light .lead {
+    color: var(--dark) !important;
+}
+
+[data-bs-theme="dark"] .bg-light-gray h2.text-center,
+[data-bs-theme="dark"] .py-5 > .container > h2.text-center { /* Для заголовка "Как это работает" */
+    color: var(--dark) !important;
+}
+
+/* Стили для CTA блока ("Готовы начать...") в темной теме */
+[data-bs-theme="dark"] .py-5.bg-light div.bg-white { /* Выбираем внутреннюю карточку CTA */
+    background-color: var(--card-bg) !important; /* Темный фон, как у других карточек */
+    border-color: var(--border-color) !important; /* Соответствующая рамка */
+}
+
+/* Текст внутри этой специфичной CTA карточки */
+[data-bs-theme="dark"] .py-5.bg-light div.bg-white h2,
+[data-bs-theme="dark"] .py-5.bg-light div.bg-white .lead {
+    color: var(--dark) !important; /* Светлый текст */
+}

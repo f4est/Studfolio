@@ -1,0 +1,64 @@
+/**
+ * Стили для красивого отображения заглушек изображений
+ */
+
+/* Базовые стили для изображений с заглушками */
+img.using-placeholder {
+    /* Мягкий переход при загрузке заглушки */
+    transition: all 0.3s ease-in-out;
+    /* Небольшая пульсация для обозначения заглушки */
+    animation: pulse 2s infinite;
+}
+
+/* Аватары с заглушками */
+img.avatar.using-placeholder,
+img.profile-image.using-placeholder,
+img.rounded-circle.using-placeholder {
+    /* Обеспечиваем круглую форму */
+    border-radius: 50% !important;
+}
+
+/* Проекты с заглушками */
+img.project.using-placeholder {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Сертификаты с заглушками */
+img.certificate.using-placeholder {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Достижения с заглушками */
+img.achievement.using-placeholder {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Тёмная тема - корректировка границ */
+[data-bs-theme="dark"] img.using-placeholder {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Анимация пульсации для изображений-заглушек */
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Специальный эффект наведения для заглушек */
+img.using-placeholder:hover {
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}
+
+/* На мобильных устройствах делаем анимацию более тонкой */
+@media (max-width: 768px) {
+    img.using-placeholder {
+        animation: pulse 3s infinite;
+    }
+} 

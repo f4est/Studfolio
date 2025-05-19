@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load account %}
+
+{% block head_title %}{% trans "Подтверждение входа" %}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="h4 mb-0">{% trans "Подтверждение входа" %}</h2>
+                </div>
+                <div class="card-body">
+                    <p class="mb-4">{% trans "Для повышения безопасности вашего аккаунта, пожалуйста, введите код подтверждения, который мы отправили на вашу электронную почту." %}</p>
+                    
+                    <form method="post" action="{{ request.path }}">
+                        {% csrf_token %}
+                        
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        
+                        <div class="mb-3">
+                            <label for="id_code" class="form-label">{% trans "Код подтверждения" %}</label>
+                            <input type="text" name="code" id="id_code" class="form-control {% if form.code.errors %}is-invalid{% endif %}" required autofocus>
+                            {% if form.code.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.code.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <div class="form-text text-muted">
+                                {% trans "Если вы не получили код, проверьте папку 'Спам' или запросите новый код." %}
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">{% trans "Подтвердить" %}</button>
+                        </div>
+                        
+                        {% if redirect_field_value %}
+                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+                        {% endif %}
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <div class="text-center">
+                        <a href="{% url 'account_login' %}" class="text-primary">{% trans "Вернуться к входу" %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

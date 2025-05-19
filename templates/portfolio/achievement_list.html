@@ -84,10 +84,7 @@
             {% endfor %}
         </div>
     {% else %}
-        <div class="alert alert-info">
-            <i class="fas fa-info-circle me-2"></i>
-            {% trans "У вас пока нет добавленных достижений. Нажмите кнопку 'Добавить достижение', чтобы создать свое первое достижение." %}
-        </div>
+        {% include 'includes/empty_states.html' with type='achievements' is_own_profile=True %}
     {% endif %}
 </div>
 {% endblock %} 

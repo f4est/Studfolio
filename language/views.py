@@ -84,7 +84,7 @@ def translation_admin(request):
     Перенаправляет на интерфейс Rosetta для управления переводами.
     Доступно только для администраторов.
     """
-    return redirect('rosetta-home')
+    return redirect('/admin/')  # Перенаправляем на стандартную админ-панель
 
 
 def get_translations(request):

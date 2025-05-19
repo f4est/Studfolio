@@ -1,0 +1,252 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Отзывы" %} | Studfolio{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">{% trans "Все отзывы" %}</h1>
+        {% if is_teacher %}
+            <a href="{% url 'portfolio:project_feed' %}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> {% trans "Оставить отзыв" %}
+            </a>
+        {% endif %}
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header bg-light">
+            <ul class="nav nav-tabs card-header-tabs" id="reviewTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="received-tab" data-bs-toggle="tab" href="#received" role="tab" aria-controls="received" aria-selected="true">
+                        {% if is_student %}
+                            {% trans "Полученные отзывы" %}
+                        {% else %}
+                            {% trans "Оставленные отзывы" %}
+                        {% endif %}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <div class="tab-content" id="reviewTabsContent">
+                <div class="tab-pane fade show active" id="received" role="tabpanel" aria-labelledby="received-tab">
+                    {% if is_student %}
+                        {% if approved_reviews or pending_reviews %}
+                            {% if pending_reviews %}
+                                <div class="alert alert-warning mb-4">
+                                    <h5 class="alert-heading">{% trans "Отзывы ожидающие подтверждения" %} ({{ pending_reviews|length }})</h5>
+                                    <p class="mb-0">{% trans "Эти отзывы будут видны в вашем публичном профиле только после подтверждения администратором." %}</p>
+                                </div>
+                                
+                                {% for review in pending_reviews %}
+                                    <div class="review-card mb-4 review-pending">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <div class="d-flex align-items-center">
+                                                {% if review.reviewer.profile_image %}
+                                                    <img src="{{ review.reviewer.profile_image.url }}" alt="{{ review.reviewer.get_full_name }}" class="rounded-circle me-3" style="width: 40px; height: 40px; object-fit: cover;" data-placeholder="avatar_small">
+                                                {% else %}
+                                                    <div class="avatar-placeholder rounded-circle me-3" style="width: 40px; height: 40px;">
+                                                        <i class="fas fa-user-circle text-primary"></i>
+                                                    </div>
+                                                {% endif %}
+                                                <div>
+                                                    <h6 class="mb-0">{{ review.reviewer.get_full_name }}</h6>
+                                                    <p class="text-muted small mb-0">{{ review.created_at|date:"d.m.Y" }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="rating">
+                                                {% for i in "12345" %}
+                                                    {% if forloop.counter <= review.rating %}
+                                                        <i class="fas fa-star text-warning"></i>
+                                                    {% else %}
+                                                        <i class="far fa-star text-muted"></i>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        
+                                        {% if review.project %}
+                                            <p class="small mb-2">{% trans "Проект" %}: <a href="{% url 'portfolio:project_detail' review.project.id %}">{{ review.project.title }}</a></p>
+                                        {% endif %}
+                                        
+                                        <p class="mb-0">{{ review.text }}</p>
+                                        
+                                        <div class="mt-2 d-flex justify-content-between align-items-center">
+                                            <span class="badge bg-warning text-dark">{% trans "Ожидает подтверждения" %}</span>
+                                            {% if is_admin %}
+                                            <div>
+                                                <a href="{% url 'portfolio:review_approve' review.id %}" class="btn btn-sm btn-success">
+                                                    <i class="fas fa-check"></i> {% trans "Подтвердить" %}
+                                                </a>
+                                                <a href="{% url 'portfolio:review_delete' review.id %}" class="btn btn-sm btn-danger ms-2">
+                                                    <i class="fas fa-times"></i> {% trans "Отклонить" %}
+                                                </a>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            
+                            <h5 class="mb-3 mt-4">{% trans "Подтвержденные отзывы" %} ({{ approved_reviews|length }})</h5>
+                            {% if approved_reviews %}
+                                {% for review in approved_reviews %}
+                                    <div class="review-card mb-4">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <div class="d-flex align-items-center">
+                                                {% if review.reviewer.profile_image %}
+                                                    <img src="{{ review.reviewer.profile_image.url }}" alt="{{ review.reviewer.get_full_name }}" class="rounded-circle me-3" style="width: 40px; height: 40px; object-fit: cover;" data-placeholder="avatar_small">
+                                                {% else %}
+                                                    <div class="avatar-placeholder rounded-circle me-3" style="width: 40px; height: 40px;">
+                                                        <i class="fas fa-user-circle text-primary"></i>
+                                                    </div>
+                                                {% endif %}
+                                                <div>
+                                                    <h6 class="mb-0">{{ review.reviewer.get_full_name }}</h6>
+                                                    <p class="text-muted small mb-0">{{ review.created_at|date:"d.m.Y" }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="rating">
+                                                {% for i in "12345" %}
+                                                    {% if forloop.counter <= review.rating %}
+                                                        <i class="fas fa-star text-warning"></i>
+                                                    {% else %}
+                                                        <i class="far fa-star text-muted"></i>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        
+                                        {% if review.project %}
+                                            <p class="small mb-2">{% trans "Проект" %}: <a href="{% url 'portfolio:project_detail' review.project.id %}">{{ review.project.title }}</a></p>
+                                        {% endif %}
+                                        
+                                        <p class="mb-0">{{ review.text }}</p>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="alert alert-info">
+                                    {% trans "У вас пока нет подтвержденных отзывов." %}
+                                </div>
+                            {% endif %}
+                        {% else %}
+                            {% include 'includes/empty_states.html' with type='reviews' is_own_profile=True %}
+                        {% endif %}
+                    {% elif is_teacher or is_admin %}
+                        {% if reviews %}
+                            <h5 class="mb-3">{% trans "Оставленные отзывы" %} ({{ reviews|length }})</h5>
+                            {% for review in reviews %}
+                                <div class="review-card mb-4 {% if not review.is_approved %}review-pending{% endif %}">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <div class="d-flex align-items-center">
+                                            {% if review.student.profile_image %}
+                                                <img src="{{ review.student.profile_image.url }}" alt="{{ review.student.get_full_name }}" class="rounded-circle me-3" style="width: 40px; height: 40px; object-fit: cover;" data-placeholder="avatar_small">
+                                            {% else %}
+                                                <div class="avatar-placeholder rounded-circle me-3" style="width: 40px; height: 40px;">
+                                                    <i class="fas fa-user-circle text-primary"></i>
+                                                </div>
+                                            {% endif %}
+                                            <div>
+                                                <h6 class="mb-0">{{ review.student.get_full_name }}</h6>
+                                                <p class="text-muted small mb-0">{{ review.created_at|date:"d.m.Y" }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="rating">
+                                            {% for i in "12345" %}
+                                                {% if forloop.counter <= review.rating %}
+                                                    <i class="fas fa-star text-warning"></i>
+                                                {% else %}
+                                                    <i class="far fa-star text-muted"></i>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    
+                                    {% if review.project %}
+                                        <p class="small mb-2">{% trans "Проект" %}: <a href="{% url 'portfolio:project_detail' review.project.id %}">{{ review.project.title }}</a></p>
+                                    {% endif %}
+                                    
+                                    <p class="mb-0">{{ review.text }}</p>
+                                    
+                                    {% if not review.is_approved %}
+                                        <div class="mt-2">
+                                            <span class="badge bg-warning text-dark">{% trans "Ожидает подтверждения" %}</span>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    <div class="mt-3 text-end">
+                                        <a href="{% url 'portfolio:review_edit' review.id %}" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-edit"></i> {% trans "Редактировать" %}
+                                        </a>
+                                        <a href="{% url 'portfolio:review_delete' review.id %}" class="btn btn-sm btn-outline-danger ms-2">
+                                            <i class="fas fa-trash"></i> {% trans "Удалить" %}
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            {% include 'includes/empty_states.html' with type='reviews' is_own_profile=True %}
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <a href="{% url 'users:profile' %}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> {% trans "Вернуться к профилю" %}
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .review-card {
+        border: 1px solid var(--bs-gray-200);
+        border-radius: 10px;
+        padding: 20px;
+        transition: all 0.3s ease;
+    }
+    
+    .review-card:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        border-color: var(--bs-primary);
+    }
+    
+    [data-bs-theme="dark"] .review-card {
+        border-color: var(--bs-gray-700);
+    }
+    
+    [data-bs-theme="dark"] .review-card:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .review-pending {
+        background-color: rgba(var(--bs-warning-rgb), 0.05);
+    }
+    
+    .avatar-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--bs-light);
+    }
+    
+    [data-bs-theme="dark"] .avatar-placeholder {
+        background-color: var(--bs-dark);
+    }
+    
+    /* Анимация для звездочек при наведении */
+    .rating i {
+        transition: transform 0.2s ease;
+    }
+    
+    .review-card:hover .rating i {
+        transform: rotate(10deg);
+    }
+</style>
+{% endblock %} 

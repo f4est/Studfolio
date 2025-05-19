@@ -150,6 +150,13 @@ h2::after {
     border-radius: 2px;
 }
 
+/* Центрирование подчеркивания для h2 внутри .text-center */
+.text-center > h2::after, /* Если h2 прямой потомок .text-center */
+div.text-center h2::after { /* Если h2 любой вложенный потомок div.text-center */
+    margin-left: auto;
+    margin-right: auto;
+}
+
 a {
     color: var(--primary);
     text-decoration: none;
@@ -404,9 +411,8 @@ a:hover {
     background: var(--white);
 }
 
-.cta-block .cta-subtext {
-    font-size: 1.1rem;
-    max-width: 100%;
+.cta-block p, .cta-block .lead, .cta-block .cta-subtext {
+    color: var(--dark);
 }
 
 .cta-block .btn {
@@ -845,8 +851,6 @@ a:hover {
     background: transparent;
 }
 
-
-
 /* Новые анимации */
 @keyframes floatingUp {
     0% { transform: translateY(0); }
@@ -1037,7 +1041,6 @@ section[class*="py-5"] {
     transform: translateY(-4px); /* Немного увеличил подъем */
     box-shadow: 0 8px 15px rgba(var(--primary-rgb), 0.12), 0 4px 8px rgba(0,0,0,0.08); /* Скорректировал тень */
 }
-
 
 /* Скрытие виджетов авто-перевода */
 .goog-te-banner-frame,

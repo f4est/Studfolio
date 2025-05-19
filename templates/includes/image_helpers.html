@@ -1,0 +1,104 @@
+{% comment %}
+Включаемый файл с макросами для работы с изображениями и заглушками
+Используйте через {% include 'includes/image_helpers.html' %}
+{% endcomment %}
+
+{% load static %}
+{% load placeholder_tags %}
+
+{% comment %}
+Макрос для отображения аватара пользователя с заглушкой
+Использование: {% include 'includes/image_helpers.html' with template='user_avatar' image=user.profile_image size='small|medium|large' alt=user.username %}
+{% endcomment %}
+{% if template == 'user_avatar' %}
+    {% if size == 'small' %}
+        <img src="{{ image|placeholder_or_image:'avatar_small' }}" 
+             alt="{{ alt|default:'Аватар пользователя' }}" 
+             class="avatar avatar-small rounded-circle" 
+             style="width: 30px; height: 30px; object-fit: cover;"
+             data-placeholder="avatar_small">
+    {% elif size == 'large' %}
+        <img src="{{ image|placeholder_or_image:'avatar_large' }}" 
+             alt="{{ alt|default:'Аватар пользователя' }}" 
+             class="avatar avatar-large rounded-circle" 
+             style="width: 150px; height: 150px; object-fit: cover;"
+             data-placeholder="avatar_large">
+    {% else %}
+        <img src="{{ image|placeholder_or_image:'avatar' }}" 
+             alt="{{ alt|default:'Аватар пользователя' }}" 
+             class="avatar avatar-medium rounded-circle" 
+             style="width: 100px; height: 100px; object-fit: cover;"
+             data-placeholder="avatar">
+    {% endif %}
+{% endif %}
+
+{% comment %}
+Макрос для отображения изображения проекта с заглушкой
+Использование: {% include 'includes/image_helpers.html' with template='project_image' image=project.image type='thumbnail|default|banner' alt=project.title %}
+{% endcomment %}
+{% if template == 'project_image' %}
+    {% if type == 'thumbnail' %}
+        <img src="{{ image|placeholder_or_image:'project_thumb' }}" 
+             alt="{{ alt|default:'Изображение проекта' }}" 
+             class="project project-thumbnail img-fluid" 
+             data-placeholder="project_thumb">
+    {% elif type == 'banner' %}
+        <img src="{{ image|placeholder_or_image:'project' }}" 
+             alt="{{ alt|default:'Баннер проекта' }}" 
+             class="project project-banner img-fluid w-100" 
+             style="max-height: 400px; object-fit: cover;"
+             data-placeholder="project">
+    {% else %}
+        <img src="{{ image|placeholder_or_image:'project' }}" 
+             alt="{{ alt|default:'Изображение проекта' }}" 
+             class="project img-fluid" 
+             data-placeholder="project">
+    {% endif %}
+{% endif %}
+
+{% comment %}
+Макрос для отображения изображения сертификата с заглушкой
+Использование: {% include 'includes/image_helpers.html' with template='certificate_image' image=certificate.image type='thumbnail|default' alt=certificate.title %}
+{% endcomment %}
+{% if template == 'certificate_image' %}
+    {% if type == 'thumbnail' %}
+        <img src="{{ image|placeholder_or_image:'certificate_thumb' }}" 
+             alt="{{ alt|default:'Миниатюра сертификата' }}" 
+             class="certificate certificate-thumbnail img-fluid" 
+             data-placeholder="certificate_thumb">
+    {% else %}
+        <img src="{{ image|placeholder_or_image:'certificate' }}" 
+             alt="{{ alt|default:'Сертификат' }}" 
+             class="certificate img-fluid" 
+             data-placeholder="certificate">
+    {% endif %}
+{% endif %}
+
+{% comment %}
+Макрос для отображения изображения достижения с заглушкой
+Использование: {% include 'includes/image_helpers.html' with template='achievement_image' image=achievement.image type='small|default' alt=achievement.title %}
+{% endcomment %}
+{% if template == 'achievement_image' %}
+    {% if type == 'small' %}
+        <img src="{{ image|placeholder_or_image:'achievement_small' }}" 
+             alt="{{ alt|default:'Миниатюра достижения' }}" 
+             class="achievement achievement-small img-fluid" 
+             data-placeholder="achievement_small">
+    {% else %}
+        <img src="{{ image|placeholder_or_image:'achievement' }}" 
+             alt="{{ alt|default:'Достижение' }}" 
+             class="achievement img-fluid" 
+             data-placeholder="achievement">
+    {% endif %}
+{% endif %}
+
+{% comment %}
+Макрос для отображения случайной заглушки определенного типа
+Использование: {% include 'includes/image_helpers.html' with template='random_placeholder' type='project|certificate|achievement|avatar' alt='Описание' %}
+{% endcomment %}
+{% if template == 'random_placeholder' %}
+    <img src="{{ type|random_placeholder }}" 
+         alt="{{ alt|default:'Изображение' }}" 
+         class="{{ type }} random-placeholder img-fluid" 
+         data-placeholder="{{ type }}">
+{% endif %} 

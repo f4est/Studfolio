@@ -10,15 +10,11 @@ STANDARD_LIMITS = {
     'max_skills': 10,          # Максимальное количество навыков
     'analytics_period': 30,    # Период аналитики в днях
     'theme_access': False,     # Доступ к премиум темам
-    'resume_templates': False, # Доступ к премиум шаблонам резюме
     'subdomain_access': False, # Возможность использовать поддомен
     'custom_domain': False,    # Возможность использовать пользовательский домен
     'custom_css': False,       # Возможность использовать пользовательский CSS
-    'pdf_export': True,        # Базовый экспорт PDF
-    'enhanced_pdf': False,     # Расширенные возможности экспорта PDF
     'api_access': False,       # Доступ к API
     'watermark': True,         # Наличие водяного знака
-    'download_resume': False,  # Возможность скачивать резюме без водяного знака
     'advanced_analytics': False, # Расширенная аналитика
     'email_notifications': False, # Уведомления по электронной почте
     'visibility_settings': False, # Расширенные настройки видимости
@@ -33,15 +29,11 @@ PREMIUM_LIMITS = {
     'max_skills': float('inf'),      # Неограниченное количество навыков
     'analytics_period': 365,         # Расширенный период аналитики (1 год)
     'theme_access': True,           # Доступ к премиум темам
-    'resume_templates': True,      # Доступ к премиум шаблонам резюме
     'subdomain_access': True,      # Возможность использовать поддомен
     'custom_domain': True,         # Возможность использовать пользовательский домен
     'custom_css': True,            # Возможность использовать пользовательский CSS
-    'pdf_export': True,            # Экспорт PDF
-    'enhanced_pdf': True,          # Расширенные возможности экспорта PDF
     'api_access': True,            # Доступ к API
     'watermark': False,            # Отсутствие водяного знака
-    'download_resume': True,       # Возможность скачивать резюме без водяного знака
     'advanced_analytics': True,    # Расширенная аналитика
     'email_notifications': True,   # Уведомления по электронной почте
     'visibility_settings': True,   # Расширенные настройки видимости

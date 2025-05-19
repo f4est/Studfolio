@@ -1,9 +1,9 @@
 from modeltranslation.translator import register, TranslationOptions
-from .models import CustomUser, Skill, PortfolioTheme, PortfolioSettings, ResumeTemplate
+from .models import CustomUser, Skill, PortfolioTheme, PortfolioSettings
 
 @register(CustomUser)
 class CustomUserTranslationOptions(TranslationOptions):
-    fields = ('bio', 'university', 'faculty', 'specialization')
+    fields = ('bio',)
 
 @register(Skill)
 class SkillTranslationOptions(TranslationOptions):
@@ -11,8 +11,8 @@ class SkillTranslationOptions(TranslationOptions):
 
 @register(PortfolioTheme)
 class PortfolioThemeTranslationOptions(TranslationOptions):
-    fields = ('name',)
+    fields = ('name', 'description')
 
-@register(ResumeTemplate)
-class ResumeTemplateTranslationOptions(TranslationOptions):
-    fields = ('name', 'description',) 
+@register(PortfolioSettings)
+class PortfolioSettingsTranslationOptions(TranslationOptions):
+    fields = ('custom_css', 'custom_js') 

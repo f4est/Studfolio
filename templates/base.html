@@ -24,6 +24,7 @@
     
     <!-- Custom CSS -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/empty-states.css' %}" rel="stylesheet">
     
     <!-- Дополнительные стили -->
     {% block extra_css %}{% endblock %}
@@ -109,8 +110,13 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a class="dropdown-item" href="{% url 'users:security_settings' %}">
+                                        <i class="fas fa-shield-alt me-2"></i>{% trans "Безопасность" %}
+                                    </a>
+                                </li>
+                                <li>
                                     <a class="dropdown-item" href="{% url 'users:subscription' %}">
-                                        <i class="fas fa-crown me-2"></i>{% trans "Управление подпиской" %}
+                                        <i class="fas fa-crown me-2"></i>{% trans "Подписка" %}
                                     </a>
                                 </li>
                                 <li>

@@ -11,11 +11,11 @@
         <div class="col-lg-3">
             <div class="card profile-card mb-4">
                 <div class="card-body text-center">
-                    {% if user.profile_image %}
-                        <img src="{{ user.profile_image.url }}" alt="{{ user.get_full_name }}" class="avatar-large rounded-circle mb-3">
+                    {% if user.profile_image.name %}
+                        <img src="{{ user.profile_image.url }}" alt="{{ user.get_full_name }}" class="avatar-large rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;" data-placeholder="avatar_large">
                     {% else %}
                         <div class="avatar-placeholder mb-3">
-                            <i class="fas fa-user-circle fa-5x text-primary"></i>
+                            <i class="fas fa-user-circle fa-2x text-primary"></i>
                         </div>
                     {% endif %}
                     <h5 class="card-title mb-0">{{ user.get_full_name }}</h5>
@@ -29,12 +29,6 @@
                     <div class="mt-3">
                         <a href="/{{ request.LANGUAGE_CODE }}/profile/edit/" class="btn btn-outline-primary btn-sm">
                             <i class="fas fa-edit"></i> {% trans "Редактировать профиль" %}
-                        </a>
-                        <a href="/{{ request.LANGUAGE_CODE }}/profile/pdf/" class="btn btn-outline-secondary btn-sm mt-2">
-                            <i class="fas fa-file-pdf"></i> {% trans "Скачать резюме" %}
-                        </a>
-                        <a href="/{{ request.LANGUAGE_CODE }}/resume/settings/" class="btn btn-outline-info btn-sm mt-2">
-                            <i class="fas fa-file-alt"></i> {% trans "Настройки резюме" %}
                         </a>
                     </div>
                 </div>
@@ -67,14 +61,14 @@
                         </div>
                     {% endif %}
                     
-                    {% if user.year_of_study %}
+                    {% if user.graduation_year %}
                         <div class="mb-2">
-                            <p class="mb-0 text-muted small">{% trans "Курс/Год обучения" %}:</p>
-                            <p class="mb-1 fw-bold">{{ user.year_of_study }}</p>
+                            <p class="mb-0 text-muted small">{% trans "Год выпуска" %}:</p>
+                            <p class="mb-1 fw-bold">{{ user.graduation_year }}</p>
                         </div>
                     {% endif %}
                     
-                    {% if not user.university and not user.faculty and not user.specialization and not user.year_of_study %}
+                    {% if not user.university and not user.faculty and not user.specialization and not user.graduation_year %}
                         <p class="text-muted" data-translatable>{% trans "Информация об образовании не указана" %}</p>
                     {% endif %}
                 </div>
@@ -141,8 +135,9 @@
                         <div class="mt-3">
                             <p class="mb-1 small">{% trans "Публичная ссылка" %}:</p>
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-sm" value="{{ request.scheme }}://{{ request.get_host }}{% url 'users:public_profile' user.custom_url|default:user.username %}" id="publicUrl" readonly>
-                                <button class="btn btn-outline-secondary btn-sm" type="button" onclick="copyPublicUrl()">
+                                <span class="input-group-text"><i class="fas fa-link"></i></span>
+                                <input type="text" class="form-control" value="{{ request.scheme }}://{{ request.get_host }}{% url 'users:public_profile' user.username %}" id="publicUrl" readonly>
+                                <button class="btn btn-outline-primary" type="button" id="copyBtn" data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans 'Копировать' %}">
                                     <i class="fas fa-copy"></i>
                                 </button>
                             </div>
@@ -173,8 +168,8 @@
                             {% for project in projects %}
                                 <div class="col-md-6 mb-4">
                                     <div class="card h-100 project-card">
-                                        {% if project.image %}
-                                            <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}">
+                                        {% if project.image and project.image.url %}
+                                            <img src="{{ project.image.url }}" class="card-img-top project" alt="{{ project.title }}" data-placeholder="project">
                                         {% else %}
                                             <div class="card-img-top d-flex align-items-center justify-content-center bg-light">
                                                 <i class="fas fa-code fa-3x text-muted"></i>
@@ -204,14 +199,7 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        <div class="text-center py-5">
-                            <i class="fas fa-project-diagram fa-3x text-muted mb-3"></i>
-                            <h5 data-translatable>{% trans "У вас пока нет проектов" %}</h5>
-                            <p class="text-muted" data-translatable>{% trans "Добавьте ваши первые проекты, чтобы показать их в портфолио" %}</p>
-                            <a href="{% url 'portfolio:project_add' %}" class="btn btn-primary">
-                                <i class="fas fa-plus"></i> {% trans "Добавить проект" %}
-                            </a>
-                        </div>
+                        {% include 'includes/empty_states.html' with type='projects' is_own_profile=True %}
                     {% endif %}
                 </div>
             </div>
@@ -248,8 +236,10 @@
                                             
                                             <div class="mb-3">
                                                 <span class="text-muted small">{% trans "Выдан" %}: {{ certificate.issue_date }}</span>
-                                                {% if certificate.expiry_date %}
-                                                    <span class="text-muted small ms-2">{% trans "Действителен до" %}: {{ certificate.expiry_date }}</span>
+                                                {% if certificate.link %}
+                                                    <a href="{{ certificate.link }}" target="_blank" class="ms-2 small">
+                                                        <i class="fas fa-external-link-alt"></i> {% trans "Проверить" %}
+                                                    </a>
                                                 {% endif %}
                                             </div>
                                             
@@ -259,11 +249,6 @@
                                                 <a href="{% url 'portfolio:certificate_detail' certificate.id %}" class="btn btn-sm btn-outline-primary">
                                                     {% trans "Подробнее" %}
                                                 </a>
-                                                {% if certificate.credential_url %}
-                                                    <a href="{{ certificate.credential_url }}" target="_blank" class="btn btn-sm btn-outline-secondary ms-2">
-                                                        <i class="fas fa-external-link-alt"></i> {% trans "Проверить" %}
-                                                    </a>
-                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -271,14 +256,7 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        <div class="text-center py-5">
-                            <i class="fas fa-certificate fa-3x text-muted mb-3"></i>
-                            <h5 data-translatable>{% trans "У вас пока нет сертификатов" %}</h5>
-                            <p class="text-muted" data-translatable>{% trans "Добавьте ваши сертификаты и дипломы, чтобы показать их в портфолио" %}</p>
-                            <a href="{% url 'portfolio:certificate_add' %}" class="btn btn-primary">
-                                <i class="fas fa-plus"></i> {% trans "Добавить сертификат" %}
-                            </a>
-                        </div>
+                        {% include 'includes/empty_states.html' with type='certificates' is_own_profile=True %}
                     {% endif %}
                 </div>
             </div>
@@ -317,14 +295,7 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        <div class="text-center py-5">
-                            <i class="fas fa-trophy fa-3x text-muted mb-3"></i>
-                            <h5 data-translatable>{% trans "У вас пока нет достижений" %}</h5>
-                            <p class="text-muted" data-translatable>{% trans "Добавьте ваши достижения и награды, чтобы показать их в портфолио" %}</p>
-                            <a href="{% url 'portfolio:achievement_add' %}" class="btn btn-primary">
-                                <i class="fas fa-plus"></i> {% trans "Добавить достижение" %}
-                            </a>
-                        </div>
+                        {% include 'includes/empty_states.html' with type='achievements' is_own_profile=True %}
                     {% endif %}
                 </div>
             </div>
@@ -333,53 +304,39 @@
             {% if user.user_type == 'student' %}
                 <div class="card mb-4">
                     <div class="card-header bg-light">
-                        <h5 class="mb-0"><i class="fas fa-comments text-primary me-2"></i>Отзывы</h5>
+                        <h5 class="mb-0"><i class="fas fa-comments text-primary me-2"></i>{% trans "Отзывы" %}</h5>
                     </div>
                     <div class="card-body">
                         {% if reviews %}
                             {% for review in reviews %}
-                                <div class="review-card mb-3 {% if not review.is_approved %}review-pending{% endif %}">
+                                <div class="review-card mb-3">
                                     <div class="d-flex justify-content-between mb-2">
                                         <div>
-                                            <h6 class="mb-0">{{ review.reviewer.get_full_name }}</h6>
+                                            <h6 class="mb-0" data-translatable>{{ review.reviewer.get_full_name }}</h6>
                                             <p class="text-muted small mb-0">{{ review.created_at|date:"d.m.Y" }}</p>
                                         </div>
                                         <div class="rating">
                                             {% for i in "12345" %}
                                                 {% if forloop.counter <= review.rating %}
-                                                    <i class="fas fa-star checked"></i>
+                                                    <i class="fas fa-star text-warning"></i>
                                                 {% else %}
-                                                    <i class="fas fa-star"></i>
+                                                    <i class="far fa-star text-muted"></i>
                                                 {% endif %}
                                             {% endfor %}
                                         </div>
                                     </div>
                                     
-                                    {% if review.project %}
-                                        <p class="small mb-2">Проект: <a href="{% url 'portfolio:project_detail' review.project.id %}">{{ review.project.title }}</a></p>
-                                    {% endif %}
-                                    
-                                    <p class="mb-0">{{ review.text }}</p>
-                                    
-                                    {% if not review.is_approved %}
-                                        <div class="mt-2">
-                                            <span class="badge bg-warning text-dark">Ожидает подтверждения</span>
-                                        </div>
-                                    {% endif %}
+                                    <p class="mb-0" data-translatable>{{ review.text }}</p>
                                 </div>
                             {% endfor %}
                             
                             <div class="text-center mt-3">
                                 <a href="{% url 'portfolio:review_list' %}" class="btn btn-sm btn-outline-primary">
-                                    Все отзывы
+                                    {% trans "Все отзывы" %}
                                 </a>
                             </div>
                         {% else %}
-                            <div class="text-center py-5">
-                                <i class="fas fa-comments fa-3x text-muted mb-3"></i>
-                                <h5>У вас пока нет отзывов</h5>
-                                <p class="text-muted">Отзывы могут оставлять преподаватели и менторы</p>
-                            </div>
+                            {% include 'includes/empty_states.html' with type='reviews' is_own_profile=True %}
                         {% endif %}
                     </div>
                 </div>
@@ -406,6 +363,15 @@
 <style>
     .profile-card {
         border-radius: 10px;
+    }
+    
+    .avatar-large {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        margin: 0 auto;
     }
     
     .avatar-placeholder {

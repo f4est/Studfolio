@@ -98,6 +98,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'users.context_processors.placeholder_images',  # Контекст-процессор для заглушек
             ],
         },
     },
@@ -206,7 +207,7 @@ SITE_ID = 1
 
 # Настройки django-allauth (обновленные)
 # Исправление конфликта ACCOUNT_LOGIN_METHODS и ACCOUNT_SIGNUP_FIELDS
-ACCOUNT_AUTHENTICATION_METHOD = 'username_email'  # Устанавливаем метод аутентификации
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"  # Авторизация по имени пользователя или email
 
 # Обязательные поля при регистрации
 ACCOUNT_SIGNUP_FIELDS = {
@@ -243,3 +244,25 @@ MODELTRANSLATION_FALLBACK_LANGUAGES = ('ru', 'en')  # Запасные язык�
 # Настройки для django-rosetta
 ROSETTA_SHOW_AT_ADMIN_PANEL = True
 ROSETTA_ENABLE_TRANSLATION_SUGGESTIONS = True
+
+# Настройки allauth - ОБНОВЛЕННЫЕ для поддержки двухфакторной аутентификации по желанию пользователя
+ACCOUNT_EMAIL_VERIFICATION = "optional"  # Проверка email по желанию пользователя
+ACCOUNT_EMAIL_REQUIRED = True  # Email обязателен
+ACCOUNT_USERNAME_REQUIRED = True  # Имя пользователя обязательно
+
+# Настройки для кода подтверждения при входе
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True  # Автоматический вход после подтверждения email
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = False  # Не выходить из системы при смене пароля
+ACCOUNT_LOGIN_ON_PASSWORD_RESET = True  # Автоматический вход после сброса пароля
+ACCOUNT_EMAIL_SUBJECT_PREFIX = ""  # Префикс для темы email
+
+# Дополнительные настройки для упрощения разработки
+DEBUG_EMAIL = True  # Выводить email в консоль
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "http"  # Протокол по умолчанию для ссылок в email
+SOCIALACCOUNT_AUTO_SIGNUP = True  # Автоматическая регистрация через соцсети
+
+# Лимиты попыток входа
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
+
+ACCOUNT_ADAPTER = 'users.adapters.CustomAccountAdapter'  # Кастомный адаптер для allauth

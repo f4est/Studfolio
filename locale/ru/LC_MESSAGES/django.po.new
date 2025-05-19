@@ -1,0 +1,220 @@
+# Russian translation
+msgid ""
+msgstr ""
+"Project-Id-Version: Studfolio\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-16 13:57+0500\n"
+"PO-Revision-Date: 2025-05-12 09:00+0000\n"
+"Last-Translator: You\n"
+"Language-Team: Russian\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\portfolio\admin.py:37
+#, python-format
+msgid "Одобрено %(count)d отзывов."
+msgstr ""
+
+#: .\portfolio\admin.py:38
+msgid "Одобрить выбранные отзывы"
+msgstr ""
+
+#: .\portfolio\admin.py:42
+#, python-format
+msgid "Отклонено %(count)d отзывов."
+msgstr ""
+
+#: .\portfolio\admin.py:43
+msgid "Отклонить выбранные отзывы"
+msgstr ""
+
+#: .\portfolio\forms.py:18
+msgid "Например: Python, Django, JavaScript"
+msgstr ""
+
+#: .\portfolio\models.py:9 .\portfolio\models.py:33 .\portfolio\models.py:62
+#: .\support\models.py:122 .\templates\portfolio\achievement_form.html:26
+#: .\templates\portfolio\certificate_form.html:26
+#: .\templates\portfolio\project_form.html:40
+msgid "Название"
+msgstr ""
+
+#: .\portfolio\models.py:10 .\portfolio\models.py:35 .\portfolio\models.py:64
+#: .\support\models.py:124 .\templates\portfolio\achievement_form.html:61
+#: .\templates\portfolio\certificate_form.html:80
+#: .\templates\portfolio\project_form.html:53
+#: .\templates\support\knowledge\faq.html:265 .\users\models.py:175
+msgid "Описание"
+msgstr ""
+
+#: .\portfolio\models.py:11 .\portfolio\models.py:75
+msgid "Изображение"
+msgstr ""
+
+#: .\portfolio\models.py:12 .\templates\portfolio\project_form.html:107
+msgid "Ссылка на проект"
+msgstr ""
+
+#: .\portfolio\models.py:13 .\templates\portfolio\project_form.html:120
+msgid "Ссылка на GitHub"
+msgstr ""
+
+#: .\portfolio\models.py:14 .\templates\portfolio\project_form.html:93
+msgid "Используемые технологии"
+msgstr ""
+
+#: .\portfolio\models.py:15 .\templates\portfolio\project_form.html:67
+msgid "Дата начала"
+msgstr ""
+
+#: .\portfolio\models.py:16 .\templates\portfolio\project_form.html:79
+msgid "Дата завершения"
+msgstr ""
+
+#: .\portfolio\models.py:17
+msgid "Избранный проект"
+msgstr ""
+
+#: .\portfolio\models.py:18 .\portfolio\models.py:41 .\portfolio\models.py:69
+#: .\portfolio\models.py:94 .\portfolio\models.py:111 .\portfolio\models.py:132
+#: .\support\models.py:145 .\users\models.py:190
+msgid "Создано"
+msgstr ""
+
+#: .\portfolio\models.py:19 .\portfolio\models.py:112 .\support\models.py:146
+#: .\users\models.py:191
+msgid "Обновлено"
+msgstr ""
+
+#: .\portfolio\models.py:25 .\templates\users\analytics.html:169
+msgid "Проект"
+msgstr ""
+
+#: .\portfolio\models.py:26 .\support\models.py:27
+#: .\templates\base\base.html:263 .\templates\users\profile.html:160
+msgid "Проекты"
+msgstr ""
+
+#: .\portfolio\models.py:34 .\templates\portfolio\certificate_list.html:43
+#: .\templates\users\profile.html:250
+msgid "Выдан"
+msgstr ""
+
+#: .\portfolio\models.py:36
+msgid "Номер сертификата"
+msgstr ""
+
+#: .\portfolio\models.py:37 .\templates\portfolio\certificate_form.html:45
+msgid "Дата выдачи"
+msgstr ""
+
+#: .\portfolio\models.py:38
+msgid "Срок действия"
+msgstr ""
+
+#: .\portfolio\models.py:39 .\templates\portfolio\certificate_form.html:89
+msgid "Файл сертификата"
+msgstr ""
+
+#: .\portfolio\models.py:40
+msgid "Ссылка на сертификат"
+msgstr ""
+
+#: .\portfolio\models.py:44 .\templates\portfolio\certificate_form.html:62
+msgid "ID сертификата"
+msgstr ""
+
+#: .\portfolio\models.py:45 .\templates\portfolio\certificate_form.html:71
+msgid "URL для проверки"
+msgstr ""
+
+#: .\portfolio\models.py:46 .\portfolio\models.py:74
+#: .\templates\portfolio\certificate_form.html:35
+msgid "Выдавшая организация"
+msgstr ""
+
+#: .\portfolio\models.py:47 .\templates\portfolio\certificate_form.html:52
+msgid "Дата окончания"
+msgstr ""
+
+#: .\portfolio\models.py:48
+msgid "Изображение сертификата"
+msgstr ""
+
+#: .\portfolio\models.py:54
+msgid "Сертификат"
+msgstr ""
+
+#: .\portfolio\models.py:55 .\support\models.py:28
+#: .\templates\base\base.html:68 .\templates\base\base.html:264
+#: .\templates\users\profile.html:222
+msgid "Сертификаты"
+msgstr ""
+
+#: .\portfolio\models.py:63 .\templates\portfolio\achievement_form.html:35
+msgid "Организатор"
+msgstr ""
+
+#: .\portfolio\models.py:65 .\templates\portfolio\achievement_list.html:46
+msgid "Дата"
+msgstr ""
+
+#: .\portfolio\models.py:66 .\templates\portfolio\achievement_form.html:52
+msgid "Занятое место"
+msgstr ""
+
+#: .\portfolio\models.py:67 .\templates\portfolio\achievement_form.html:70
+msgid "Подтверждающий документ"
+msgstr ""
+
+#: .\portfolio\models.py:68 .\templates\portfolio\achievement_form.html:86
+msgid "Ссылка на подтверждение"
+msgstr ""
+
+#: .\portfolio\models.py:72 .\support\forms.py:124 .\support\models.py:36
+#: .\templates\support\contact_us.html:122 .\templates\support\home.html:126
+#: .\templates\support\knowledge\faq.html:266
+msgid "Категория"
+msgstr ""
+
+#: .\portfolio\models.py:73 .\templates\portfolio\achievement_form.html:44
+msgid "Дата получения"
+msgstr ""
+
+#: .\portfolio\models.py:81
+msgid "Достижение"
+msgstr ""
+
+#: .\portfolio\models.py:82 .\support\models.py:29
+#: .\templates\base\base.html:73 .\templates\users\profile.html:289
+msgid "Достижения"
+msgstr ""
+
+#: .\portfolio\models.py:91
+msgid "Текст отзыва"
+msgstr ""
+
+#: .\portfolio\models.py:92
+msgid "Оценка"
+msgstr ""
+
+#: .\portfolio\models.py:93
+msgid "Одобрен"
+msgstr ""
+
+#: .\portfolio\models.py:100
+msgid "Отзыв"
+msgstr ""
+
+#: .\portfolio\models.py:101
+msgid "Отзывы"
+msgstr ""
+
+#: .\portfolio\models.py:110 .\support\models.py:106 .\support\models.py:143
+msgid "Поддержка"
+msgstr "" 

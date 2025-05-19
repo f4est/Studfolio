@@ -1,0 +1,150 @@
+{% comment %}
+Включаемый файл с шаблонами пустых состояний (empty states)
+Используйте через {% include 'includes/empty_states.html' with type='projects' %}
+{% endcomment %}
+
+{% load static %}
+{% load i18n %}
+
+{% comment %}
+Пустое состояние для проектов
+{% endcomment %}
+{% if type == 'projects' %}
+<div class="empty-state text-center py-5" data-empty-type="projects">
+    <div class="empty-state-icon mb-4">
+        <img src="{% static 'img/placeholders/projects/default.jpg' %}" alt="{% trans 'Проекты отсутствуют' %}" 
+             class="img-fluid rounded-3 empty-icon" style="max-width: 200px; opacity: 0.7;">
+    </div>
+    <h3 class="empty-state-title mb-3">{% trans 'Проекты отсутствуют' %}</h3>
+    <p class="empty-state-description text-muted mb-4">
+        {% trans 'У пользователя пока нет добавленных проектов' %}
+    </p>
+    {% if is_own_profile %}
+    <a href="{% url 'portfolio:project_add' %}" class="btn btn-primary">
+        <i class="fas fa-plus-circle me-2"></i>{% trans 'Добавить проект' %}
+    </a>
+    {% endif %}
+</div>
+{% endif %}
+
+{% comment %}
+Пустое состояние для отзывов
+{% endcomment %}
+{% if type == 'reviews' %}
+<div class="empty-state text-center py-5" data-empty-type="reviews">
+    <div class="empty-state-icon mb-4">
+        <i class="far fa-comments fa-5x text-muted"></i>
+    </div>
+    <h3 class="empty-state-title mb-3">{% trans 'Отзывы отсутствуют' %}</h3>
+    <p class="empty-state-description text-muted mb-4">
+        {% trans 'У пользователя пока нет отзывов' %}
+    </p>
+    {% if not is_own_profile %}
+    <a href="#" class="btn btn-primary review-btn" data-bs-toggle="modal" data-bs-target="#reviewModal">
+        <i class="fas fa-star me-2"></i>{% trans 'Оставить отзыв' %}
+    </a>
+    {% endif %}
+</div>
+{% endif %}
+
+{% comment %}
+Пустое состояние для сертификатов
+{% endcomment %}
+{% if type == 'certificates' %}
+<div class="empty-state text-center py-5" data-empty-type="certificates">
+    <div class="empty-state-icon mb-4">
+        <img src="{% static 'img/placeholders/certificates/default.jpg' %}" alt="{% trans 'Сертификаты отсутствуют' %}" 
+             class="img-fluid rounded-3 empty-icon" style="max-width: 200px; opacity: 0.7;">
+    </div>
+    <h3 class="empty-state-title mb-3">{% trans 'Сертификаты отсутствуют' %}</h3>
+    <p class="empty-state-description text-muted mb-4">
+        {% trans 'У пользователя пока нет добавленных сертификатов' %}
+    </p>
+    {% if is_own_profile %}
+    <a href="{% url 'portfolio:certificate_add' %}" class="btn btn-primary">
+        <i class="fas fa-plus-circle me-2"></i>{% trans 'Добавить сертификат' %}
+    </a>
+    {% endif %}
+</div>
+{% endif %}
+
+{% comment %}
+Пустое состояние для достижений
+{% endcomment %}
+{% if type == 'achievements' %}
+<div class="empty-state text-center py-5" data-empty-type="achievements">
+    <div class="empty-state-icon mb-4">
+        <img src="{% static 'img/placeholders/achievements/default.jpg' %}" alt="{% trans 'Достижения отсутствуют' %}" 
+             class="img-fluid rounded-3 empty-icon" style="max-width: 200px; opacity: 0.7;">
+    </div>
+    <h3 class="empty-state-title mb-3">{% trans 'Достижения отсутствуют' %}</h3>
+    <p class="empty-state-description text-muted mb-4">
+        {% trans 'У пользователя пока нет добавленных достижений' %}
+    </p>
+    {% if is_own_profile %}
+    <a href="{% url 'portfolio:achievement_add' %}" class="btn btn-primary">
+        <i class="fas fa-plus-circle me-2"></i>{% trans 'Добавить достижение' %}
+    </a>
+    {% endif %}
+</div>
+{% endif %}
+
+{% comment %}
+Пустое состояние для опыта работы
+{% endcomment %}
+{% if type == 'experience' %}
+<div class="empty-state text-center py-5" data-empty-type="experience">
+    <div class="empty-state-icon mb-4">
+        <i class="fas fa-briefcase fa-5x text-muted"></i>
+    </div>
+    <h3 class="empty-state-title mb-3">{% trans 'Опыт работы отсутствует' %}</h3>
+    <p class="empty-state-description text-muted mb-4">
+        {% trans 'У пользователя пока нет добавленного опыта работы' %}
+    </p>
+    {% if is_own_profile %}
+    <a href="#" class="btn btn-primary" onclick="alert('Функционал в разработке');">
+        <i class="fas fa-plus-circle me-2"></i>{% trans 'Добавить опыт работы' %}
+    </a>
+    {% endif %}
+</div>
+{% endif %}
+
+{% comment %}
+Пустое состояние для образования
+{% endcomment %}
+{% if type == 'education' %}
+<div class="empty-state text-center py-5" data-empty-type="education">
+    <div class="empty-state-icon mb-4">
+        <i class="fas fa-graduation-cap fa-5x text-muted"></i>
+    </div>
+    <h3 class="empty-state-title mb-3">{% trans 'Образование отсутствует' %}</h3>
+    <p class="empty-state-description text-muted mb-4">
+        {% trans 'У пользователя пока нет добавленного образования' %}
+    </p>
+    {% if is_own_profile %}
+    <a href="#" class="btn btn-primary" onclick="alert('Функционал в разработке');">
+        <i class="fas fa-plus-circle me-2"></i>{% trans 'Добавить образование' %}
+    </a>
+    {% endif %}
+</div>
+{% endif %}
+
+{% comment %}
+Общее пустое состояние
+{% endcomment %}
+{% if type == 'generic' %}
+<div class="empty-state text-center py-5" data-empty-type="generic">
+    <div class="empty-state-icon mb-4">
+        <i class="far fa-folder-open fa-5x text-muted"></i>
+    </div>
+    <h3 class="empty-state-title mb-3">{% trans 'Данные отсутствуют' %}</h3>
+    <p class="empty-state-description text-muted mb-4">
+        {% trans 'В этом разделе пока нет данных' %}
+    </p>
+    {% if add_url %}
+    <a href="{{ add_url }}" class="btn btn-primary">
+        <i class="fas fa-plus-circle me-2"></i>{% trans 'Добавить' %}
+    </a>
+    {% endif %}
+</div>
+{% endif %} 

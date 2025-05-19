@@ -22,6 +22,9 @@
                     <a href="{% url 'users:portfolio_settings' %}" class="list-group-item list-group-item-action">
                         <i class="fas fa-palette me-2"></i>{% trans "Настройки портфолио" %}
                     </a>
+                    <a href="{% url 'users:security_settings' %}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-shield-alt me-2"></i>{% trans "Безопасность" %}
+                    </a>
                     <a href="{% url 'users:subscription' %}" class="list-group-item list-group-item-action active">
                         <i class="fas fa-crown me-2"></i>{% trans "Управление подпиской" %}
                     </a>
@@ -30,242 +33,269 @@
                     </a>
                 </div>
             </div>
+            
+            {% if user.is_superuser or user.is_staff %}
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-user-shield me-2"></i>{% trans "Администрирование" %}
+                    </h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="{% url 'users:admin_subscription_codes' %}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-key me-2"></i>{% trans "Управление кодами подписки" %}
+                    </a>
+                </div>
+            </div>
+            {% endif %}
         </div>
         
         <!-- Основное содержимое -->
         <div class="col-lg-9">
-            <!-- Текущий статус подписки -->
-            <div class="card shadow mb-4">
-                <div class="card-header {% if is_premium %}bg-success{% else %}bg-secondary{% endif %} text-white">
-                    <h5 class="card-title mb-0">
-                        <i class="fas fa-crown me-2"></i>{% trans "Статус подписки" %}
-                    </h5>
+            <!-- Сообщения -->
+            {% if messages %}
+            <div class="mb-4">
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <div class="card-body">
-                    {% if is_premium %}
-                        <div class="text-center mb-4">
-                            <div class="display-1 text-success mb-3">
-                                <i class="fas fa-crown"></i>
-                            </div>
-                            <h4>{% trans "У вас активна премиум-подписка" %}</h4>
-                            <p class="text-muted">
-                                {% trans "Действует до:" %} <strong>{{ subscription_end_date|date:"d.m.Y H:i" }}</strong>
-                            </p>
-                            <a href="{% url 'users:premium_guide' %}" class="btn btn-outline-primary">
-                                <i class="fas fa-book me-1"></i>{% trans "Руководство по возможностям Premium" %}
-                            </a>
-                        </div>
-                        
-                        <hr class="my-4">
-                        
-                        <h5 class="mb-3">{% trans "Ваши премиум-возможности:" %}</h5>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <ul class="list-group mb-4">
-                                    <li class="list-group-item d-flex align-items-center">
-                                        <i class="fas fa-check-circle text-success me-3"></i>
-                                        {% trans "Премиум темы оформления" %}
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center">
-                                        <i class="fas fa-check-circle text-success me-3"></i>
-                                        {% trans "Настройка CSS" %}
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center">
-                                        <i class="fas fa-check-circle text-success me-3"></i>
-                                        {% trans "Персональный домен" %}
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-6">
-                                <ul class="list-group mb-4">
-                                    <li class="list-group-item d-flex align-items-center">
-                                        <i class="fas fa-check-circle text-success me-3"></i>
-                                        {% trans "Расширенная аналитика" %}
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center">
-                                        <i class="fas fa-check-circle text-success me-3"></i>
-                                        {% trans "Приоритетная поддержка" %}
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center">
-                                        <i class="fas fa-check-circle text-success me-3"></i>
-                                        {% trans "Неограниченное количество проектов" %}
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="alert alert-info">
-                            <i class="fas fa-info-circle me-2"></i>
-                            {% trans "Хотите продлить подписку? Просто введите новый код активации ниже." %}
-                        </div>
-                    {% else %}
-                        <div class="text-center mb-4">
-                            <div class="display-1 text-secondary mb-3">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <h4>{% trans "У вас базовый аккаунт" %}</h4>
-                            <p class="text-muted">
-                                {% trans "Активируйте премиум-подписку, чтобы получить доступ к дополнительным возможностям" %}
-                            </p>
-                        </div>
-                        
-                        <hr class="my-4">
-                        
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h5 class="mb-3 text-muted">{% trans "Базовые возможности:" %}</h5>
-                                <ul class="list-group mb-4">
-                                    <li class="list-group-item d-flex align-items-center">
-                                        <i class="fas fa-check-circle text-success me-3"></i>
-                                        {% trans "Стандартные темы оформления" %}
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center">
-                                        <i class="fas fa-check-circle text-success me-3"></i>
-                                        {% trans "Базовые настройки портфолио" %}
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center">
-                                        <i class="fas fa-check-circle text-success me-3"></i>
-                                        {% trans "До 5 проектов" %}
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-6">
-                                <h5 class="mb-3 text-primary">{% trans "Премиум возможности:" %}</h5>
-                                <ul class="list-group mb-4">
-                                    <li class="list-group-item d-flex align-items-center">
-                                        <i class="fas fa-crown text-warning me-3"></i>
-                                        {% trans "Премиум темы оформления" %}
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center">
-                                        <i class="fas fa-crown text-warning me-3"></i>
-                                        {% trans "Настройка CSS и персональный домен" %}
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center">
-                                        <i class="fas fa-crown text-warning me-3"></i>
-                                        {% trans "Неограниченное количество проектов" %}
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    {% endif %}
-                </div>
+                {% endfor %}
             </div>
+            {% endif %}
             
-            <!-- Активация подписки -->
+            <!-- Текущая подписка -->
             <div class="card shadow mb-4">
                 <div class="card-header bg-primary text-white">
                     <h5 class="card-title mb-0">
-                        <i class="fas fa-key me-2"></i>{% trans "Активация кода подписки" %}
+                        <i class="fas fa-crown me-2"></i>{% trans "Ваша подписка" %}
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form method="post">
-                        {% csrf_token %}
-                        
-                        {% if form.non_field_errors %}
-                            <div class="alert alert-danger">
-                                {% for error in form.non_field_errors %}
-                                    {{ error }}
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                        
-                        <div class="mb-3">
-                            <label for="{{ form.code.id_for_label }}" class="form-label fw-bold">
-                                {{ form.code.label }}
-                            </label>
-                            {{ form.code }}
-                            {% if form.code.errors %}
-                                <div class="invalid-feedback d-block">
-                                    {% for error in form.code.errors %}{{ error }}{% endfor %}
-                                </div>
-                            {% endif %}
-                            <div class="form-text">
-                                {% trans "Введите код активации, чтобы активировать или продлить премиум-подписку" %}
-                            </div>
-                        </div>
-                        
-                        <div class="d-flex justify-content-between align-items-center">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-check-circle me-2"></i>{% trans "Активировать подписку" %}
-                            </button>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h6 class="mb-3">{% trans "Текущий статус:" %}</h6>
                             
-                            <a href="{% url 'users:premium_guide' %}" class="btn btn-outline-secondary">
-                                <i class="fas fa-book me-1"></i>{% trans "Возможности Premium" %}
-                            </a>
+                            <div class="bg-light p-3 rounded mb-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="subscription-icon me-3">
+                                        {% if user.has_active_subscription %}
+                                        <i class="fas fa-crown fa-2x text-warning"></i>
+                                        {% else %}
+                                        <i class="fas fa-user-circle fa-2x text-primary"></i>
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        {% if user.has_active_subscription %}
+                                        <h5 class="mb-1">{% trans "Premium план" %}</h5>
+                                        <p class="text-muted mb-0">
+                                            {% trans "Активен до:" %} {{ user.subscription_end_date|date:"d.m.Y" }} 
+                                            ({% trans "осталось" %} {{ user.get_subscription_days_left }} {% trans "дней" %})
+                                        </p>
+                                        {% else %}
+                                        <h5 class="mb-1">{% trans "Базовый план" %}</h5>
+                                        <p class="text-muted mb-0">{% trans "Бесплатный план с базовыми функциями" %}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h6 class="mb-2">{% trans "Доступные возможности:" %}</h6>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-check text-success me-2"></i>
+                                        {% trans "Создание портфолио с базовыми настройками" %}
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-check text-success me-2"></i>
+                                        {% trans "Добавление до 10 проектов" %}
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-check text-success me-2"></i>
+                                        {% trans "Базовые темы оформления" %}
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        {% if user.has_active_subscription %}
+                                        <i class="fas fa-check text-success me-2"></i>
+                                        {% else %}
+                                        <i class="fas fa-times text-danger me-2"></i>
+                                        {% endif %}
+                                        {% trans "Расширенная аналитика" %}
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        {% if user.has_active_subscription %}
+                                        <i class="fas fa-check text-success me-2"></i>
+                                        {% else %}
+                                        <i class="fas fa-times text-danger me-2"></i>
+                                        {% endif %}
+                                        {% trans "Премиум-темы оформления" %}
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </form>
-                    
-                    {% if user.is_superuser %}
-                        <hr class="my-4">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <p class="mb-0"><strong>{% trans "Администратор:" %}</strong> {% trans "Генерация тестового кода" %}</p>
-                            <a href="{% url 'users:generate_code' %}" class="btn btn-outline-primary">
-                                <i class="fas fa-plus-circle me-2"></i>{% trans "Сгенерировать код" %}
-                            </a>
+                        <div class="col-md-4 d-flex flex-column align-items-center justify-content-center">
+                            <div class="subscription-upgrade-cta text-center">
+                                <i class="fas fa-arrow-circle-up fa-4x text-primary mb-3"></i>
+                                <h6>{% trans "Улучшите свой опыт!" %}</h6>
+                                <p class="text-muted small mb-3">{% trans "Получите доступ ко всем премиум функциям" %}</p>
+                                <a href="#premium-plans" class="btn btn-primary">
+                                    <i class="fas fa-crown me-2"></i>{% trans "Перейти на Premium" %}
+                                </a>
+                            </div>
                         </div>
-                    {% endif %}
+                    </div>
                 </div>
             </div>
             
-            <!-- FAQ по подписке -->
-            <div class="card shadow">
-                <div class="card-header bg-light">
+            <!-- Премиум планы -->
+            <div id="premium-plans" class="card shadow mb-4">
+                <div class="card-header bg-primary text-white">
                     <h5 class="card-title mb-0">
-                        <i class="fas fa-question-circle me-2"></i>{% trans "Часто задаваемые вопросы" %}
+                        <i class="fas fa-gem me-2"></i>{% trans "Премиум-планы" %}
                     </h5>
                 </div>
                 <div class="card-body">
-                    <div class="accordion" id="subscriptionFaq">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading1">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
-                                    {% trans "Как получить код подписки?" %}
-                                </button>
-                            </h2>
-                            <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="heading1" data-bs-parent="#subscriptionFaq">
-                                <div class="accordion-body">
-                                    {% trans "Коды подписки можно получить у администратора платформы. Напишите запрос на почту support@studfolio.com или обратитесь к администратору вашего учебного заведения." %}
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="card subscription-card h-100">
+                                <div class="card-header text-center bg-light py-3">
+                                    <h5 class="mb-0">{% trans "Месячный" %}</h5>
+                                </div>
+                                <div class="card-body d-flex flex-column">
+                                    <div class="price text-center mb-3">
+                                        <span class="display-5 fw-bold">499</span>
+                                        <span class="text-muted">₽/{% trans "мес" %}</span>
+                                    </div>
+                                    <ul class="list-unstyled mb-4">
+                                        <li class="mb-2">
+                                            <i class="fas fa-check text-success me-2"></i>
+                                            {% trans "Все функции базового плана" %}
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="fas fa-check text-success me-2"></i>
+                                            {% trans "Неограниченное количество проектов" %}
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="fas fa-check text-success me-2"></i>
+                                            {% trans "Доступ к премиум-темам" %}
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="fas fa-check text-success me-2"></i>
+                                            {% trans "Расширенная аналитика" %}
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-outline-primary mt-auto">
+                                        {% trans "Выбрать план" %}
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                                    {% trans "На какой срок действует подписка?" %}
-                                </button>
-                            </h2>
-                            <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#subscriptionFaq">
-                                <div class="accordion-body">
-                                    {% trans "Стандартный период подписки составляет 30 дней. При использовании нового кода активации ваша подписка продлевается на указанный в нем срок." %}
+                        
+                        <div class="col-md-4 mb-4">
+                            <div class="card subscription-card h-100 border-primary">
+                                <div class="card-header text-center bg-primary text-white py-3">
+                                    <h5 class="mb-0">{% trans "Годовой" %}</h5>
+                                    <span class="badge bg-warning">{% trans "Популярный" %}</span>
+                                </div>
+                                <div class="card-body d-flex flex-column">
+                                    <div class="price text-center mb-3">
+                                        <span class="display-5 fw-bold">4999</span>
+                                        <span class="text-muted">₽/{% trans "год" %}</span>
+                                    </div>
+                                    <div class="text-center mb-3">
+                                        <span class="badge bg-success">{% trans "Экономия 17%" %}</span>
+                                    </div>
+                                    <ul class="list-unstyled mb-4">
+                                        <li class="mb-2">
+                                            <i class="fas fa-check text-success me-2"></i>
+                                            {% trans "Все функции базового плана" %}
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="fas fa-check text-success me-2"></i>
+                                            {% trans "Неограниченное количество проектов" %}
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="fas fa-check text-success me-2"></i>
+                                            {% trans "Доступ к премиум-темам" %}
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="fas fa-check text-success me-2"></i>
+                                            {% trans "Расширенная аналитика" %}
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="fas fa-check text-success me-2"></i>
+                                            {% trans "Приоритетная поддержка" %}
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-primary mt-auto">
+                                        {% trans "Выбрать план" %}
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading3">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                                    {% trans "Что произойдет после окончания подписки?" %}
-                                </button>
-                            </h2>
-                            <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#subscriptionFaq">
-                                <div class="accordion-body">
-                                    {% trans "После окончания срока действия подписки ваш аккаунт будет переведен в базовый режим. Вы сохраните доступ к своим проектам, но премиум-функции станут недоступны. Если вы использовали премиум-тему, она будет заменена на стандартную." %}
+                        
+                        <div class="col-md-4 mb-4">
+                            <div class="card subscription-card h-100">
+                                <div class="card-header text-center bg-light py-3">
+                                    <h5 class="mb-0">{% trans "Пакет команды" %}</h5>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading4">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                                    {% trans "Можно ли передать код активации другому пользователю?" %}
-                                </button>
-                            </h2>
-                            <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#subscriptionFaq">
-                                <div class="accordion-body">
-                                    {% trans "Код активации можно использовать только один раз. После активации он привязывается к вашему аккаунту и не может быть передан другому пользователю." %}
+                                <div class="card-body d-flex flex-column">
+                                    <div class="price text-center mb-3">
+                                        <span class="display-5 fw-bold">9999</span>
+                                        <span class="text-muted">₽/{% trans "год" %}</span>
+                                    </div>
+                                    <ul class="list-unstyled mb-4">
+                                        <li class="mb-2">
+                                            <i class="fas fa-check text-success me-2"></i>
+                                            {% trans "До 5 пользователей" %}
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="fas fa-check text-success me-2"></i>
+                                            {% trans "Все функции премиум" %}
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="fas fa-check text-success me-2"></i>
+                                            {% trans "Совместные проекты" %}
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="fas fa-check text-success me-2"></i>
+                                            {% trans "Корпоративный брендинг" %}
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-outline-primary mt-auto">
+                                        {% trans "Связаться с нами" %}
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            
+            <!-- Ввод кода активации -->
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-key me-2"></i>{% trans "Активация кода" %}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted mb-4">{% trans "Если у вас есть промокод или код активации, введите его здесь для активации премиум-функций." %}</p>
+                    
+                    <form method="post" action="{% url 'users:activate_subscription_code' %}" class="mb-3">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="activation_code" placeholder="{% trans 'Введите код активации' %}">
+                                    <button type="submit" class="btn btn-primary">
+                                        {% trans "Активировать" %}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -273,16 +303,25 @@
 </div>
 {% endblock %}
 
-{% block extra_js %}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Применяем стили Bootstrap к полям формы
-        const formControls = document.querySelectorAll('input, textarea, select');
-        formControls.forEach(element => {
-            if (!element.classList.contains('form-control') && element.type !== 'hidden') {
-                element.classList.add('form-control');
-            }
-        });
-    });
-</script>
+{% block extra_css %}
+<style>
+    .subscription-card {
+        transition: all 0.3s ease;
+    }
+    
+    .subscription-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+    
+    .subscription-icon {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(13, 110, 253, 0.1);
+        border-radius: 50%;
+    }
+</style>
 {% endblock %} 

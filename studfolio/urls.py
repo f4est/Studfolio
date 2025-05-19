@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
 from django.views.i18n import JavaScriptCatalog
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 from django.shortcuts import redirect
 
 # URL-шаблоны, которые НЕ будут переводиться (только необходимые пути, которые должны быть без префикса)
@@ -34,6 +34,9 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     # Административные пути
     path('admin/', admin.site.urls),
+    
+    # Перехватываем запросы к странице подтверждения кода
+    re_path(r'^.*/accounts/login/code/confirm/', RedirectView.as_view(url='/', permanent=False)),
     
     # Пути для интернационализации
     path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
@@ -60,3 +63,7 @@ urlpatterns += i18n_patterns(
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+else:
+    # В production режиме регистрируем обработчики ошибок
+    handler404 = 'studfolio.views.error_404'
+    handler500 = 'studfolio.views.error_500'

@@ -10,7 +10,7 @@
         <div class="col-lg-3">
             <div class="card profile-card mb-4">
                 <div class="card-body text-center">
-                    {% if profile_user.profile_image %}
+                    {% if profile_user.profile_image.name %}
                         <img src="{{ profile_user.profile_image.url }}" alt="{{ profile_user.get_full_name }}" class="avatar-large rounded-circle mb-3">
                     {% else %}
                         <div class="avatar-placeholder mb-3">
@@ -54,14 +54,14 @@
                         </div>
                     {% endif %}
                     
-                    {% if profile_user.year_of_study %}
+                    {% if profile_user.graduation_year %}
                         <div class="mb-2">
-                            <p class="mb-0 text-muted small">Курс/Год обучения:</p>
-                            <p class="mb-1 fw-bold">{{ profile_user.year_of_study }}</p>
+                            <p class="mb-0 text-muted small">Год выпуска:</p>
+                            <p class="mb-1 fw-bold">{{ profile_user.graduation_year }}</p>
                         </div>
                     {% endif %}
                     
-                    {% if not profile_user.university and not profile_user.faculty and not profile_user.specialization and not profile_user.year_of_study %}
+                    {% if not profile_user.university and not profile_user.faculty and not profile_user.specialization and not profile_user.graduation_year %}
                         <p class="text-muted">Информация об образовании не указана</p>
                     {% endif %}
                 </div>
@@ -191,8 +191,10 @@
                                             
                                             <div class="mb-3">
                                                 <span class="text-muted small">Выдан: {{ certificate.issue_date }}</span>
-                                                {% if certificate.expiry_date %}
-                                                    <span class="text-muted small ms-2">Действителен до: {{ certificate.expiry_date }}</span>
+                                                {% if certificate.link %}
+                                                    <a href="{{ certificate.link }}" target="_blank" class="ms-2 small">
+                                                        <i class="fas fa-external-link-alt"></i> Проверить
+                                                    </a>
                                                 {% endif %}
                                             </div>
                                             
@@ -237,7 +239,14 @@
                                             </div>
                                             
                                             <div class="mb-3">
-                                                <span class="text-muted small">Дата: {{ achievement.date }}</span>
+                                                <span class="text-muted small">
+                                                    Дата: 
+                                                    {% if achievement.date_received %}
+                                                        {{ achievement.date_received }}
+                                                    {% else %}
+                                                        {{ achievement.date }}
+                                                    {% endif %}
+                                                </span>
                                                 {% if achievement.place %}
                                                     <span class="badge bg-success ms-2">{{ achievement.place }}</span>
                                                 {% endif %}
@@ -284,17 +293,13 @@
                                         <div class="rating">
                                             {% for i in "12345" %}
                                                 {% if forloop.counter <= review.rating %}
-                                                    <i class="fas fa-star checked"></i>
+                                                    <i class="fas fa-star text-warning"></i>
                                                 {% else %}
-                                                    <i class="fas fa-star"></i>
+                                                    <i class="far fa-star text-muted"></i>
                                                 {% endif %}
                                             {% endfor %}
                                         </div>
                                     </div>
-                                    
-                                    {% if review.project %}
-                                        <p class="small mb-2">Проект: <a href="{% url 'portfolio:project_detail' review.project.id %}">{{ review.project.title }}</a></p>
-                                    {% endif %}
                                     
                                     <p class="mb-0">{{ review.text }}</p>
                                 </div>

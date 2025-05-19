@@ -9,11 +9,20 @@ import json
 from .models import Project, Certificate, Achievement, Review, ProjectPost, ProjectComment, ProjectView
 from .forms import ProjectForm, CertificateForm, AchievementForm, ReviewForm
 from users.models import CustomUser
-from users.views import get_client_ip
 
 # Импортируем наши декораторы и функции для премиум-функций
 from users.decorators import require_premium, check_resource_limit, premium_feature_context
 from users.premium_features import can_use_feature, get_limit_value
+
+# Добавляем свою версию функции get_client_ip
+def get_client_ip(request):
+    """Получение IP-адреса клиента из запроса"""
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
 
 # Функции для подсчета ресурсов
 def count_user_projects(user):
@@ -72,42 +81,45 @@ def project_add_view(request):
 @login_required
 def project_detail_view(request, project_id):
     """Детальная информация о проекте"""
-    project = get_object_or_404(Project, id=project_id)
-    
-    # Проверяем доступ: только владелец или публичный профиль может видеть проект
-    if project.user != request.user and not project.user.is_public:
-        raise Http404(_("Проект не найден."))
-    
-    # Записываем просмотр проекта
-    if project.user != request.user:  # Не считаем просмотры своих проектов
-        # Получаем данные о пользователе и запросе
-        viewer = request.user if request.user.is_authenticated else None
-        ip_address = get_client_ip(request)
-        user_agent = request.META.get('HTTP_USER_AGENT', '')
-        referrer = request.META.get('HTTP_REFERER', '')
+    try:
+        project = get_object_or_404(Project, id=project_id)
         
-        # Создаем запись о просмотре
-        ProjectView.objects.create(
-            project=project,
-            viewer=viewer,
-            ip_address=ip_address,
-            user_agent=user_agent,
-            referrer=referrer
-        )
-    
-    # Получаем отзывы к проекту
-    reviews = Review.objects.filter(project=project, is_approved=True).order_by('-created_at')
-    
-    # Проверяем, может ли текущий пользователь оставлять отзывы
-    can_add_review = False
-    if request.user.is_authenticated and request.user.user_type in ['teacher', 'admin'] and project.user.user_type == 'student':
-        can_add_review = True
-    
-    return render(request, 'portfolio/project_detail.html', {
-        'project': project, 
-        'reviews': reviews,
-        'can_add_review': can_add_review
-    })
+        # Проверяем доступ: только владелец или публичный профиль может видеть проект
+        if project.user != request.user and not project.user.is_public:
+            raise Http404(_("Проект не найден."))
+        
+        # Записываем просмотр проекта
+        if project.user != request.user:  # Не считаем просмотры своих проектов
+            # Получаем данные о пользователе и запросе
+            viewer = request.user if request.user.is_authenticated else None
+            ip_address = get_client_ip(request)
+            user_agent = request.META.get('HTTP_USER_AGENT', '')
+            referrer = request.META.get('HTTP_REFERER', '')
+            
+            # Создаем запись о просмотре
+            ProjectView.objects.create(
+                project=project,
+                viewer=viewer,
+                ip_address=ip_address,
+                user_agent=user_agent,
+                referrer=referrer
+            )
+        
+        # Получаем отзывы к проекту
+        reviews = Review.objects.filter(project=project, is_approved=True).order_by('-created_at')
+        
+        # Проверяем, может ли текущий пользователь оставлять отзывы
+        can_add_review = False
+        if request.user.is_authenticated and request.user.user_type in ['teacher', 'admin'] and project.user.user_type == 'student':
+            can_add_review = True
+        
+        return render(request, 'portfolio/project_detail.html', {
+            'project': project, 
+            'reviews': reviews,
+            'can_add_review': can_add_review
+        })
+    except Http404:
+        return render(request, '404.html', status=404)
 
 
 @login_required
@@ -201,13 +213,16 @@ def certificate_add_view(request):
 @login_required
 def certificate_detail_view(request, certificate_id):
     """Детальная информация о сертификате"""
-    certificate = get_object_or_404(Certificate, id=certificate_id)
-    
-    # Проверяем доступ: только владелец или публичный профиль может видеть сертификат
-    if certificate.user != request.user and not certificate.user.is_public:
-        raise Http404(_("Сертификат не найден."))
-    
-    return render(request, 'portfolio/certificate_detail.html', {'certificate': certificate})
+    try:
+        certificate = get_object_or_404(Certificate, id=certificate_id)
+        
+        # Проверяем доступ: только владелец или публичный профиль может видеть сертификат
+        if certificate.user != request.user and not certificate.user.is_public:
+            raise Http404(_("Сертификат не найден."))
+        
+        return render(request, 'portfolio/certificate_detail.html', {'certificate': certificate})
+    except Http404:
+        return render(request, '404.html', status=404)
 
 
 @login_required
@@ -302,13 +317,16 @@ def achievement_add_view(request):
 @login_required
 def achievement_detail_view(request, achievement_id):
     """Детальная информация о достижении"""
-    achievement = get_object_or_404(Achievement, id=achievement_id)
-    
-    # Проверяем доступ: только владелец или публичный профиль может видеть достижение
-    if achievement.user != request.user and not achievement.user.is_public:
-        raise Http404(_("Достижение не найдено."))
-    
-    return render(request, 'portfolio/achievement_detail.html', {'achievement': achievement})
+    try:
+        achievement = get_object_or_404(Achievement, id=achievement_id)
+        
+        # Проверяем доступ: только владелец или публичный профиль может видеть достижение
+        if achievement.user != request.user and not achievement.user.is_public:
+            raise Http404(_("Достижение не найдено."))
+        
+        return render(request, 'portfolio/achievement_detail.html', {'achievement': achievement})
+    except Http404:
+        return render(request, '404.html', status=404)
 
 
 @login_required
@@ -359,16 +377,39 @@ def achievement_delete_view(request, achievement_id):
 @login_required
 def review_list_view(request):
     """Список отзывов"""
-    if request.user.user_type == 'student':
-        # Студент видит отзывы о себе
+    is_student = request.user.user_type == 'student'
+    is_teacher = request.user.user_type == 'teacher'
+    is_admin = request.user.user_type == 'admin'
+    
+    if is_student:
+        # Студент видит все отзывы о себе, включая неодобренные
         reviews = Review.objects.filter(student=request.user).order_by('-created_at')
-    elif request.user.user_type in ['teacher', 'admin']:
+        
+        # Отладочная информация
+        print(f"Студент: {request.user.username}, ID: {request.user.id}")
+        print(f"Всего отзывов: {reviews.count()}")
+        print(f"Отзывы: {[r.id for r in reviews]}")
+        
+    elif is_teacher or is_admin:
         # Преподаватель или админ видит отзывы, которые он дал
         reviews = Review.objects.filter(reviewer=request.user).order_by('-created_at')
     else:
         reviews = []
     
-    return render(request, 'portfolio/review_list.html', {'reviews': reviews})
+    # Группируем отзывы по статусу одобрения
+    approved_reviews = [review for review in reviews if review.is_approved]
+    pending_reviews = [review for review in reviews if not review.is_approved]
+    
+    context = {
+        'reviews': reviews,
+        'approved_reviews': approved_reviews,
+        'pending_reviews': pending_reviews,
+        'is_student': is_student,
+        'is_teacher': is_teacher,
+        'is_admin': is_admin,
+    }
+    
+    return render(request, 'portfolio/review_list.html', context)
 
 
 @login_required
